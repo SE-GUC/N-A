@@ -1,18 +1,22 @@
 const express = require('express')
 
-const projects = require('./routes/api/Projects')
-
+const messages = require('./routes/api/messages')
+const notifications = require('./routes/api/notifications')
 
 const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send(`<a href="/api/Projects">Projects</a>`);
+    res.send(`
+    <a href="/api/notifications">Notifications</a>
+    <a href="/api/messages">Messages</a>
+
+    `);
 })
 
 // Direct routes to appropriate files 
-app.use('/api/Projects',projects)
-
+app.use('/api/messages', messages)
+app.use('/api/notifications', notifications)
 
 // Handling 404
 app.use((req, res) => {
