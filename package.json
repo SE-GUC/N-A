@@ -4,6 +4,7 @@
   "description": "This is the CRUD of Lirten Hub's project",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.16.4",
     "install": "^0.12.2",
     "joi": "^14.3.1",
     "uuid": "^3.3.2"
