@@ -1,10 +1,10 @@
+
 {
-  "name": "sprin1",
+  "name": "sprint1",
   "version": "1.0.0",
   "description": "This is the CRUD of Lirten Hub's project",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.4",
     "install": "^0.12.2",
     "joi": "^14.3.1",
     "uuid": "^3.3.2"
@@ -16,3 +16,4 @@
   "author": "N/A",
   "license": "ISC"
 }
+
