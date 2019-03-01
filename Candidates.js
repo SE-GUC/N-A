@@ -133,7 +133,9 @@ router.delete('/projects/:id', (req, res) => {
 	const CandidateId = req.params.id 
 const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
 const m =Candidate.past_project
+
 	if(req.body.project)
+
     m.splice( m.indexOf(req.body.past_project),1)
     res.send((m))
 })
@@ -141,8 +143,10 @@ const m =Candidate.past_project
 router.post('/projects/:id', (req, res) => {
 	const CandidateID = req.params.id
 	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+
 	if(req.body.project)
 	Candidate.past_project.push(req.body.project)
+
 	res.send(Candidate.past_project)
   });
 //get certificates
@@ -169,7 +173,9 @@ const m =Candidate.certificates
     res.send((m))
 })
 //update certificate
+
 router.put('/certificates/:id', (req, res) => {
+
 	const CandidateId = req.params.id; 
 	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
 	const m =Candidate.certificates
@@ -228,16 +234,20 @@ router.post('/reviews/:id', (req, res) => {
 	res.send(Candidate.review)
   });
 //delete reviewes
+
 router.delete('/reviews/:id', (req, res) => {
+
 	const CandidateId = req.params.id 
 const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
 const m =Candidate.review
 	if(req.body.review)
+
     m.splice( m.indexOf(req.body.review),1)
     res.send((m))
 })
 //update reviewes
 router.put('/reviews/:id', (req, res) => {
+
 	const CandidateId = req.params.id; 
 	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
 	const m =Candidate.review
@@ -250,4 +260,6 @@ router.put('/reviews/:id', (req, res) => {
 
 
 
+
 module.exports = router;
+
