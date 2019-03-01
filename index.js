@@ -1,16 +1,20 @@
 const express = require('express')
+
 const Candidate = require('./routes/api/Candidates')
+
 
 const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
+
     res.send(`<h1>Welcome </h1>
     <a href="/api/Candidates">Candidates</a>`);
 })
 
 // Direct routes to appropriate files 
 app.use('/api/Candidates',Candidate)
+
 
 // Handling 404
 app.use((req, res) => {
