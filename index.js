@@ -2,12 +2,16 @@
 
 const express = require('express')
 
+
+const consultancyAgencies = require('./routes/api/consultancyAgencies')
+=======
 const admins = require('./routes/api/admins')
 const Co_working_spaces = require('./routes/api/Co_working_spaces')
-
+const consultancyAgencies = require('./routes/api/consultancyAgencies')
 
 
 const partner = require('./routes/api/partner')
+
 
 
 
@@ -16,8 +20,12 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
 
+    res.send(`<h1>Welcome to Consultancy Agencies page</h1>
+    <a href="/api/consultancyAgencies">consultancyAgencies</a>
+=======
 
-    
+
+    <a href="/api/consultancyAgencies">consultancyAgencies</a>
     <a href="/api/Co_working_spaces">Co_working_spaces</a>
 <a href="/api/users">admins</a>
     
@@ -25,15 +33,20 @@ app.get('/', (req, res) => {
     
 
 
+
     `);
 })
 
 // Direct routes to appropriate files 
 
+app.use('/api/consultancyAgencies', consultancyAgencies)
+
+
 app.use('/api/admins', admins)
 app.use('/api/Co_working_spaces', Co_working_spaces)
 
 app.use('/api/partner', partner)
+app.use('/api/consultancyAgencies', consultancyAgencies)
 
 
 
