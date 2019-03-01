@@ -1,7 +1,8 @@
 
+
 const express = require('express')
 
-
+const admins = require('./routes/api/admins')
 const Co_working_spaces = require('./routes/api/Co_working_spaces')
 
 
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 
     
     <a href="/api/Co_working_spaces">Co_working_spaces</a>
-
+<a href="/api/users">admins</a>
     
     <a href="/api/partner">partner</a>
     
@@ -29,7 +30,7 @@ app.get('/', (req, res) => {
 
 // Direct routes to appropriate files 
 
-
+app.use('/api/admins', admins)
 app.use('/api/Co_working_spaces', Co_working_spaces)
 
 app.use('/api/partner', partner)
@@ -44,4 +45,5 @@ app.use('/api/partner', partner)
 
 const port = 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
 

@@ -73,4 +73,54 @@ router.post('/', (req, res) => {
 // 	return res.json({ data: newUser });
 // });
 
+
+// update a certain Admin
+
+router.put('/:id', (req, res) => {
+
+	const AdminId = req.params.id; 
+
+	const Admin = admins.find(Admin => Admin.id === AdminId)
+
+	if(req.body.first_name)
+
+	Admin.first_name = req.body.first_name;
+
+	if(req.body.last_name)
+
+	Admin.last_name=req.body.last_name;
+
+	if(req.body.password)
+
+	Admin.password=req.body.password;
+
+	if(req.body.Birthdate)
+
+	Admin.birth_date=req.body.birth_date;
+
+	if(req.body.email)
+
+	Admin.email=req.body.email;
+
+    res.send(Admin)
+
+})
+
+// delete a certain admin
+
+router.delete('/:id', (req, res) => {
+
+    const AdminId = req.params.id 
+
+    const Admin = admins.find(Admin => Admin.id === 	AdminId)
+
+    const index = admins.indexOf(Admin)
+
+    admins.splice(index,1)
+
+    res.send(admins)
+
+})
+
+
 module.exports = router;
