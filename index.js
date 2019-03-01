@@ -1,3 +1,4 @@
+
 const express = require('express')
 
 const Candidate = require('./routes/api/Candidates')
@@ -23,3 +24,4 @@ app.use((req, res) => {
 
 const port = 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
