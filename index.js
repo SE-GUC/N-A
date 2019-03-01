@@ -1,25 +1,18 @@
 const express = require('express')
-
-const messages = require('./routes/api/messages')
-const notifications = require('./routes/api/notifications')
-const projects = require('./routes/api/Projects')
+const Co_working_spaces = require('./routes/api/Co_working_spaces')
 
 const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.send(`
-    <a href="/api/notifications">Notifications</a>
-    <a href="/api/messages">Messages</a>
-    <a href="/api/Projects">Projects</a>
-
+    res.send(`<h1>Welcome to Book Store</h1>
+    <a href="/api/Co_working_spaces">Co_working_spaces</a>
     `);
 })
 
 // Direct routes to appropriate files 
-app.use('/api/messages', messages)
-app.use('/api/notifications', notifications)
-app.use('/api/Projects',projects)
+app.use('/api/Co_working_spaces', Co_working_spaces)
+
 // Handling 404
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
