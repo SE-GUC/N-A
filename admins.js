@@ -73,6 +73,7 @@ router.post('/', (req, res) => {
 // 	return res.json({ data: newUser });
 // });
 
+
 // update a certain Admin
 
 router.put('/:id', (req, res) => {
@@ -120,5 +121,6 @@ router.delete('/:id', (req, res) => {
     res.send(admins)
 
 })
+
 
 module.exports = router;
