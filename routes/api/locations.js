@@ -41,6 +41,13 @@ router.put('/', (req, res) => {
     const n_available = req.body.available
     const n_till = req.body.till
     const n_photo_link = req.body.photo_link
+    const n_city = req.body.city
+    const n_country = req.body.country
+    const n_street = req.body.street
+
+    if(n_city||n_country||n_street){
+        return res.status(400).send({ err: 'city,country and street variables cannot be altered' })
+    }
 
     if (!locid) return res.status(400).send({ err: 'id field is required' });
     const loc = locations.find(loc => loc.id === locid)
