@@ -13,18 +13,17 @@ const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/Candidates')
 const locations = require('./routes/api/locations')
 
-const db = 'mongodb://localhost:27017/mongodb-server'
+
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+const db = require('./config/keys').mongoURI
 
 mongoose
     .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
-
-
-
-const app = express()
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
 
 app.get('/', (req, res) => {
 
@@ -57,7 +56,6 @@ app.use('/api/messages', messages)
 app.use('/api/notifications', notifications)
 app.use('/api/Projects',projects)
 app.use('/api/locations',locations)
-
 
 
 
