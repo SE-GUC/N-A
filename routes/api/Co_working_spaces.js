@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 const express = require('express')
 const router = express.Router()
 
@@ -14,11 +15,12 @@ const seedCoWorkingSpaces = async () => {
     ])
   }
 
+  const salt = bcrypt.genSaltSync(10)
   const cws1 = new Co_working_space({
     basicInfo: 'nintendo found in 1992 to produce video game consoles',
     name: 'Niccolò Machiavelli',
     email: 'randm1@randm',
-    password: '123456',
+    password: bcrypt.hashSync('123456',salt),
     businessPlanOffer: '10% off games',
     rooms: 100,
     facilities: 'easy payment'
