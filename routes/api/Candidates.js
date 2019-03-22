@@ -1,58 +1,32 @@
 // Dependencies
 const express = require('express');
 const router = express.Router();
-
-// Models
+const mongoose = require('mongoose')
 const Candidate= require('../../models/Candidate');
-
-// temporary data created as the database ...
-const Candidates = [
-	//firstname,lastname ,email,password,Birthdate,intersts,past_project,certificates,skills
-	new Candidate('Mahmoud','Nabil','candidate1@website','123456789','October 13,1998',['js','paython'],['Game']
-	,['engineering'],['hardworker']),
-	new Candidate('Mahmoud','Ashraf','candidate2@website','123456789','October 13,1997',['js','paython'],['Game']
-	,['engineering'],['hardworker']),
-	new Candidate('Ashraf','Mahmoud','candidate3@website','123456789','October 13,1994',['js','paython'],['Game']
-	,['engineering'],['hardworker']),
-	new Candidate('Nabil','Mahmoud','candidate4@website','123456789','October 5,1991',['js','paython'],['Game']
-	,['engineering'],['hardworker']),
-	new Candidate('Nabil','Ashraf','candidate5@website','123456789','October 13,1990',['js','paython'],['Game']
-	,['engineering'],['hardworker']),
- ];
-
-// Instead of app use route
-// No need to write the full route
-// res.json() Automatically sends a status of 200
-
-// Get all Candidates
-router.get('/', (req, res) => res.json({ data: Candidates }));
-// Get a certain candidate 
-router.get('/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate)
+const validator = require('../../Validations/CandidateValidation')
+//Get all Candidates
+router.get('/', async (req,res) => {
+    const Candidates = await Candidate.find()
+    res.json({data: Candidates})
 })
-
+// Get a certain candidate 
+router.get('/:id', async(req, res) => {
+    const CandidateID = req.params.id
+	const Candidates =await Candidate.find({"id":CandidateID})
+            res.json(Candidates);      
+    });
 // Create a new Candidate
-router.post('/', (req, res) => {
-	const firstname = req.body.firstname;
-	const lastname =req.body.lastname;
-	const password=req.body.password ;
-	const Birthdate=req.body.Birthdate;
-    const email =req.body.email
-	if (!firstname) return res.status(400).send({ err: 'firstname field is required' });
-	if (typeof firstname !== 'string') return res.status(400).send({ err: 'Invalid value for first name' });
-	if (!lastname) return res.status(400).send({ err: 'lastname field is required' });
-	if (typeof lastname !== 'string') return res.status(400).send({ err: 'Invalid value for  last name' });
-	if (!password) return res.status(400).send({ err: 'password field is required' });
-	if (!Birthdate) return res.status(400).send({ err: 'birthdate field is required' });
-	if (!email) return res.status(400).send({ err: 'email field is required' });
-    if (typeof email !== 'string') return res.status(400).send({ err: 'Invalid value for email' });
-
-	const newCandidate = new Candidate(firstname,lastname,email,password ,Birthdate)
-	Candidates.push(newCandidate) 
-	return res.json({ data: newCandidate });
-  });
+router.post('/', async (req,res) => {
+	try {
+	 const isValidated = validator.createValidation(req.body)
+	 if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+	 const newCandidate = await Candidate.create(req.body)
+	 res.json({msg:'Candidate signed up successfully', data: newCandidate})
+	}
+	catch(error) {
+		console.log(error)
+	}  
+ })
 // update a certain Candidate
 router.put('/:id', (req, res) => {
 	const CandidateId = req.params.id; 
