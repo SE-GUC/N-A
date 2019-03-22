@@ -18,6 +18,12 @@ const locations = require('./routes/api/locations')
 
 const app = express()
 app.use(express.json())
+const db = require('./config/keys').mongoURI
+
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
 
 app.get('/', (req, res) => {
 
@@ -50,7 +56,6 @@ app.use('/api/messages', messages)
 app.use('/api/notifications', notifications)
 app.use('/api/Projects',projects)
 app.use('/api/locations',locations)
-
 
 
 
