@@ -59,30 +59,45 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
 	const basic_Info = req.body.basic_Info;
 	const Name =req.body.Name;
-	const Email=req.body.Email ;
+  const Email=req.body.Email;
+  const Password = req.body.Password;
 	const Business_plans_offer=req.body.Business_plans_offer;
-    const Rooms =req.body.Rooms
-    const Facilities =req.body.Facilities
-	if (!basic_Info) return res.status(400).send({ err: 'basic_Info field is required' });
+  const Rooms =req.body.Rooms
+  const Facilities =req.body.Facilities
+
+  if (!basic_Info) return res.status(400).send({ err: 'basic_Info field is required' });
 	if (typeof basic_Info !== 'string') return res.status(400).send({ err: 'Invalid value for basic_Info' });
 	if (!Name) return res.status(400).send({ err: 'Name field is required' });
 	if (typeof Name !== 'string') return res.status(400).send({ err: 'Invalid value for  Name' });
 	if (!Email) return res.status(400).send({ err: 'Email field is required' });
-    if (typeof Email!== 'string') return res.status(400).send({ err: 'Invalid value for Email' });
-    if (!Business_plans_offer) return res.status(400).send({ err: 'Business_plans_offer field is required' });
-    if (typeof Business_plans_offer !== 'string') return res.status(400).send({ err: 'Invalid value for Business_plans_offer' });
-    if (!Rooms) return res.status(400).send({ err: 'Rooms field is required' });
-    if (typeof Rooms !== 'string') return res.status(400).send({ err: 'Invalid value for Rooms' });
-    if (!Facilities) return res.status(400).send({ err: 'Facilities field is required' });
-    if (typeof Facilities !== 'string') return res.status(400).send({ err: 'Invalid value for Facilities' });
-    	const newCo_working_space = new Co_working_space(basic_Info,Name,Email,Business_plans_offer ,Rooms,Facilities)
-	Candidates.push(newCo_working_space) 
-	return res.json({ data: newCo_working_space });
-  });
+  if (typeof Email!== 'string') return res.status(400).send({ err: 'Invalid value for Password' });
+	if (!Password) return res.status(400).send({ err: 'Email field is required' });
+  if (typeof Password !== 'string') return res.status(400).send({ err: 'Invalid value for Password' });
+  if (!Business_plans_offer) return res.status(400).send({ err: 'Business_plans_offer field is required' });
+  if (typeof Business_plans_offer !== 'string') return res.status(400).send({ err: 'Invalid value for Business_plans_offer' });
+  if (!Rooms) return res.status(400).send({ err: 'Rooms field is required' });
+  if (typeof Rooms !== 'string') return res.status(400).send({ err: 'Invalid value for Rooms' });
+  if (!Facilities) return res.status(400).send({ err: 'Facilities field is required' });
+  if (typeof Facilities !== 'string') return res.status(400).send({ err: 'Invalid value for Facilities' });
+
+  const salt = bcrypt.genSaltSync(10)
+  const newCo_working_space = new Co_working_space({
+    basicInfo: basic_Info,
+    name: Name,
+    email: Email,
+    password: bcrypt.hashSync('123456',salt),
+    businessPlanOffer:  Business_plans_offer,
+    rooms: Rooms,
+    facilities: Facilities
+  })
+
+  newCo_working_space.save();
+  return res.json({ data: newCo_working_space });
+});
 
 // update a certain coworking space
 router.put('/:id', (req, res) => {
-	const Co_working_spaceId = req.params.id; 
+	const Co_working_spaceId = req.params.id;
 	const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id === Co_working_spaceId)
 	if(req.body.basic_Info)
 	Candidate.basic_Info = req.body.basic_Info;
