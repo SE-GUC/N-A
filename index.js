@@ -1,7 +1,7 @@
 
 
 const express = require('express')
-
+const mongoose = require('mongoose')
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
 const admins = require('./routes/api/admins')
@@ -13,11 +13,18 @@ const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/Candidates')
 const locations = require('./routes/api/locations')
 
+const db = 'mongodb://localhost:27017/mongodb-server'
+
+mongoose
+    .connect(db)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log(err))
 
 
 
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.get('/', (req, res) => {
 
