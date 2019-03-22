@@ -13,15 +13,17 @@ const Co_working_spaces = [
     new Co_working_space('Pes found in 2000', 'William Shakespeare', 'randm5@randm', '50% off games','104','in a good location'),
     new Co_working_space('gta found in 1999', 'Charles Dickens','randm6@randm', '60% off games','105','discount on bulk'),
 ];
-// Get all Candidates
+
+// Get all coworking spaces
 router.get('/', (req, res) => res.json({ data:Co_working_spaces }));
-// Get a certain candidate 
+
+// Get a certain corworking space
 router.get('/:id', (req, res) => {
         const Co_working_spaceId = req.params.id
         const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id === Co_working_spaceId)
         res.send(Co_working_space)
     })
- 
+
  // Create a new Co_Working_space
 router.post('/', (req, res) => {
 	const basic_Info = req.body.basic_Info;
@@ -46,8 +48,8 @@ router.post('/', (req, res) => {
 	Candidates.push(newCo_working_space) 
 	return res.json({ data: newCo_working_space });
   });
-       
-// update a certain Candidate
+
+// update a certain coworking space
 router.put('/:id', (req, res) => {
 	const Co_working_spaceId = req.params.id; 
 	const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id === Co_working_spaceId)
