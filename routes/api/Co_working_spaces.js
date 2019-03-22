@@ -1,27 +1,56 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
 
-// We will be connecting using database 
+// We will be connecting using database
 const Co_working_space = require('../../models/Co_working_space')
 
+const seedCoWorkingSpaces = async () => {
+  // empty the table on each restart of the server
+  console.log('node environment: ' + process.env.NODE_ENV)
+  if(process.env.NODE_ENV === 'development') {
+    await Promise.all([
+      Co_working_space.deleteMany({})
+    ])
+  }
+
+  const cws1 = new Co_working_space({
+    basicInfo: 'nintendo found in 1992 to produce video game consoles',
+    name: 'Niccolò Machiavelli',
+    email: 'randm1@randm',
+    password: '123456',
+    businessPlanOffer: '10% off games',
+    rooms: 100,
+    facilities: 'easy payment'
+  })
+
+  await cws1.save();
+};
+
+seedCoWorkingSpaces();
+
 // temporary data created as if it was pulled out of the database ...
-const Co_working_spaces = [
-    new Co_working_space('nintendo found in 1992 to produce video game consoles', 'Niccolò Machiavelli', 'randm1@randm' , '10% off games','100','easy payment'),
-    new Co_working_space('playstation found in 1993', 'Fyodor Dostoyevsky','randm2@randm', '20% off games','101','allow installments'),
-    new Co_working_space('X-box found in 1994', 'Leo Tolstoy','randm3@randm', '30% off games','102','pay by visa'),
-    new Co_working_space('Fifa found in 1997', 'Sun Tzu', 'randm4@randm', '40% off games','103','offer multiple packages'),
-    new Co_working_space('Pes found in 2000', 'William Shakespeare', 'randm5@randm', '50% off games','104','in a good location'),
-    new Co_working_space('gta found in 1999', 'Charles Dickens','randm6@randm', '60% off games','105','discount on bulk'),
-];
+// const Co_working_spaces = [
+//     new Co_working_space('nintendo found in 1992 to produce video game consoles', 'Niccolò Machiavelli', 'randm1@randm' , '10% off games','100','easy payment'),
+//     new Co_working_space('playstation found in 1993', 'Fyodor Dostoyevsky','randm2@randm', '20% off games','101','allow installments'),
+//     new Co_working_space('X-box found in 1994', 'Leo Tolstoy','randm3@randm', '30% off games','102','pay by visa'),
+//     new Co_working_space('Fifa found in 1997', 'Sun Tzu', 'randm4@randm', '40% off games','103','offer multiple packages'),
+//     new Co_working_space('Pes found in 2000', 'William Shakespeare', 'randm5@randm', '50% off games','104','in a good location'),
+//     new Co_working_space('gta found in 1999', 'Charles Dickens','randm6@randm', '60% off games','105','discount on bulk'),
+// ];
 
 // Get all coworking spaces
-router.get('/', (req, res) => res.json({ data:Co_working_spaces }));
+router.get('/', async (req, res) => {
+  const coworkingSpaces = await Co_working_space.find()
+  res.json({ data: coworkingSpaces })
+});
 
-// Get a certain corworking space
+// Get a certain coworking space
 router.get('/:id', (req, res) => {
-        const Co_working_spaceId = req.params.id
-        const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id === Co_working_spaceId)
-        res.send(Co_working_space)
+        const id = req.params.id
+        Co_working_space.findById(id, (err, cws) => {
+          res.send(cws)
+        })
     })
 
  // Create a new Co_Working_space
