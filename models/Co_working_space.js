@@ -1,15 +1,36 @@
-// The Book Model
-const uuid = require('uuid')
-class Co_working_space{
-    constructor(basic_Info, Name, Email, password,Business_plans_offer,Rooms,Facilities) {
-        this.basic_Info = basic_Info;
-        this.Name = Name;
-        this.Email = Email;
-        this.Business_plans_offer = Business_plans_offer;
-        this.Rooms = Rooms;
-        this.Facilities = Facilities;
-        this.id = uuid.v4();
-    };
-}       
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-module.exports = Co_working_space
+const CoWorkingSpaceSchema = new Schema({
+  basicInfo: {
+    type: String,
+    required: false
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  businessPlanOffer: {
+    type: String,
+    required: false
+  },
+  rooms: {
+    type: Number,
+    required: true
+  },
+  facilities: {
+    type: String,
+    required: true
+  }
+})
+
+module.exports = CoWorkingSpace = mongoose.model('coWorkingSpaces', CoWorkingSpaceSchema)
+
