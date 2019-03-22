@@ -25,7 +25,7 @@ const CandidateSchema = new Schema({
         type:Date,
         required:true 
        },
-    intersts: {
+    interests: {
         type: [String]
     },
     past_project: {

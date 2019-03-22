@@ -11,9 +11,16 @@ router.get('/', async (req,res) => {
 })
 // Get a certain candidate 
 router.get('/:id', async(req, res) => {
-    const CandidateID = req.params.id
-	const Candidates =await Candidate.find({"id":CandidateID})
-            res.json(Candidates);      
+    try {
+		const id = req.params.id
+		const Candidates = await Candidate.findOne({id})
+		if(!Candidates) return res.status(404).send({error: 'Candidate does not exist'})
+		res.json(Candidates)
+	   }
+	   catch(error) {
+		   // We will be handling the error later
+		   console.log(error)
+	   }    
     });
 // Create a new Candidate
 router.post('/', async (req,res) => {
@@ -28,57 +35,61 @@ router.post('/', async (req,res) => {
 	}  
  })
 // update a certain Candidate
-router.put('/:id', (req, res) => {
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	if(req.body.firstname)
-	Candidate.firstname = req.body.firstname;
-	if(req.body.lastname)
-	Candidate.lastname=req.body.lastname;
-	if(req.body.password)
-	Candidate.password=req.body.password;
-	if(req.body.Birthdate)
-	Candidate.Birthdate=req.body.Birthdate;
-	if(req.body.email)
-	Candidate.email=req.body.email;
-    res.send(Candidate)
-})
+router.put('/:id', async (req,res) => {
+	try {
+		const id = req.params.id
+		const Candidate = await Candidate.findOne({id})
+		if(!Candidate) return res.status(404).send({error: 'Candidate does not exist'})
+		const isValidated = validator.updateValidation(req.body)
+		if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+		const updatedCandidate = await Candidate.updateOne(req.body)
+		res.json({msg: 'Candidate updated successfully'})
+	   }
+	   catch(error) {
+		   // We will be handling the error later
+		   console.log(error)
+	   }  
+	})   
 // delete a certain candidate
-router.delete('/:id', (req, res) => {
-    const CandidateId = req.params.id 
-    const Candidate = Candidates.find(Candidate => Candidate.id === 	CandidateId)
-    const index = Candidates.indexOf(Candidate)
-    Candidates.splice(index,1)
-    res.send(Candidates)
-})
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedCandidate = await Candidate.findByIdAndRemove(id)
+     res.json({msg:'Candidate was deleted successfully', data: deletedCandidate})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
 //get interests
-router.get('/interests/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate.intersts)
+router.get('/interests/:id', async (req, res) => {
+    const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    res.json(Candidates)
 })
 // add intersests 
 router.post('/interests/:id', (req, res) => {
-	const CandidateID = req.params.id
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
 	if(req.body.interest)
-	Candidate.intersts.push(req.body.interest)
-	res.send(Candidate.intersts)
+	Candidates.intersts.push(req.body.interest)
+	res.send(Candidates.intersts)
   });
 //delete interests
 router.delete('/interests/:id', (req, res) => {
-	const CandidateId = req.params.id 
-const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-const m =Candidate.intersts
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    const m =Candidates.intersts
 	if(req.body.interest)
     m.splice( m.indexOf(req.body.interest),1)
     res.send((m))
 })
 // update interests
 router.put('/interests/:id', (req, res) => {
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	const m =Candidate.intersts
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+	const m =Candidates.intersts
 	const index=m.indexOf(req.body.oldvalue)
 	const newvalue=req.body.newvalue
 	m[index]=newvalue
@@ -87,15 +98,15 @@ router.put('/interests/:id', (req, res) => {
 })
 //get project
 router.get('/projects/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate.past_project)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    res.send(Candidates.past_project)
 })
 //update project
 router.put('/projects/:id', (req, res) => {
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	const m =Candidate.past_project
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+	const m =Candidates.past_project
 	const index=m.indexOf(req.body.oldvalue)
 	const newvalue=req.body.newvalue
 	m[index]=newvalue
@@ -104,9 +115,9 @@ router.put('/projects/:id', (req, res) => {
 })
 //delete project
 router.delete('/projects/:id', (req, res) => {
-	const CandidateId = req.params.id 
-const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-const m =Candidate.past_project
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+const m =Candidates.past_project
 
 	if(req.body.project)
 
@@ -115,33 +126,33 @@ const m =Candidate.past_project
 })
 //add project
 router.post('/projects/:id', (req, res) => {
-	const CandidateID = req.params.id
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
 
 	if(req.body.project)
-	Candidate.past_project.push(req.body.project)
+	Candidates.past_project.push(req.body.project)
 
 	res.send(Candidate.past_project)
   });
 //get certificates
 router.get('/certificates/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate.certificates)
+    const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    res.send(Candidates.certificates)
 })
 //add certificates
 router.post('/certificates/:id', (req, res) => {
-	const CandidateID = req.params.id
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
 	if(req.body.certificate)
-	Candidate.certificates.push(req.body.certificate)
+	Candidates.certificates.push(req.body.certificate)
 	res.send(Candidate.certificates)
   });
 //delete certificates
 router.delete('/certificates/:id', (req, res) => {
-	const CandidateId = req.params.id 
-const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-const m =Candidate.certificates
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    const m =Candidates.certificates
 	if(req.body.certificate)
     m.splice( m.indexOf(req.body.certificate),1)
     res.send((m))
@@ -150,9 +161,9 @@ const m =Candidate.certificates
 
 router.put('/certificates/:id', (req, res) => {
 
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	const m =Candidate.certificates
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+	const m =Candidates.certificates
 	const index=m.indexOf(req.body.oldvalue)
 	const newvalue=req.body.newvalue
 	m[index]=newvalue
@@ -161,32 +172,32 @@ router.put('/certificates/:id', (req, res) => {
 })
 //get skills
 router.get('/skills/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate.skills)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    res.send(Candidates.skills)
 })
 //add skills
 router.post('/skills/:id', (req, res) => {
-	const CandidateID = req.params.id
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
 	if(req.body.skill)
-	Candidate.skills.push(req.body.skill)
+	Candidates.skills.push(req.body.skill)
 	res.send(Candidate.skills)
   });
 //delete skills
 router.delete('/skills/:id', (req, res) => {
-	const CandidateId = req.params.id 
-const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-const m =Candidate.skills
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+const m =Candidates.skills
 	if(req.body.skill)
     m.splice( m.indexOf(req.body.skill),1)
     res.send((m))
 })
 //update skiils
 router.put('/skills/:id', (req, res) => {
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	const m =Candidate.skills
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+	const m =Candidates.skills
 	const index=m.indexOf(req.body.oldvalue)
 	const newvalue=req.body.newvalue
 	m[index]=newvalue
@@ -195,25 +206,24 @@ router.put('/skills/:id', (req, res) => {
 })
 //get reviews
 router.get('/reviews/:id', (req, res) => {
-    const CandidateID = req.params.id
-    const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
-    res.send(Candidate.review)
+    const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+    res.send(Candidates.review)
 })
 //add reviewes
 router.post('/reviews/:id', (req, res) => {
-	const CandidateID = req.params.id
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateID)
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
 	if(req.body.review)
-	Candidate.review.push(req.body.review)
+	Candidates.review.push(req.body.review)
 	res.send(Candidate.review)
   });
 //delete reviewes
 
 router.delete('/reviews/:id', (req, res) => {
-
-	const CandidateId = req.params.id 
-const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-const m =Candidate.review
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+const m =Candidates.review
 	if(req.body.review)
 
     m.splice( m.indexOf(req.body.review),1)
@@ -221,10 +231,9 @@ const m =Candidate.review
 })
 //update reviewes
 router.put('/reviews/:id', (req, res) => {
-
-	const CandidateId = req.params.id; 
-	const Candidate = Candidates.find(Candidate => Candidate.id === CandidateId)
-	const m =Candidate.review
+	const id = req.params.id
+    const Candidate = await Candidate.findOne({id})
+	const m =Candidates.review
 	const index=m.indexOf(req.body.oldvalue)
 	const newvalue=req.body.newvalue
 	m[index]=newvalue
