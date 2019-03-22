@@ -18,7 +18,7 @@ const CandidateSchema = new Schema({
         required: true
     },
     password: {
-        type: Date, 
+        type: String, 
         required: true
     },
     Birthdate:{
