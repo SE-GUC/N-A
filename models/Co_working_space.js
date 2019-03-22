@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const CoWorkingSpaceSchema = new Schema({
   basicInfo: {
     type: String,
-    required: false
+    required: true
   },
   name: {
     type: String,
@@ -20,7 +20,7 @@ const CoWorkingSpaceSchema = new Schema({
   },
   businessPlanOffer: {
     type: String,
-    required: false
+    required: true
   },
   rooms: {
     type: Number,
