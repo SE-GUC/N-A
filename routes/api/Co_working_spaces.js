@@ -76,7 +76,7 @@ router.post('/', (req, res) => {
   if (!Business_plans_offer) return res.status(400).send({ err: 'Business_plans_offer field is required' });
   if (typeof Business_plans_offer !== 'string') return res.status(400).send({ err: 'Invalid value for Business_plans_offer' });
   if (!Rooms) return res.status(400).send({ err: 'Rooms field is required' });
-  if (typeof Rooms !== 'string') return res.status(400).send({ err: 'Invalid value for Rooms' });
+  if (isNaN(Rooms)) return res.status(400).send({ err: 'Invalid value for Rooms' });
   if (!Facilities) return res.status(400).send({ err: 'Facilities field is required' });
   if (typeof Facilities !== 'string') return res.status(400).send({ err: 'Invalid value for Facilities' });
 
@@ -87,7 +87,7 @@ router.post('/', (req, res) => {
     email: Email,
     password: bcrypt.hashSync('123456',salt),
     businessPlanOffer:  Business_plans_offer,
-    rooms: Rooms,
+    rooms: Number.parseInt(Rooms),
     facilities: Facilities
   })
 
