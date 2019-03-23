@@ -50,22 +50,25 @@ router.post('/', (req, res) => {
 
   const { Basic_Info, FirstName, LastName, age,
    email, password, Business_Plans_Offered,
-   Rooms, Facilities } = this.req;
+   Rooms, Facilities, Birthdate } = req.body;
 
   const salt = bcrypt.genSaltSync(10)
   const user = new User({
     Basic_Info: Basic_Info,
     FirstName: FirstName,
     LastName: LastName,
+    Birthdate: Birthdate,
     email: email,
     password: bcrypt.hashSync(password,salt),
     Business_Plans_Offered:  Business_Plans_Offered,
-    rooms: Number.parseInt(Rooms),
-    facilities: Facilities
+    Rooms: Number.parseInt(Rooms),
+    Facilities: Facilities,
+    User_Category: 'Partner_CoWorkingSpace'
   })
 
-  user.save();
-  return res.json({ data: user });
+  user.save()
+  .then(() => res.json({ data: user }))
+  .catch((error) => res.json({ err: error }));
 });
 
 // update a certain coworking space
