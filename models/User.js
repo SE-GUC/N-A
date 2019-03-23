@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const schema = mongoos.schema
+
+const Schema = mongoose.Schema
+
 
 const UserSchema = new Schema ({
    
@@ -24,7 +26,11 @@ const UserSchema = new Schema ({
         type: Date,
         required: true
     },
-    Join_Date: { default: new Date()
+
+    Join_Date: { 
+        type:Date,
+        default: Date.now
+
      },
     
     Basic_Info: {
@@ -48,7 +54,9 @@ const UserSchema = new Schema ({
         },
     //For Consulting Agents
     Past_Events: {
-            type: [Strings],
+
+            type: [String],
+
         },
     Reviews: {
         type: [String]

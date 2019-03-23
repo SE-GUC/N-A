@@ -1,24 +1,101 @@
 
-// The User Model
-class Project {
-    constructor(id,name,status,approved,time_needed,exp_level,comitment_level,descreption,price,partner_id,consultancy_agency_id,Contributer_id,main_skill) {
-        this.name = name;
-        this.status = status;
-        this.approved=approved;
-        this.time_needed=time_needed;
-        this.exp_level=exp_level;
-        this.comitment_level=comitment_level;
-        this.descreption=descreption;
-        this.price=price;
-        this.partner_id=partner_id;
-        this.consultancy_agency_id=consultancy_agency_id;
-        this.Contributer_id=Contributer_id;
-        this.id = id;
-        this.main_skill=main_skill;
-        this.extra_skills=[];
-        this.extra_attribute=[];
-    };
-};
+// The Project Model
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const uuid = require('uuid')
+const ProjectSchema=new Schema({
+        id:{
+            type:String,
+            default: function genid(){
+                uuid.v4();
+            }
+        },
+        name :{
+            type:String,
+            required:true   
+        },
+        status :{
+            type :String,
+            enum:['Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed'],
+            default:'Initiation'
+        },
+        approved:{
+            type: Boolean,
+            default:false
+        },
+        descreption:{
+            type:String,
+            required:true
+        },
+        price:{
+            type:Number,
+            required:false
+        },
+        Payment_Type:{
+            type:String,
+            enum:['Online','FaceToFace','Other'],
+            required:true
+        },
+        partner_id:{
+            type:String,
+            required:true
+        },
+        need_Consultancy:{
+            type :Boolean,
+            required:true
+        },
+        consultancy_agency_id:{
+            type:String,
+            required:false
+        },
+        members_needed:{
+            type:Number,
+            required:false
+        },
+        current_members_count:{
+            type:Number,
+            default:0
+        },
+        current_members_applied_ids:{
+            type: [String]
+        },
+        accepted_members_ids:{
+            type:[String]
+        },
+        main_skill:{
+            type:String,
+            required:true
+        },
+        extra_skills:{
+            type:[String]
+        },
+        extra_attributes:{
+            type:[String]
+        },
+        Expected_Duration:{
+            type:String,
+            required:false
+        },
+        Start_Date:{
+            type:Date,
+            required:false
+        },
+        End_Date:{
+            type:Date,
+            required:false
+        },
+        
+        least_exp_level_needed:{  //Senior-Associate-Executive...
+            type:String,
+            required:false
+        },
+        comitment_level_needed:{
+            Type: String,
+            required:false
+        }  
+        
+    })   
 
-module.exports = Project
+
+module.exports = Project=mongoose.model('Projects', ProjectSchema)
 
