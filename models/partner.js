@@ -1,25 +1,162 @@
 
 
 
+const mongoose = require('mongoose');
 
-
-class partner {
-
-    constructor(partid,name, password,joindate,email,basicinf) {
-      this.partid=partid;
-        this.name = name;
-        this.password=password;
-        this.joindate=joindate;
-        this.basicinf=basicinf;
-        this.pprojects=[];
-       this.boardmembers=[];
-        this.email = email;
-        
-
-    };
-
-};
+const schem = mongoose.Schema
 
 
 
-module.exports = partner
+const UserSchema = new schem ({
+
+   
+
+    email: {
+
+        type: String,
+
+        required: true
+
+    },
+
+    FirstName: {
+
+        type: String,
+
+        required: true
+
+    },
+
+    LastName: {
+
+        type: String,
+
+        required: false
+
+    },
+
+      
+
+    password: {
+
+        type: String,
+
+        required: true
+
+    },
+
+    Birthdate: {
+
+        type: Date,
+
+        required: false
+
+    },
+
+    Join_Date: { type: Date, default: new Date()
+
+     },
+
+    
+
+    Basic_Info: {
+
+        type: String,
+
+    },
+
+    User_Category :{
+
+        type :String,
+
+        enum:['Admin','Member','Consulting_Agent ','Partner','Partner_CoWorkingSpace'],
+
+        required:false
+
+    },
+
+    Certificates: {
+
+        type: [String]
+
+    }, 
+
+    //Required using joi in routes/api if you are partner or consulting agent ...
+
+    BoardMembers: {
+
+        type: [String]
+
+        },
+
+    //for Consulting Agents
+
+    Studies: {
+
+            type: String,
+
+        },
+
+    //For Consulting Agents
+
+    Past_Events: {
+
+            type: [String],
+
+        },
+
+    Reviews: {
+
+        type: [String]
+
+    },
+
+    Intrests: {
+
+        type: [String]
+
+    },
+
+    Past_Projects: {
+
+        type: [String]
+
+    },
+
+    Skills: {
+
+        type: [String]
+
+    },
+
+    Ratings:{
+
+        type :String,
+
+        enum:['1','2','3','4','5'],
+
+    },
+
+   //Required by Co-Working Space Patner
+
+    Business_Plans_Offered: {
+
+        type: [String],
+
+    },
+
+    Rooms: {
+
+        type: Number
+
+    },
+
+    Facilites: {
+
+        type: [String],
+
+    }
+
+})
+
+module.exports = partner = mongoose.model('partner', UserSchema)
