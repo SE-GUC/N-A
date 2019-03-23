@@ -315,7 +315,7 @@ router.get('/Pending/member',async(req,res)=>{
     result=[]
     for(let i=0;i<X.length;i++){
         if(X[i].current_members_applied_ids.length!=0)
-            result.push({Project:X[i].id,candidates:X[i].current_members_applied_ids})
+            result.push({Project:X[i]._id,candidates:X[i].current_members_applied_ids})
     }
     res.json({data:result})
 })
