@@ -12,7 +12,7 @@ const ProjectSchema=new Schema({
         },
         name :{
             type:String,
-            required:true
+            required:true   
         },
         status :{
             type :String,
@@ -38,7 +38,7 @@ const ProjectSchema=new Schema({
         },
         partner_id:{
             type:String,
-            required=true
+            required:true
         },
         need_Consultancy:{
             type :Boolean,
@@ -50,7 +50,7 @@ const ProjectSchema=new Schema({
         },
         members_needed:{
             type:Number,
-            required=false
+            required:false
         },
         current_members_count:{
             type:Number,

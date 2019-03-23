@@ -9,10 +9,32 @@ module.exports = {
             partner_id: Joi.string().required(),
             need_Consultancy:Joi.boolean().required(),
             main_skill : Joi.string().required(),
+            price: Joi.number(),
             members_needed:Joi.number(),
             least_exp_level_needed: Joi.string(),
             comitment_level_needed:Joi.string(),
-            Expected_Duration :Joi.string()
+            Expected_Duration :Joi.string(),
+            consultancy_agency_id:Joi.string()
+           
+        }
+
+        return Joi.validate(request, createSchema)
+    },
+    UpdateValidation: request => {
+        const createSchema = {
+            name: Joi.string().min(5).max(50),
+            descreption: Joi.string().min(50).max(500),
+            Payment_Type: Joi.string().valid('Online','FaceToFace','Other'),
+            status: Joi.string().valid('Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed'),
+            need_Consultancy:Joi.boolean(),
+            main_skill : Joi.string(),
+            price: Joi.number(),
+            members_needed:Joi.number(),
+            least_exp_level_needed: Joi.string(),
+            comitment_level_needed:Joi.string(),
+            Expected_Duration :Joi.string(),
+            consultancy_agency_id:Joi.string()
+           
         }
 
         return Joi.validate(request, createSchema)
@@ -32,7 +54,7 @@ module.exports = {
     }, 
     updateValidationapproved: request => {
         const updateSchema = {
-            approved: Joi.boolean().required();
+            approved: Joi.boolean().required()
         }
         return Joi.validate(request, updateSchema)
     }, 
@@ -44,7 +66,7 @@ module.exports = {
     }, 
     updateValidationprice: request => {
         const updateSchema = {
-            price: Joi.Number().required()
+            price: Joi.number().required()
         }
         return Joi.validate(request, updateSchema)
     }, 
@@ -62,19 +84,19 @@ module.exports = {
     }, 
     updateValidationconsid: request => {
         const updateSchema = {
-            consultancy_agency_id: Joi.String().required()
+            consultancy_agency_id: Joi.string().required()
         }
         return Joi.validate(request, updateSchema)
     }, 
     updateValidationmembersneeded: request => {
         const updateSchema = {
-            members_needed:Joi.Number().required()
+            members_needed:Joi.number().required()
         }
         return Joi.validate(request, updateSchema)
     },
     updateValidationmainskill: request => {
         const updateSchema = {
-            main_skill: Joi.string().min(3).max(10).required()
+            main_skill: Joi.string().min(3).max(20).required()
         }
         return Joi.validate(request, updateSchema)
     },
@@ -92,19 +114,19 @@ module.exports = {
     },
     updateValidationcomitment: request => {
         const updateSchema = {
-            comitment_level_needed: Joi.String().required()
+            comitment_level_needed: Joi.string().required()
         }
         return Joi.validate(request, updateSchema)
     },
     addskill: request => {
         const updateSchema = {
-            Skill: Joi.String().required()
+            Skill: Joi.string().required()
         }
         return Joi.validate(request, updateSchema)
     },
     addattribute: request => {
         const updateSchema = {
-            attribute: Joi.String().required()
+            attribute: Joi.string().required()
         }
         return Joi.validate(request, updateSchema)
     },

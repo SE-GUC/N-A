@@ -1,8 +1,7 @@
-
 const express = require('express')
 const mongoose = require('mongoose')
+const app = express()
 const db = require('./config/keys').mongoURI
-
 // Connect to mongo
 mongoose
     .connect(db)
@@ -10,6 +9,7 @@ mongoose
     .catch(err => console.log(err))
 
 // Init middleware
+
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
@@ -26,9 +26,6 @@ const locations = require('./routes/api/locations')
 
 
 
-
-const app = express()
-app.use(express.json())
 
 app.get('/', (req, res) => {
 
@@ -66,7 +63,7 @@ app.use('/api/locations',locations)
 
 
 
- Handling 404
+// Handling 404
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
  })
