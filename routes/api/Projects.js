@@ -1,190 +1,324 @@
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
-
-
+const mongoose = require('mongoose');
 const Project = require('../../models/Project');
-const Projects = [
-	new Project('1',"LirtenHub","Implementation",true,"45 days","atleast 2 years","high","A FreeLancing website",10000,2,3,4,"web Development"),
-	new Project('2',"DataBase","Initiation",false,"7 days","atleast 1 years","low","A database simulation",500,2,null,null,"Developer"),
-	new Project('3',"OS","Allocation",true,"23 days","atleast 5 years","high","An operating system simulation",6000,3,3,null,"Developer"),
-	new Project('4',"CA","Completed",true,"15 days","atleast 3 years","medium","A computer simulation",3000,4,4,6,"Developer")
-];
+//const User = require('../../models/User');
+const validator = require('../../validations/ProjectValidations')
 
 
-router.get('/', (req, res) => res.json({ data: Projects}));
+router.get('/',async  (req, res) => {
+    const Projects= await Project.find();
+    res.json({ data: Projects})
+    })
 
-router.get('/:id',(req,res)=> {
-	const pid=req.params.id;
-	const X=Projects.find(Project => Project.id==pid);
-	if(X==null)
-		res.send("Project not found");
+router.get('/:id',async (req,res)=> {
+    const pid = req.params.id
+	const X =await Project.findOne({"_id":pid})
+	if(!X)
+        return res.status(404).send({error: 'Project does not exist'})
 	else
-		res.send(X);
+		res.json({data:X});
 
 })
 
-
-
-
-router.post('/joi', (req, res) => {
-	const name = req.body.name
-	const time_needed = req.body.time_needed
-	const exp_level =req.body.exp_level
-    const comitment_level=req.body.comitment_level
-	const descreption=req.body.descreption
-	const price=req.body.price
-	const partner_id=req.body.partner_id
-	const id = req.body.id
-	const main_skill=req.body.main_skill
-	const status = "Initiation"
-	const approved=false
-	const Contributer_id=null
-	const consultancy_agency_id=null
-
-	const schema = {
-		name: Joi.string().min(3).required(),
-		descreption: Joi.string().required(),
-		id: Joi.number().required()
-
-	}
-
-	const result = Joi.validate(req.body, schema);
-
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
-
-	const P=new Project(id,name,status,approved,time_needed,exp_level,comitment_level,descreption,price,partner_id,consultancy_agency_id,Contributer_id,main_skill);
-	Projects.push(P);
-	return res.json({ data: P });
+router.post('/',async (req, res) => {
+	const isValidated = validator.createValidation(req.body)
+    if (isValidated.error) 
+        return res.status(400).send({ error: isValidated.error.details[0].message })
+    const X= await Project.create(req.body)
+	return res.json({msg:'Project was Posted successfully,Now wait until an admin approves it', data: X});
 });
+router.put('/:id', async(req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({"_id":pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.UpdateValidation(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully',})
+})
+router.put('/name/:id', async(req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({"_id":pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationname(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully',})
+})
+router.put('/status/:id',async (req, res) => {
+   const pid = req.params.id 
+   const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationstatus(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    if(req.body.status=='Implementation')
+        await X.updateOne({"Start_Date":new Date()})
+    else if(req.body.status=='Completed'){
+        await X.updateOne({"End_Date":new Date()})
+        //add projects to mebers page
+    }
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/approved/:id', async(req, res) => {
+    const pid = req.params.id 
+   const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationapproved(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/Expected_Duration/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationduration(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/exp_level/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationexplevel(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/comitment_level/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationcomitment(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/descreption/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationdescreption(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/price/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationprice(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/PaymentType/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationpaymenttype(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/consultancy_agency_id/:id', async(req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationconsid(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+ router.put('/need_Consultancy/:id', async(req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationneedcon(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    //if(req.body.need_Consultancy==false)
+      //  const updatedP = await X.updateOne("consultancy_agency_id":"null")
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/MembersNeeded/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationmembersneeded(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
+router.put('/main_skill/:id',async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.updateValidationmainskill(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const updatedP = await X.updateOne(req.body)
+    res.json({msg: 'Project updated successfully'})
+})
 
-router.put('/name/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedname = req.body.name
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.name = updatedname
-    res.send(Projects)
-})
-router.put('/status/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedstatus = req.body.status
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.status = updatedstatus
-    res.send(Projects)
-})
-router.put('/approved/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedapproved = req.body.approved
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.approved = updatedapproved
-    res.send(Projects)
-})
-router.put('/time_needed/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedtime_needed= req.body.time_needed
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.time_needed = updatedtime_needed
-    res.send(Projects)
-})
-router.put('/exp_level/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedexp_level = req.body.exp_level
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.exp_level = updatedexp_level
-    res.send(Projects)
-})
-router.put('/comitment_level/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedcomitment_level = req.body.comitment_level
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.comitment_level = updatedcomitment_level
-    res.send(Projects)
-})
-router.put('/descreption/:id', (req, res) => {
-    const pid = req.params.id 
-    const updateddescreption = req.body.descreption
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.descreption = updateddescreption
-    res.send(Projects)
-})
-router.put('/price/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedprice = req.body.price
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.price = updatedprice
-    res.send(Projects)
-})
-router.put('/partner_id/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedpartner_id = req.body.partner_id
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.partner_id = updatedpartner_id
-    res.send(Projects)
-})
-router.put('/consultancy_agency_id/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedconsultancy_agency_id = req.body.consultancy_agency_id
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.consultancy_agency_id = updatedconsultancy_agency_id
-    res.send(Projects)
-})
-router.put('/Contributer_id/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedContributer_id = req.body.Contributer_id
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.Contributer_id = updatedContributer_id
-    res.send(Projects)
-})
-router.put('/main_skill/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedmain_skill = req.body.main_skill
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.main_skill= updatedmain_skill
-    res.send(Projects)
-})
-router.put('/id/:id', (req, res) => {
-    const pid = req.params.id 
-    const updatedid = req.body.id
-    const Project = Projects.find(Project => Project.id === pid)
-    Project.id = updatedid
-    res.send(Projects)
+
+router.delete('/:id',async (req, res) => {
+    try {
+        const id = req.params.id
+        const X = await Project.findOne({'_id':id})
+        if(!X)
+        return res.status(404).send({error: 'Project does not exist'})
+        const deletedP = await Project.findByIdAndRemove(id)
+        res.json({msg:'Project was deleted successfully', data: deletedP})
+       }
+       catch(error) {
+           // We will be handling the error later
+           console.log(error)
+       }  
 })
 
-router.delete('/:id', (req, res) => {
-    const pid = req.params.id 
-    const P = Projects.find(Project => Project.id === pid)
-    const index = Projects.indexOf(P)
-    Projects.splice(index,1)
-    res.send(Projects)
-})
-
-router.put('/addSkill/:id',(req,res)=>{
+router.put('/addSkill/:id',async(req,res)=>{
 	const pid=req.params.id
-	const skill=req.body.skill
-	const P=Projects.find(Project => Project.id==pid)
-	P.extra_skills.push(skill);
-	res.send(Projects)
+	const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.addskill(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    X.extra_skills.push(req.body.Skill)
+    const updatedP=await X.updateOne({"extra_skills":X.extra_skills})
+    res.json({msg: 'Skill Added successfully'})
 })
 
-router.put('/addattrib/:id',(req,res)=>{
-	const pid=req.params.id
-	const attribute=req.body.attribute
-	const P=Projects.find(Project => Project.id==pid)
-	P.extra_attribute.push(attribute);
-	res.send(Projects)
+router.put('/addattrib/:id',async(req,res)=>{
+	 const pid=req.params.id
+     const X = await Project.findOne({'_id':pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.addattribute(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    X.extra_attributes.push(req.body.attribute)
+    const updatedP=await X.updateOne({"extra_attributes":X.extra_attributes})
+    res.json({msg: 'Attribute Added successfully'})
 })
 
-router.delete('/delskill/:id', (req, res) => {
-    const pid = req.params.id 
-    const P = Projects.find(Project => Project.id === pid)
-    P.extra_skills=[];
-    res.send(Projects)
+router.delete('/delskill/:id',async (req, res) => {
+    const pid=req.params.id
+	const X = await Project.findOne({"_id":pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.addskill(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    var result=[]
+    
+    for(var i=0;i<(X.extra_skills).length;i++){
+        if((X.extra_skills)[i]!=req.body.Skill)
+            result.push((X.extra_skills)[i])
+    }
+    
+    const updatedP=await X.updateOne({"extra_skills":result})
+    res.json({msg: 'Skill Deleted successfully'})
 })
-router.delete('/delattrib/:id', (req, res) => {
-    const pid = req.params.id 
-    const P = Projects.find(Project => Project.id === pid)
-    P.extra_attribute=[];
-    res.send(Projects)
+router.delete('/delattrib/:id',async (req, res) => {
+    const pid=req.params.id
+	const X = await Project.findOne({"_id":pid})
+    if(!X)
+    return res.status(404).send({error: 'Project does not exist'})
+    const isValidated = validator.addattribute(req.body)
+    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    var result=[]
+    
+    for(var i=0;i<(X.extra_attributes).length;i++){
+        if((X.extra_attributes)[i]!=req.body.attribute)
+            result.push((X.extra_attributes)[i])
+    }
+    const updatedP=await X.updateOne({"extra_attributes":result})
+    res.json({msg: 'Attribute Deleted successfully'})
+})
+router.get('/approved/NO',async  (req, res) => {
+    const Projects= await Project.find();
+    const result=[]
+    for(let i=0;i<Projects.length;i++){
+        if((Projects[i]).approved==false)
+            result.push(Projects[i])
+    }
+    res.json({ data: result})
+    })
+router.get('/approved/Yes',async  (req, res) => {
+    const Projects= await Project.find();
+    const result=[]
+    for(let i=0;i<Projects.length;i++){
+        if((Projects[i]).approved==true)
+            result.push(Projects[i])
+    }
+    res.json({ data: result})
+})
+router.put('/assign/:id',async (req,res)=>{
+    const pid=req.params.id
+    const memberid=req.body.memberid
+    const X= await Project.findOne({"_id":pid})
+    if(X.accepted_members_ids.length==X.members_needed)
+        return res.status(404).send({error: 'Project Team is Already Full'})
+
+    const result1=[]
+    const result2=X.accepted_members_ids
+    const newcount=X.current_members_count+1
+    result2.push(memberid)
+
+
+    for(let i=0;i<X.current_members_applied_ids.length;i++){   
+        if(X.current_members_applied_ids[i]!=memberid) 
+            result1.push(X.current_members_applied_ids[i])
+    }
+    await X.updateOne({"current_members_applied_ids":result1})
+    await X.updateOne({"accepted_members_ids":result2})
+    await X.updateOne({"current_members_count":newcount})
+    res.json({msg: 'Member is now applied to the Project'})
+
+})
+router.put('/apply/:id',async(req,res)=>{
+    const pid=req.params.id
+    const memberid=req.body.memberid
+    const X= await Project.findOne({"_id":pid})
+    if(X.accepted_members_ids.length==X.members_needed)
+        return res.status(404).send({error: 'Project Team is Already Full'})
+    result=(X.current_members_applied_ids).push(memberid)
+    await X.updateOne({"current_members_applied_ids":result})
+    res.json({msg:'Your requesnt to work on the project has been submitted'})
+})
+router.get('/Pending/projects',async(req,res)=>{
+    const X=await Project.find()
+    result=[]
+    for(let i=0;i<X.length;i++){
+        if(X[i].accepted_members_ids.length<X[i].members_needed&&X[i].current_members_applied_ids.length!=0&&X[i].status=='Allocation')
+            result.push(X[i])
+    }
+    res.json({data:result})
+})
+router.get('/Pending/member',async(req,res)=>{
+    const X=await Project.find()
+    result=[]
+    for(let i=0;i<X.length;i++){
+        if(X[i].current_members_applied_ids.length!=0)
+            result.push({Project:X[i]._id,candidates:X[i].current_members_applied_ids})
+    }
+    res.json({data:result})
 })
 
 module.exports = router;
+ 
