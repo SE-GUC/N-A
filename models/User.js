@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema
+
 
 const UserSchema = new Schema ({
    
@@ -24,9 +26,11 @@ const UserSchema = new Schema ({
         type: Date,
         required: true
     },
+
     Join_Date: { 
         type:Date,
         default: Date.now
+
      },
     
     Basic_Info: {
@@ -50,7 +54,9 @@ const UserSchema = new Schema ({
         },
     //For Consulting Agents
     Past_Events: {
+
             type: [String],
+
         },
     Reviews: {
         type: [String]
