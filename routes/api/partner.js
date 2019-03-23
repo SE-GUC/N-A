@@ -5,44 +5,44 @@ const Joi = require('joi');
 
 const router = express.Router();
 
-
+const validator = require('../../validations/partnerValidations');
 
 // Models
 
-const partner = require('../../models/partner');
 
 
+const partner = require('../../models/User');
 
 // temporary data created as if it was pulled out of the database ...
 
-const partners = [
-
-	new partner(1,'Barney', '1234','1/11/2010','configuration of website','barney@gmail.com'),
-
-    new partner(2,'Lilly', 'ahmed123','10/12/2009','remodling','lilly@gmail.com'),
-
-    new partner(3,'Ted', '7890','01/02/2002','modding','ted@gmail.com'),
-
-	new partner(4,'Marshal', "marshallyw",'13/02/2000','renewal','marshal@gmail.com'),
-
-	new partner(5,'Robin','robin23','13/02/2000','innovation and preformance','robin@gmail.com')
-
-];
 
 
 
-router.get('/', (req, res) => res.json({ data: partners }));
 
-router.get('/:partid',(req,res)=> {
+//router.get('/', (req, res) => res.json({ data: partners }));
+router.get('/',async  (req, res) => {
+
+
+ 
+    const partners= await partner.find();
+
+
+ 
+    res.json({ data: partners})
+
+
+ 
+    })
+router.get('/:partid',async(req,res)=> {
 
     const pid=req.params.partid;
     
 
-    const x=partners.find(partner => partner.partid==pid);
+    const x=await partner.findById(pid);
 
 	if(x==null)
           
-        res.send("pok");
+        res.send("it is not here");
         
        
 	else
@@ -58,132 +58,189 @@ router.get('/:partid',(req,res)=> {
 
 
 
-router.post('/joi', (req, res) => {
-    const partid=req.body.partid
-	const name = req.body.name
-    const password=req.body.password;
-    const joindate=req.body.joindate;
-    const basicinf=req.body.basicinf;
-    const email = req.body.email;
-    const pproject= req.body.pproject;
-    const boardmember=req.body.boardmember;
-
-	const schema = {
-
-		name: Joi.string().min(3).required(),
+router.post('/addpartner',async (req, res) => {
 
 
-
-	}
-
-    const partnerid = req.params.partid
-
-    const partner = partners.find(partner => partner.partid === partnerid)
-    temp.pprojects.push(pproject)
-    temp.boardmembers.push(boardmember)
+ 
+	const isValidated = validator.createValidation(req.body)
 
 
-	const result = Joi.validate(req.body, schema);
+ 
+    if (isValidated.error) 
 
 
+ 
+        return res.status(400).send({ error: isValidated.error.details[0].message })
 
-	if (result.error) return res.status(400).send({ error: result.error.details[0].message });
+
+ 
+    const X= await partner.create(req.body)
 
 
+ 
+	return res.json({ data: X});
 
-	const newpartner = {
 
-		partid,name,
-
-		password,joindate,basicinf,email,
-
-		
-
-	};
-
-	partners.push(newpartner)
-
-    return res.json({ data: P });
-
+ 
 });
 
 
 
-router.put('/name/:partid', (req, res) => {
+router.put('/FirstName/:partid',async (req, res) => {
 
 
  
     const pid = req.params.partid ;
 
-    const updatedname = req.body.name;
 
+    const x=await partner.findById(pid);
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationFirstName(req.body)
 
-    const x=partners.find(partner => partner.partid==pid);
-    x.name =updatedname
- 
-    res.send(partners)
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+
+    x.FirstName = req.body.FirstName
+      res.json({msg: 'partner is updated successfully',data:x })
 })
-router.put('/email/:partid', (req, res) => {
+router.put('/email/:partid',async (req, res) => {
 
 
  
     const pid = req.params.partid 
 
-    const newemail = req.body.email
+  
+ 
+    const x=await partner.findById(pid);
+    
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationemail(req.body)
 
- 
-    const x=partners.find(partner => partner.partid==pid);
-    x.email = newemail
- 
-    res.send(partners)
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+      x.email=req.body.email
+      res.json({msg: 'partner is updated successfully',data:x })
 })
 
-router.put('/password/:partid', (req, res) => {
+router.put('/password/:partid', async(req, res) => {
 
 
  
     const pid = req.params.partid 
 
-    const newpassword = req.body.password
+    
 
  
-    const x=partners.find(partner => partner.partid==pid);
-    x.password = newpassword
- 
-    res.send(partners)
+    const x=await partner.findById(pid);
+    
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationpassword(req.body)
+
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+    x.password=req.body.password
+      res.json({msg: 'partner is updated successfully',data:x })
 })
-router.put('/joindate/:partid', (req, res) => {
+router.put('/Join_Date/:partid', async(req, res) => {
 
 
  
     const pid = req.params.partid 
 
-    const newjoindate = req.body.joindate
+    
 
  
-    const x=partners.find(partner => partner.partid==pid);
-    x.joindate = newjoindate
- 
-    res.send(partners)
+    const x=await partner.findById(pid);
+    
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationJoin_Date(req.body)
+
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+    x.Join_Date=req.body.Join_Date
+      res.json({msg: 'partner is updated successfully',data:x })
 })
 
-router.put('/basicinf/:partid', (req, res) => {
+router.put('/Basic_Info/:partid', async(req, res) => {
 
 
  
     const pid = req.params.partid 
 
-    const newinfo = req.body.basicinf
+    
 
  
-    const x=partners.find(partner => partner.partid==pid);
-    x.basicinf = newinfo
+    const x=await partner.findById(pid)
+   
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationBasic_Info(req.body)
+
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+     x.Basic_Info=req.body.Basic_Info
+      res.json({msg: 'partner is updated successfully',data:x })
+})
+router.put('/LastName/:partid', async(req, res) => {
+
+
  
-    res.send(partners)
+    const pid = req.params.partid 
+
+    
+
+ 
+    const x=await partner.findById(pid)
+   
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationLastName(req.body)
+
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+     x.LastName=req.body.LastName
+      res.json({msg: 'partner is updated successfully',data:x })
 })
 
+router.put('/Birthdate/:partid', async(req, res) => {
 
-router.put('/partid/:partid', (req, res) => {
+
+ 
+    const pid = req.params.partid 
+
+    
+
+ 
+    const x=await partner.findById(pid)
+   
+    if(x==null)
+    return res.status(404).send({error: 'partner is not in the list'})
+   
+    const isValidated = validator.updateValidationBirthdate(req.body)
+
+    if (isValidated.error) 
+    return res.status(400).send({ error: isValidated.error.details[0].message })
+    
+     x.Birthdate=req.body.Birthdate
+      res.json({msg: 'partner is updated successfully',data:x })
+})
+
+/*router.put('/partid/:partid', async(req, res) => {
 
 
  
@@ -191,14 +248,14 @@ router.put('/partid/:partid', (req, res) => {
 
     const newpartid = req.body.partid
  
-    const x=partners.find(partner => partner.partid==pid);
+    const x=await partner.findById(pid)
     x.partid = newpartid
  
-    res.send(partners)
+    res.send(x)
 })
-
+*/
  
-router.put('/pproject/:partid',(req,res)=>{
+router.put('/pproject/:partid',async(req,res)=>{
 
 
  
@@ -210,15 +267,15 @@ router.put('/pproject/:partid',(req,res)=>{
 
 
  
-	const x=partners.find(partner => partner.partid==pid);
-	x.pprojects.push(pproject);
+	const x=await partner.findById(pid);
+	x.Past_Projects.push(pproject);
  
-	res.send(partners)
+	res.send(x)
 
 
  
 })
-router.put('/boardmembers/:partid',(req,res)=>{
+router.put('/BoardMembers/:partid',async(req,res)=>{
 
 
  
@@ -226,14 +283,14 @@ router.put('/boardmembers/:partid',(req,res)=>{
 
 
  
-	const boardmember=req.body.boardmember
+	const BoardMembers=req.body.BoardMembers
 
 
  
-	const x=partners.find(partner => partner.partid==pid);
-	x.pprojects.push(boardmember);
+	const x=await partner.findById(pid);
+	x.BoardMembers.push(BoardMembers);
  
-	res.send(partners)
+	res.send(x)
 
 
  
@@ -241,46 +298,53 @@ router.put('/boardmembers/:partid',(req,res)=>{
 
 
 
-router.delete('/deletepart/:partid', (req, res) => {
+router.delete('/deletepart/:partid',async (req, res) => {
 
     const partnerid = req.params.partid 
 
-    const x=partners.find(partner => partner.partid==pid);
+    const x = await partner.findByIdAndRemove(partnerid)
 
-    const index = partners.indexOf(x)
-
-    partners.splice(index,1)
-
-    res.send(partners)
+    res.send(x)
 
 })
 
-router.delete('/deleteproject/:partid', (req, res) => {
+router.delete('/deleteproject/:partid',async (req, res) => {
 
     const pid = req.params.partid 
 
-    const x=partners.find(partner => partner.partid==pid);
+    const x= await partner.findById(pid)
+    if(!X)
+ 
+    return res.status(404).send({error: 'partner does not exist'})
+ 
+    const isValidated = validator.addpastproject(req.body)
 
-    x.pprojects=[];
-
-    res.send(partners)
+    X.Past_Projects.delete(req.body.pproject)
+ 
+    res.json({msg: 'past project Deleted successfully',data:X})
 
 })
 
-router.delete('/deleteboardmem/:partid', (req, res) => {
+router.delete('/deleteboardmem/:partid',async (req, res) => {
 
     const pid = req.params.partid 
 
-    const x=partners.find(partner => partner.partid==pid);
+    const x=await partner.findById(pid)
 
-    x.boardmembers=[];
+    if(!X)
+ 
+    return res.status(404).send({error: 'partner does not exist'})
+ 
+    const isValidated = validator.addpastproject(req.body)
 
-    res.send(partners)
+    X.BoardMembers.delete(req.body)
+ 
+    res.json({msg: 'board member Deleted successfully',data:X})
 })
 
 
 module.exports = router;
 
 function newFunction() {
-    return 'updatedname';
+    return 'updatedFirstName';
 }
