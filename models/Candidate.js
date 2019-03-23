@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 
 // Candidate schema
 const CandidateSchema = new Schema({
+
     firstname: {
         type: String,
         required: true
@@ -26,19 +27,24 @@ const CandidateSchema = new Schema({
         required:true 
        },
     interests: {
-        type: [String]
+        type: [String],
+        default:[]
     },
     past_project: {
-        type: [String]
+        type: [String],
+        default:[]
     },
     certificates: {
-        type: [String]
+        type: [String],
+        default:[]
     },
     review: {
-        type: [String]
+        type: [String],
+        default:[]
     },
     skills: {
-        type: [String]
+        type: [String],
+        default:[]
     },
     joindate:{
        type:Date,
