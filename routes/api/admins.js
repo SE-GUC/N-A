@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
-const admin= require('../../models/admin');
+const admin= require('../../models/User.js');
 const validator = require('../../Validations/adminValidation.js')
 
 //Get all admins
