@@ -1,20 +1,54 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 const uuid = require('uuid')
 
-class location {
-    constructor(name,country,city,street,capacity,fee,status,available_from,available,till,photo_link,id) {
-        this.name = name;
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.capacity = capacity;
-        this.fee = fee;
-        this.status = status;
-        this.available_from = available_from;
-        this.available = available;
-        this.till = till;
-        this.photo_link = photo_link;
-        this.id = id;
-    };
-};
+const locationSchema = new Schema({
+    name: {
+        type: String,
+        required: false
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    street: {
+        type: String,
+        required: true
+    },
+    capacity: {
+        type: Number,
+        required: true
+    },
+    fee: {
+        type: Number,
+        required: false
+    },
+    status: {
+        type: String,
+        required: false
+    },
+    available_from: {
+        type: Date,
+        default: Date.now,
+        required: false
+    },
+    available: {
+        type: String,
+        required: false
+    },
+    till: {
+        type: Date,
+        default: Date.now,
+        required: false
+    },
+    photo_link: {
+        type: String,
+        required: false
+    }
+})
 
-module.exports = location
+module.exports = location = mongoose.model('locations', locationSchema)
