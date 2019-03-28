@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema
+
 
 const UserSchema = new Schema ({
    
@@ -24,6 +26,7 @@ const UserSchema = new Schema ({
         type: Date,
         required: true
     },
+
     Join_Date: { 
         type:Date,
         default: Date.now
@@ -34,7 +37,7 @@ const UserSchema = new Schema ({
     },
     User_Category :{
         type :String,
-        enum:['Admin','Member','Consulting_Agent ','Partner','Partner_CoWorkingSpace'],
+        enum:['Admin','Member','Consulting_Agent','Partner','Partner_CoWorkingSpace'],
         required:true
     },
     Certificates: {
@@ -73,7 +76,7 @@ const UserSchema = new Schema ({
         type: [String],
     },
     Rooms: {
-        type: Number
+        type: [String]
     },
     Facilites: {
         type: [String],
