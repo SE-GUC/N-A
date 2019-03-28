@@ -33,6 +33,39 @@ router.delete('/:id', async (req,res) => {
         console.log(error)
     }  
  })
+ //Get all Admins
+router.get('/', async (req,res) => {
+  const Admins = await Admin.find()
+  res.json({data: Admins})
+});
+// Get a certain Admin 
+router.get('/:id',(req,res)=>{
+  // Primary Key of Todo Document we wish to update
+  const todoID = req.params.id;
+  // Document used to update
+  // Find Document By ID and Update
+  Admin.findOneAndUpdate({_id :todoID},{},{returnOriginal :true},(err,result)=>{
+	  if(err)
+		  console.log(err);
+	  else{
+		  res.json(result);
+	  }
+	})   });
+// Create a new Admin
+ router.post('/', async (req,res) => {
+	try {
+		const isValidated = validator.createValidation(req.body)
+		if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+		const newAdmin = await Admin.create(req.body)
+
+		res.json({msg:'Admin was created successfully', data: newAdmin})
+	   }
+	   catch(error) {
+		   // We will be handling the error later
+		   console.log(error)
+	   }  
+  }
+  )
 module.exports = router;
 
 
