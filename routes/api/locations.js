@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
-const location= require('../../models/location');
-const validator = require('../../Validations/locationValidation.js')
+const location= require('../../models/Location');
+const validator = require('../../validations/locationValidation.js')
 
 //Get all locations
 router.get('/', async (req,res) => {
