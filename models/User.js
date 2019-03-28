@@ -38,7 +38,7 @@ const UserSchema = new Schema ({
     },
     User_Category :{
         type :String,
-        enum:['Admin','Member','Consulting_Agent ','Partner','Partner_CoWorkingSpace'],
+        enum:['Admin','Member','Consulting_Agent','Partner','Partner_CoWorkingSpace'],
         required:true
     },
     Certificates: {

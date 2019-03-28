@@ -5,16 +5,13 @@ const mongoose = require('mongoose')
 const consultancyAgency = require('../../models/User');
 const validator = require('../../Validations/consultancyAgencyValidation')
 
-// Models
-// Instead of app use route
-// No need to write the full route
-// res.json() Automatically sends a status of 200
 
 // Get all consultancy Agencies
 router.get('/', async (req,res) => {
     const consultancyAgencies = await consultancyAgency.find()
     res.json({data: consultancyAgencies})
 });
+
 // Get a consultancy Agency
 router.get('/:id',(req,res)=>{
 	// Primary Key of Todo Document we wish to update
@@ -43,20 +40,26 @@ router.post('/', async (req,res) => {
 		   console.log(error)
 	   }  
 	})
+
 // Update a ConsultancyAgency
 router.put('/:id',(req,res)=>{
 	const todoID = req.params.id;
-	if(req.body.name)
-	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{name: req.body.name}},{new :true},(err,result)=>{})
+	if(req.body.FirstName)
+	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{FirstName: req.body.FirstName}},{new :true},(err,result)=>{})
+	if(req.body.LastName)
+	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{LastName: req.body.LastName}},{new :true},(err,result)=>{})
 	if(req.body.email)
 	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{})
 	if(req.body.password)
 	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{password:req.body.password}},{new :true},(err,result)=>{})
-	  res.json({msg:'consultancyAgency updated'})
 	if(req.body.Basic_Info)
 	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{Basic_Info:req.body.Basic_Info}},{new :true},(err,result)=>{})
-  });
-// Delete a book
+	if(req.body.Birthdate)
+	consultancyAgency.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
+	res.json({msg:'consultancyAgency updated'})
+	});
+	
+// Delete a ConsultancyAgency 
 router.delete('/:id', async (req,res) => {
     try {
      const id = req.params.id
@@ -68,22 +71,26 @@ router.delete('/:id', async (req,res) => {
         console.log(error)
     }  
  })
+ 
+ //Add new BoardMember
  router.post('/BoardMembers/:id', async (req, res) => {
 	const todoID = req.params.id;
 				if(req.body.BoardMembers)
 				consultancyAgency.findOneAndUpdate({_id :todoID},{$push: {BoardMembers:req.body.BoardMembers}},{new :true},(err,result)=>{})
 					
-						res.json({msg:'done'});
-				  });
-
+						res.json({msg:'A Board member was added'});
+					});
+					
+ //Add new Past_Event
 router.post('/Past_Events/:id', async (req, res) => {
 	const todoID = req.params.id;
 			if(req.body.Past_Events)
 				consultancyAgency.findOneAndUpdate({_id :todoID},{$push: {Past_Events:req.body.Past_Events}},{new :true},(err,result)=>{})
 									
-				res.json({msg:'done'});
-			  });	  
-
+				res.json({msg:'A Past Event was added'});
+				});	 
+				 
+ //Get a Past_Event
  router.get('/Past_Events/:id',async  (req, res) => {
 		const consultancyAgencies= await consultancyAgency.find();
 		const result=[]
@@ -92,9 +99,11 @@ router.post('/Past_Events/:id', async (req, res) => {
 			}
 			res.json({ data: result})
 		})
-		router.delete('/Past_Events/:id',async (req, res) => {
-			const consultancyAgencyid=req.params.id
-			const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
+
+//Delete a Past_Event
+router.delete('/Past_Events/:id',async (req, res) => {
+		const consultancyAgencyid=req.params.id
+		const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
 			if(!X)
 			return res.status(404).send({error: 'consultancyAgency does not exist'})
 			if (req.body.Past_Events) {
@@ -105,10 +114,10 @@ router.post('/Past_Events/:id', async (req, res) => {
 					result.push((X.Past_Events)[i])
 			}
 			consultancyAgency.findOneAndUpdate({_id :consultancyAgencyid},{$set :{Past_Events: result}},{new :true},(err,result)=>{})
-						res.json({msg: 'Attribute Deleted successfully'})
+						res.json({msg: 'Past_Event Deleted successfully'})
 		}})
-				
- router.get('/BoardMembers/:id',async  (req, res) => {
+//Get a BoardMember				
+router.get('/BoardMembers/:id',async  (req, res) => {
 		const consultancyAgencies= await consultancyAgency.find();
 			const result=[]
 				for(let i=0;i<consultancyAgencies.length;i++){
@@ -116,10 +125,11 @@ router.post('/Past_Events/:id', async (req, res) => {
 					}
 					res.json({ data: result})
 			})
-
-			router.delete('/BoardMembers/:id',async (req, res) => {
-				const consultancyAgencyid=req.params.id
-				const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
+	
+	//Delete a BoardMember				
+		router.delete('/BoardMembers/:id',async (req, res) => {
+			const consultancyAgencyid=req.params.id
+			const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
 				if(!X)
 				return res.status(404).send({error: 'consultancyAgency does not exist'})
 				if (req.body.BoardMembers) {
@@ -130,9 +140,10 @@ router.post('/Past_Events/:id', async (req, res) => {
 						result.push((X.BoardMembers)[i])
 				}
 				consultancyAgency.findOneAndUpdate({_id :consultancyAgencyid},{$set :{BoardMembers: result}},{new :true},(err,result)=>{})
-							res.json({msg: 'Attribute Deleted successfully'})
+							res.json({msg: 'BoardMember Deleted successfully'})
 			}})
-
+		 
+	//Update a BoardMember
 			router.put('/BoardMembers/:id',async (req, res) => {
 				const consultancyAgencyid=req.params.id
 				const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
@@ -149,9 +160,10 @@ router.post('/Past_Events/:id', async (req, res) => {
 
 				}
 				consultancyAgency.findOneAndUpdate({_id :consultancyAgencyid},{$set :{BoardMembers: result}},{new :true},(err,result)=>{})
-							res.json({msg: 'Attribute Updated successfully'})
+							res.json({msg: 'BoardMember Updated successfully'})
 			}})
-	
+				
+			//Update a Past_Event
 			router.put('/Past_Events/:id',async (req, res) => {
 				const consultancyAgencyid=req.params.id
 				const X = await consultancyAgency.findOne({"_id":consultancyAgencyid})
@@ -168,6 +180,6 @@ router.post('/Past_Events/:id', async (req, res) => {
 
 				}
 				consultancyAgency.findOneAndUpdate({_id :consultancyAgencyid},{$set :{Past_Events: result}},{new :true},(err,result)=>{})
-							res.json({msg: 'Attribute Updated successfully'})
+							res.json({msg: 'Past_Event Updated successfully'})
 			}})
 module.exports = router;
