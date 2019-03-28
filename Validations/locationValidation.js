@@ -27,4 +27,8 @@ module.exports = {
 
         return Joi.validate(request, updateSchema)
     }, 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a

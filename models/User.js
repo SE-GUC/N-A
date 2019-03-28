@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const Schema = mongoose.Schema
 
+=======
+
+const Schema = mongoose.Schema
+
+
+>>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
 const UserSchema = new Schema ({
    
     email: {
@@ -24,9 +31,17 @@ const UserSchema = new Schema ({
         type: Date,
         required: true
     },
+<<<<<<< HEAD
     Join_Date: { 
         type:Date,
         default: Date.now
+=======
+
+    Join_Date: { 
+        type:Date,
+        default: Date.now
+
+>>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
      },
     
     Basic_Info: {
@@ -50,7 +65,13 @@ const UserSchema = new Schema ({
         },
     //For Consulting Agents
     Past_Events: {
+<<<<<<< HEAD
             type: [String],
+=======
+
+            type: [String],
+
+>>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
         },
     Reviews: {
         type: [String]
@@ -79,4 +100,8 @@ const UserSchema = new Schema ({
         type: [String],
     }
 })
+<<<<<<< HEAD
 module.exports = User = mongoose.model('users', UserSchema)
+=======
+module.exports = User = mongoose.model('users', UserSchema)
+>>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
