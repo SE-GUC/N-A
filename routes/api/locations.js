@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
-const location= require('../../models/location');
+const location= require('../../models/Location');
 const validator = require('../../Validations/locationValidation.js')
 
 //Get all locations
