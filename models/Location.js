@@ -51,8 +51,12 @@ const locationSchema = new Schema({
     }
 })
 
+<<<<<<< HEAD:models/location.js
 <<<<<<< HEAD
 module.exports = location = mongoose.model('locations', locationSchema)
 =======
 module.exports = location = mongoose.model('locations', locationSchema)
 >>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
+=======
+module.exports = location = mongoose.model('locations', locationSchema)
+>>>>>>> 395f8c8a9b12f68229fd82f0f09d15009980cb00:models/Location.js
