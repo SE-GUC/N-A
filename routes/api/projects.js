@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Project = require('../../models/Project');
 //const User = require('../../models/User');
-const validator = require('../../validations/ProjectValidations')
+const validator = require('../../validations/projectValidations')
 
 
 router.get('/',async  (req, res) => {
