@@ -5,7 +5,7 @@ const Joi = require('joi');
 
 const router = express.Router();
 
-const validator = require('../../validations/partnerValidations');
+const validator = require('../../validations/partnervalidations');
 // Models
 
 
