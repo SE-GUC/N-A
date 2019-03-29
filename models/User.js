@@ -38,7 +38,7 @@ const UserSchema = new Schema ({
     },
     User_Category :{
         type :String,
-        enum:['Admin','Member','Consulting_Agent ','Partner','Partner_CoWorkingSpace'],
+        enum:['Admin','Member','Consulting_Agent','Partner','Partner_CoWorkingSpace'],
         required:true
     },
     Certificates: {
@@ -58,8 +58,8 @@ const UserSchema = new Schema ({
             type: [String],
 
         },
-    Reviews: {
-        type: [String]
+    Avg_Rating: {
+        type: Number
     },
     Intrests: {
         type: [String]
@@ -70,17 +70,14 @@ const UserSchema = new Schema ({
     Skills: {
         type: [String]
     },
-    Ratings:{
-        type :String,
-        enum:['1','2','3','4','5'],
-    },
+    //Ratings:{
+    //   type: [Rating]
+    //},
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {
         type: [String],
     },
-    Rooms: {
-        type: Number
-    },
+    
     Facilites: {
         type: [String],
     }

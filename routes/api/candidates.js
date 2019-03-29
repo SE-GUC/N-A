@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
 const Candidate= require('../../models/User');
-const validator = require('../../Validations/CandidateValidation')
+const validator = require('../../validations/candidateValidation')
 //Get all Candidates
 router.get('/', async (req,res) => {
     const Candidates = await Candidate.find()

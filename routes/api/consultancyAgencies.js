@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
 const consultancyAgency = require('../../models/User');
-const validator = require('../../Validations/consultancyAgencyValidation')
+const validator = require('../../validations/consultancyAgencyValidation')
 
 // Models
 // Instead of app use route

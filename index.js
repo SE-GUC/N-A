@@ -17,12 +17,12 @@ app.use(cors())
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
 const admins = require('./routes/api/admins')
-const Co_working_spaces = require('./routes/api/Co_working_spaces')
+const Co_working_spaces = require('./routes/api/co_working_spaces')
 //const messages = require('./routes/api/messages')
 //const notifications = require('./routes/api/notifications')
-const projects = require('./routes/api/Projects')
+const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
-const Candidate = require('./routes/api/Candidates')
+const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
 
 
@@ -48,12 +48,12 @@ app.get('/', (req, res) => {
 
 app.use('/api/consultancyAgencies', consultancyAgencies)
 app.use('/api/admins', admins)
-app.use('/api/Co_working_spaces', Co_working_spaces)
+app.use('/api/co_working_spaces', Co_working_spaces)
 app.use('/api/partner', partner)
-app.use('/api/Candidates',Candidate)
+app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
-app.use('/api/Projects',projects)
+app.use('/api/projects',projects)
 app.use('/api/locations',locations)
 
 
