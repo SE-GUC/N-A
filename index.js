@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
+const cors = require('cors')
 const db = require('./config/keys').mongoURI
 // Connect to mongo
 mongoose
@@ -12,7 +13,7 @@ mongoose
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-
+app.use(cors())
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
 const admins = require('./routes/api/admins')
