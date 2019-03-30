@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const uuid = require('uuid')
+const Reservation= require('./Reservation');
+const Calender_entry= require('./Calender_entry');
 
 const locationSchema = new Schema({
     name: {
@@ -26,37 +28,25 @@ const locationSchema = new Schema({
     fee: {
         type: Number,
         required: false
-    },
+    },/*
     status: {
         type: String,
         required: false
-    },
-    available_from: {
-        type: Date,
-        default: Date.now,
-        required: false
-    },
-    available: {
-        type: String,
-        required: false
-    },
-    till: {
-        type: Date,
-        default: Date.now,
-        required: false
-    },
+    },*/
     photo_link: {
         type: String,
+        required: false
+    },
+    reservations: {
+        type: [Schema.Types.Reservation],
+        required: false
+    },
+    calender_entries: {
+        type: [Schema.Types.Calender_entry],
         required: false
     }
 })
 
-<<<<<<< HEAD:models/location.js
-<<<<<<< HEAD
 module.exports = location = mongoose.model('locations', locationSchema)
-=======
-module.exports = location = mongoose.model('locations', locationSchema)
->>>>>>> 98fdd8192b06b0d4daea57bba11540a4aadbb45a
-=======
-module.exports = location = mongoose.model('locations', locationSchema)
->>>>>>> 395f8c8a9b12f68229fd82f0f09d15009980cb00:models/Location.js
+
+
