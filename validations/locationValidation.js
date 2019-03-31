@@ -16,7 +16,7 @@ module.exports = {
     updateValidation: request => {
         const updateSchema = {
             name: Joi.string().min(3).max(500),
-            status: Joi.string().min(3).max(500),
+            //status: Joi.string().min(3).max(500),
             photo_link: Joi.string().min(3).max(500),
             fee: Joi.number().min(3).max(500),
             //calender_entries: Joi.array(),
