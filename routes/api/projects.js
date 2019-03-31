@@ -226,8 +226,8 @@ router.delete('/:id',async (req, res) => {
     try {
         const id = req.params.id
         const X = await Project.findOne({'_id':id})
-        if(!X)
-        return res.status(404).send({error: 'Project does not exist'})
+        if(!X){
+        return res.status(404).send({error: 'Project does not exist'})}
         if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
             return res.status(400).send({error: 'The Project cannot be Deleted anymore'})
         }
@@ -371,7 +371,7 @@ router.put('/apply/:id',async(req,res)=>{
     await X.updateOne({"current_members_applied_ids":result})
     res.json({msg:'Your requesnt to work on the project has been submitted'})
 })
-router.get('/Pending/projects',async(req,res)=>{
+router.get('/Pending/projects',async(req,res)=>{ //Projects that members applied to but still not approved
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
@@ -380,11 +380,11 @@ router.get('/Pending/projects',async(req,res)=>{
     }
     res.json({data:result})
 })
-router.get('/Pending/member',async(req,res)=>{
+router.get('/Pending/member',async(req,res)=>{ // returns for each project the members who applied to it
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
-        if(X[i].current_members_applied_ids.length!=0)
+        if(X[i].current_members_applied_ids.length!=0 && X[i].status=='Allocation')
             result.push({Project:X[i]._id,candidates:X[i].current_members_applied_ids})
     }
     res.json({data:result})
@@ -417,19 +417,20 @@ router.get('/View/myprojects',async(req,res)=>{
     }
     res.json({data:result})
 })
-router.get('/View/myprojects',async(req,res)=>{
-    const id=req.body.id
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].partner_id==id||(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==id)||X[i].accepted_members_ids.includes(id))
-            result.push(X[i])
-    }
-    res.json({data:result})
-})
-router.get('/certified/:id',async(req,res)=>{
+// router.get('/View/myprojects',async(req,res)=>{
+//     const id=req.body.id
+//     const X=await Project.find()
+//     result=[]
+//     for(let i=0;i<X.length;i++){
+//         if(X[i].partner_id==id||(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==id)||X[i].accepted_members_ids.includes(id))
+//             result.push(X[i])
+//     }
+//     res.json({data:result})
+// })
+router.post('/certified/:id',async(req,res)=>{
     const pid=req.params.id
     const mem_id=req.body.id
+    //console.log(mem_id)
     const X=await Project.findOne({"_id":pid})
     const Y=await User.findOne({"_id":mem_id})
     
@@ -446,5 +447,6 @@ router.get('/certified/:id',async(req,res)=>{
     res.json({data:true})
     }
 })
+
 module.exports = router;
  

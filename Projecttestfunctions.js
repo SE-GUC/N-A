@@ -5,6 +5,10 @@ const functions = {
     const Project = await axios.get('http://localhost:3000/api/projects/')
     return Project
     },
+    getProjectID: async (id) => {
+        const Project = await axios.get('http://localhost:3000/api/projects/'+id)
+        return Project
+        },
     InsertProject:async()=>{
      return   axios.post('http://localhost:3000/api/projects/', {
             name: 'jtest1',
@@ -17,13 +21,13 @@ const functions = {
     },
     updateName:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/name/5ca0305c5bb45716a83a51b5', {
-               name: 'jtest2',
+           "name": 'jtestupname'
                
            })
        },
     updatestatus:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/status/5ca0305c5bb45716a83a51b5', {
-               status: 'Allocation',
+               status: 'Review',
                
            })
        },
@@ -41,26 +45,26 @@ const functions = {
        },
     updateexp_level:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/exp_level/5ca0305c5bb45716a83a51b5', {
-               exp_level: 'expert',
+            least_exp_level_needed: 'expert',
                
            })
        },
 
     updatecomitment_level:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/comitment_level/5ca0305c5bb45716a83a51b5', {
-            comitment_level: '5 days a week',
+            comitment_level_needed: '5 days a week',
                
            })
        },
     updateprice:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/price/5ca0305c5bb45716a83a51b5', {
-            price: '500',
+            price: 500,
                
            })
        },  
     updatePaymentType:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/PaymentType/5ca0305c5bb45716a83a51b5', {
-            PaymentType: 'Other',
+            Payment_Type: 'Other',
                
            })
        },
@@ -78,7 +82,7 @@ const functions = {
        },        
     updateMembersNeeded:async()=>{
         return  await axios.put('http://localhost:3000/api/projects/MembersNeeded/5ca0305c5bb45716a83a51b5', {
-            MembersNeeded: '999',
+            members_needed: 999,
                
            })
        },
@@ -89,7 +93,77 @@ const functions = {
                
            })
        },
-
-    
+    delete_project:async(idx)=>{
+       
+       
+        return  await axios.delete('http://localhost:3000/api/projects/'+idx)  
+        
+    },
+    Addskill:async()=>{
+        return  await axios.put('http://localhost:3000/api/projects/addSkill/5ca0305c5bb45716a83a51b5', {
+            Skill: 'jtestaddskill',
+               
+           })
+       },
+    Addattrib:async()=>{
+        return  await axios.put('http://localhost:3000/api/projects/addattrib/5ca0305c5bb45716a83a51b5', {
+            attribute: 'attributejtest',
+               
+           })
+       },
+    DELskill:async()=>{
+        return  await axios.delete('http://localhost:3000/api/projects/delskill/5ca0305c5bb45716a83a51b5',{
+        data:{
+        Skill: 'jtestaddskill'
+        }      
+           })
+       },
+    DELattrib:async()=>{
+        return  await axios.delete('http://localhost:3000/api/projects/delattrib/5ca0305c5bb45716a83a51b5', {
+        data:{   
+        attribute: 'attributejtest',
+        }     
+           })
+       },
+    notyet:async()=>{
+        const Project = await axios.get('http://localhost:3000/api/projects/approved/notyet')
+        return Project
+    },
+    Approved:async()=>{
+        const Project = await axios.get('http://localhost:3000/api/projects/approved/Yes')
+        return Project
+    },
+    DissApproves:async()=>{
+        const Project = await axios.get('http://localhost:3000/api/projects/approved/No')
+        return Project
+    },
+    Apply:async()=>{
+        return await axios.put('http://localhost:3000/api/projects/apply/5ca0305c5bb45716a83a51b5',{
+            
+                memberid:"jtestmemberid"
+         })
+    },
+    Assign:async()=>{
+        return  await axios.put('http://localhost:3000/api/projects/assign/5ca0305c5bb45716a83a51b5',{
+            
+            memberid:"jtestmemberid"
+         })
+    },
+    NeedCon:async()=>{
+      return await axios.get('http://localhost:3000/api/projects/Consultancy/needed')
+    },
+    Pending:async()=>{
+        return  await axios.get('http://localhost:3000/api/projects/Pending/member')
+    },
+    Avalible:async()=>{
+        return  await axios.get('http://localhost:3000/api/projects/View/Avalible')
+    },
+    Certified:async()=>{
+        return  await axios.post('http://localhost:3000/api/projects/certified/5c95271ff92aa8054c9a00dd',{
+            
+                id:"5c9fea1562abd31b80a766c7"
+            
+        })
+    }
 };
 module.exports = functions;

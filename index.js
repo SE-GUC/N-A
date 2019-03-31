@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const db = require('./config/keys').mongoURI
+const cors = require('cors')
 // Connect to mongo
 mongoose
     .connect(db)
@@ -12,6 +13,7 @@ mongoose
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
