@@ -191,6 +191,10 @@ test('adds 1 + 2 to be 3', () => {
     expect(x.data.data[0].email).toEqual(expected.email)
 
   });
+  test('candidate delete', async () => {
+    const user =  await funcs.deletebmember();
+    expect(user.data).toEqual({msg:'Candidate was deleted successfully'})
+  });
   /*test(`Admin's board member was deleted ' `, async () => {
 
     
