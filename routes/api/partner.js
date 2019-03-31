@@ -6,7 +6,6 @@ const Joi = require('joi');
 const router = express.Router();
 
 const validator = require('../../validations/partnerValidations');
-
 // Models
 
 
@@ -101,9 +100,9 @@ router.put('/FirstName/:partid',async (req, res) => {
 
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
-
-    x.FirstName = req.body.FirstName
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+      res.json({data: y })
 })
 router.put('/email/:partid',async (req, res) => {
 
@@ -123,8 +122,9 @@ router.put('/email/:partid',async (req, res) => {
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
     
-      x.email=req.body.email
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+    res.json({msg: 'partner is updated successfully',data:y })
 })
 
 router.put('/password/:partid', async(req, res) => {
@@ -145,9 +145,9 @@ router.put('/password/:partid', async(req, res) => {
 
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
-    
-    x.password=req.body.password
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+      res.json({msg: 'partner is updated successfully',data:y })
 })
 router.put('/Join_Date/:partid', async(req, res) => {
 
@@ -167,9 +167,9 @@ router.put('/Join_Date/:partid', async(req, res) => {
 
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
-    
-    x.Join_Date=req.body.Join_Date
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+      res.json({msg: 'partner is updated successfully',data:y })
 })
 
 router.put('/Basic_Info/:partid', async(req, res) => {
@@ -191,8 +191,9 @@ router.put('/Basic_Info/:partid', async(req, res) => {
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
     
-     x.Basic_Info=req.body.Basic_Info
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+      res.json({msg: 'partner is updated successfully',data:y })
 })
 router.put('/LastName/:partid', async(req, res) => {
 
@@ -213,8 +214,9 @@ router.put('/LastName/:partid', async(req, res) => {
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
     
-     x.LastName=req.body.LastName
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+    res.json({msg: 'partner is updated successfully',data:y })
 })
 
 router.put('/Birthdate/:partid', async(req, res) => {
@@ -236,8 +238,9 @@ router.put('/Birthdate/:partid', async(req, res) => {
     if (isValidated.error) 
     return res.status(400).send({ error: isValidated.error.details[0].message })
     
-     x.Birthdate=req.body.Birthdate
-      res.json({msg: 'partner is updated successfully',data:x })
+    const updatedpartner = await x.updateOne(req.body)
+    const y = await partner.findById(pid);
+    res.json({msg: 'partner is updated successfully',data:y })
 })
 
 /*router.put('/partid/:partid', async(req, res) => {
@@ -264,10 +267,12 @@ router.put('/pproject/:partid',async(req,res)=>{
 
 
  
-	const x=await partner.findById(pid);
-	x.Past_Projects.push(pproject);
- 
-	res.send(x)
+    const x=await partner.findById(pid);
+    x.Past_Projects.push(pproject)
+    const updatedP=await x.updateOne({"Past_Projects":x.Past_Projects})
+    const y = await partner.findById(pid);
+    res.json({data:y})
+	
 
 
  
@@ -284,11 +289,12 @@ router.put('/BoardMembers/:partid',async(req,res)=>{
 
 
  
-	const x=await partner.findById(pid);
-	x.BoardMembers.push(BoardMembers);
- 
-	res.send(x)
-
+    const X=await partner.findById(pid);
+    X.BoardMembers.push(BoardMembers)
+    const updatedP=await X.updateOne({"BoardMembers":X.BoardMembers})
+    const y = await partner.findById(pid);
+    res.json({data:y})
+    
 
  
 })
@@ -309,16 +315,32 @@ router.delete('/deleteproject/:partid',async (req, res) => {
 
     const pid = req.params.partid 
 
-    const x= await partner.findById(pid)
+    const X= await partner.findById(pid)
     if(!X)
- 
+    
     return res.status(404).send({error: 'partner does not exist'})
  
     const isValidated = validator.addpastproject(req.body)
 
-    X.Past_Projects.delete(req.body.pproject)
- 
-    res.json({msg: 'past project Deleted successfully',data:X})
+    var result=[]
+
+    
+
+    for(var i=0;i<(X.Past_Projects).length;i++){
+
+        if((X.Past_Projects)[i]!=req.body.pproject)
+
+            result.push((X.Past_Projects)[i])
+
+    }
+
+    
+
+    const updatedP=await X.updateOne({"Past_Projects":result})
+
+    const y = await partner.findById(pid);
+    
+    res.json({msg: 'past project Deleted successfully',data:y})
 
 })
 
@@ -326,7 +348,7 @@ router.delete('/deleteboardmem/:partid',async (req, res) => {
 
     const pid = req.params.partid 
 
-    const x=await partner.findById(pid)
+    const X=await partner.findById(pid)
 
     if(!X)
  
@@ -334,9 +356,26 @@ router.delete('/deleteboardmem/:partid',async (req, res) => {
  
     const isValidated = validator.addpastproject(req.body)
 
-    X.BoardMembers.delete(req.body)
- 
-    res.json({msg: 'board member Deleted successfully',data:X})
+    var result=[]
+
+    
+
+    for(var i=0;i<(X.BoardMembers).length;i++){
+
+        if((X.BoardMembers)[i]!=req.body.BoardMembers)
+
+            result.push((X.BoardMembers)[i])
+
+    }
+
+    
+
+    const updatedP=await X.updateOne({"BoardMembers":result})
+
+    const y = await partner.findById(pid);
+    
+    res.json({msg: 'past project Deleted successfully',data:y})
+
 })
 
 
