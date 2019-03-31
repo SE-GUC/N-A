@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-
+const Rating =require('././Rating');
 const Schema = mongoose.Schema
-
-
 const UserSchema = new Schema ({
    
     email: {
@@ -30,6 +28,7 @@ const UserSchema = new Schema ({
     Join_Date: { 
         type:Date,
         default: Date.now
+
      },
     
     Basic_Info: {
@@ -55,8 +54,8 @@ const UserSchema = new Schema ({
     Past_Events: {
             type: [String],
         },
-    Reviews: {
-        type: [String]
+    Avg_Rating: {
+        type: Number
     },
     Intrests: {
         type: [String]
@@ -68,16 +67,13 @@ const UserSchema = new Schema ({
         type: [String]
     },
     Ratings:{
-        type :String,
-        enum:['1','2','3','4','5'],
+       type: [Schema.Types.Rating]     
     },
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {
         type: [String],
     },
-    Rooms: {
-        type: [String]
-    },
+    
     Facilites: {
         type: [String],
     }

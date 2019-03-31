@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
-
+const passport = require('passport')
+const cors = require('cors')
 // Require Router Handlers
-const Candidate = require('./routes/api/Candidates')
+const Candidate = require('./routes/api/candidates')
 const app = express()
 
 // DB Config
@@ -17,6 +18,7 @@ mongoose
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 
 // Entry point

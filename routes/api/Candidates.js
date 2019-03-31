@@ -56,7 +56,7 @@ router.delete('/:id', async (req,res) => {
     try {
      const id = req.params.id
      const deletedCandidate = await Candidate.findByIdAndRemove(id)
-     res.json({msg:'Candidate was deleted successfully', data: deletedCandidate})
+     res.json({msg:'Candidate was deleted successfully'})
     }
     catch(error) {
         // We will be handling the error later
@@ -65,9 +65,11 @@ router.delete('/:id', async (req,res) => {
  })
 //get interests
 router.get('/interests/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id)
 			result.push(Candidates[i].Intrests)
 		}
 		res.json({ data: result})
@@ -79,7 +81,6 @@ router.post('/interests/:id', async (req, res) => {
 				Candidate.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.interest}},{new :true},(err,result)=>{})
 				res.json({msg:'done'});
 			}
-					
 				  });
 //delete interests
 router.delete('/interests/:id',async (req, res) => {
@@ -117,9 +118,11 @@ router.put('/interests/:id',async (req, res) => {
 }})
 //get project
 router.get('/projects/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id)
 			result.push(Candidates[i].Past_Projects)
 		}
 		res.json({ data: result})
@@ -168,9 +171,11 @@ router.post('/projects/:id',async (req, res) => {
 				  });
 //get Certificates
 router.get('/Certificates/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id)
 			result.push(Candidates[i].Certificates)
 		}
 		res.json({ data: result})
@@ -219,9 +224,11 @@ router.put('/Certificates/:id',async (req, res) => {
 }})
 //get Skills
 router.get('/Skills/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id)
 			result.push(Candidates[i].Skills)
 		}
 		res.json({ data: result})
@@ -269,61 +276,68 @@ router.put('/Skills/:id',async (req, res) => {
 	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Skills: result}},{new :true},(err,result)=>{})
 				res.json({msg: 'Attribute Updated successfully'})
 }})
-//get Reviewss
-router.get('/Reviews/:id',async  (req, res) => {
+//Get Ratings
+router.get('/rating/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-			result.push(Candidates[i].Reviews)
+		if(Candidates[i]._id==id)
+			result.push(Candidates[i].Ratings)
 		}
 		res.json({ data: result})
 	})
-//add Reviewses
-router.post('/Reviews/:id', async(req, res) => {
+// Create a new Rating
+router.post('/rating/:id',async (req, res) => {
 	const todoID = req.params.id;
-				if(req.body.Reviews){
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {Reviews:req.body.Reviews}},{new :true},(err,result)=>{})
-					
+				if(req.body.rating)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Ratings:req.body.rating}},{new :true},(err,result)=>{})
 						res.json({msg:'done'});
- } });
-//delete Reviewses
-router.delete('/Reviews/:id',async (req, res) => {
+				  });
+// update a certain Rating
+router.put('/rating/:id',async (req, res) => {
 	const Candidateid=req.params.id
 	const X = await Candidate.findOne({_id:Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
-	if (req.body.Reviews) {
-	var result=[]
-
-	for(var i=0;i<(X.Reviews).length;i++){
-		if((X.Reviews)[i]!=req.body.Reviews)
-			result.push((X.Reviews)[i])
-	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Reviews: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
-}})
-//update Reviewses
-router.put('/Reviews/:id',async (req, res) => {
-	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
-	if(!X)
-	return res.status(404).send({error: 'does not exist'})
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
-
-	for(var i=0;i<(X.Reviews).length;i++){
-		if((X.Reviews)[i]==req.body.oldvalue)
+	for(var i=0;i<(X.Ratings).length;i++){
+		if((X.Ratings)[i]==req.body.oldvalue)
 			result.push(req.body.newvalue)
 			else
-			result.push(X.Reviews[i])
-
+			result.push(X.Ratings[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Reviews: result}},{new :true},(err,result)=>{})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Ratings: result}},{new :true},(err,result)=>{})
 				res.json({msg: 'Attribute Updated successfully'})
 }})
-
-
-
-
+  // delete a certain Rating
+	router.delete('/rating/:id',async (req, res) => {
+		const Candidateid=req.params.id
+		const X = await Candidate.findOne({_id:Candidateid})
+		if(!X)
+		return res.status(404).send({error: 'does not exist'})
+		if (req.body.Ratings) {
+		var result=[]
+		for(var i=0;i<(X.Ratings).length;i++){
+			if((X.Ratings)[i]!=req.body.Ratings)
+				result.push((X.Ratings)[i])
+		}
+		Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Ratings: result}},{new :true},(err,result)=>{})
+					res.json({msg: 'Attribute Deleted successfully'})
+	}})
+//get avg Ratings
+router.get('/ratingsavg/:id',async  (req, res) => {
+	const id =req.params.id
+	const Candidates= await Candidate.find();
+	const result=[]
+	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id)
+			result.push(Candidates[i].Ratings)
+		}
+		let sum = result.reduce((previous, current) => current += previous);
+    let avg = sum / values.length;
+		res.json({ data: avg})
+	})
 module.exports = router;
 
