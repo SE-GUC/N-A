@@ -4,9 +4,9 @@ module.exports = {
     createValidation: request => {
         const createSchema = {
             Basic_Info: Joi.string().max(256).required(),
-            Business_Plans_Offered: Joi.string().max(256).required(),
-            Rooms: Joi.number().min(0).max(100).required(),
-            Facilities: Joi.array().items(Joi.string()).required(),
+            //Business_Plans_Offered: Joi.string().max(256).required(),
+           // Rooms: Joi.number().min(0).max(100).required(),
+            //Facilities: Joi.array().items(Joi.string()).required(),
             email: Joi.string().max(100).required(),
             FirstName: Joi.string().min(3).max(100).required(),
             LastName: Joi.string().min(3).max(100).required(),
