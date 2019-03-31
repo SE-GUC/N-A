@@ -21,7 +21,7 @@ const ProjectSchema=new Schema({
         },
         approved:{
             type: Boolean,
-            default:false
+            default:null
         },
         descreption:{
             type:String,
@@ -50,7 +50,7 @@ const ProjectSchema=new Schema({
         },
         members_needed:{
             type:Number,
-            required:false
+            default:1
         },
         current_members_count:{
             type:Number,
