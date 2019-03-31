@@ -3,10 +3,10 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const Co_working_space= require('../../models/User');
 const validator = require('../../validations/coWorkingSpaceValidations')
-//Get all Co_Working_spaces
+//Get all co_Working_spaces
 router.get('/', async (req,res) => {
-  const Co_working_spaces = await Co_Working_space.find()
-  res.json({data: Co_working_spaces})
+  const co_Working_spaces = await Co_Working_space.find()
+  res.json({data: co_Working_spaces})
 });
 // Get a certain Co_Working_space 
 router.get('/:id',(req,res)=>{
@@ -63,4 +63,111 @@ router.delete('/:id', async (req,res) => {
     }  
  })
  
+ //get Business_Plans_Offered
+router.get('/Business_Plans_Offered/:id',async  (req, res) => {
+	const co_Working_spaces= await co_Working_space.find();
+	const result=[]
+	for(let i=0;i<co_Working_spaces.length;i++){
+			result.push(co_Working_spaces[i].Intrests)
+		}
+		res.json({ data: result})
+	})
+// add intersests 
+router.post('/Business_Plans_Offered/:id', async (req, res) => {
+	const todoID = req.params.id;
+				if(req.body.interest){
+				co_Working_space.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.interest}},{new :true},(err,result)=>{})
+				res.json({msg:'done'});
+			}
+					
+				  });
+//delete Business_Plans_Offered
+router.delete('/Business_Plans_Offered/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.interest) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]!=req.body.interest)
+			result.push((X.Intrests)[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Deleted successfully'})
+}})
+// update Business_Plans_Offered
+router.put('/Business_Plans_Offered/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.oldvalue&&req.body.newvalue) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]==req.body.oldvalue)
+			result.push(req.body.newvalue)
+			else
+			result.push(X.Intrests[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Updated successfully'})
+}})
+
+
+
+//get Facilities
+router.get('/Facilities/:id',async  (req, res) => {
+	const co_Working_spaces= await co_Working_space.find();
+	const result=[]
+	for(let i=0;i<co_Working_spaces.length;i++){
+			result.push(co_Working_spaces[i].Intrests)
+		}
+		res.json({ data: result})
+	})
+// add intersests 
+router.post('/Facilities/:id', async (req, res) => {
+	const todoID = req.params.id;
+				if(req.body.interest){
+				co_Working_space.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.interest}},{new :true},(err,result)=>{})
+				res.json({msg:'done'});
+			}
+					
+				  });
+//delete Facilities
+router.delete('/Facilities/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.interest) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]!=req.body.interest)
+			result.push((X.Intrests)[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Deleted successfully'})
+}})
+// update Facilities
+router.put('/Facilities/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.oldvalue&&req.body.newvalue) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]==req.body.oldvalue)
+			result.push(req.body.newvalue)
+			else
+			result.push(X.Intrests[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Updated successfully'})
+}})
  module.exports = router
