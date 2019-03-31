@@ -13,7 +13,7 @@ module.exports = {
  
         FirstName: Joi.string().min(5).max(50).required(),
 
-
+        LastName : Joi.string().min(5).max(50).required(),
  
         Basic_Info: Joi.string().min(10).max(500).required(),
 
@@ -21,13 +21,13 @@ module.exports = {
  
         password: Joi.string().min(3).max(12).required(),
              
-             
-        Join_Date: Joi.string().required(),
+        
+        Birthdate: Joi.string().required(),
 
-             
-        email: Joi.string().required()
+        pproject: Joi.string(),    
+        email: Joi.string().required(),
 
-
+        User_Category : Joi.string().required().allow(['partner'])
  
         }
         return Joi.validate(request, createSchema)
@@ -48,6 +48,26 @@ module.exports = {
 
  
             FirstName: Joi.string().min(5).max(50).required(),
+
+
+ 
+        }
+
+
+ 
+        return Joi.validate(request, updateSchema)
+
+
+ 
+    },updateValidationLastName: request => {
+
+
+ 
+        const updateSchema = {
+
+
+ 
+            LastName: Joi.string().min(5).max(50).required(),
 
 
  
@@ -103,7 +123,7 @@ module.exports = {
  
     },
     
-    updateValidationJoin_Date: request => {
+    updateValidationBirthdate: request => {
 
 
  
@@ -111,9 +131,10 @@ module.exports = {
 
 
  
-             Join_Date:Joi.string().required(),
-
-
+             Birthdate:Joi.date().required()
+             
+            
+       
  
         }
 
@@ -144,7 +165,7 @@ module.exports = {
 
 
  
-    },addattribute: request => {
+    },addpastproject: request => {
 
 
  
@@ -152,7 +173,7 @@ module.exports = {
 
 
  
-            attribute: Joi.String().required()
+            pproject: Joi.string().required()
 
 
  
