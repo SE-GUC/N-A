@@ -44,7 +44,7 @@ app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
-app.use('./Notifications/notif',notifications)
+//app.use('./Notifications/notif.js',notifications)
 
 app.use('/api/locations',locations)
 // Handling 404
