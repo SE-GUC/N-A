@@ -39,12 +39,14 @@ router.post('/', async (req,res) => {
  // Update a admin's details
 router.put('/:id',(req,res)=>{
     const todoID = req.params.id;
-    if(req.body.first_name)
-    admin.findOneAndUpdate({_id :todoID},{$set :{first_name: req.body.first_name}},{new :true},(err,result)=>{})
-    if(req.body.last_name)
-    admin.findOneAndUpdate({_id :todoID},{$set :{last_name:req.body.last_name}},{new :true},(err,result)=>{})
+    if(req.body.FirstName)
+    admin.findOneAndUpdate({_id :todoID},{$set :{FirstName: req.body.FirstName}},{new :true},(err,result)=>{})
+    if(req.body.LastName)
+    admin.findOneAndUpdate({_id :todoID},{$set :{LastName:req.body.LastName}},{new :true},(err,result)=>{})
     if(req.body.email)
     admin.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{})
+    if(req.body.password)
+    admin.findOneAndUpdate({_id :todoID},{$set :{password: req.body.password}},{new :true},(err,result)=>{})
     if(req.body.Birthdate)
     admin.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
   });
