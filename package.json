@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
@@ -29,6 +30,10 @@
     "node-fetch": "^2.3.0",
     "uuid": "^3.3.2"
   },
+  "devDependencies": {
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SE-GUC/N-A.git"
@@ -36,6 +41,5 @@
   "bugs": {
     "url": "https://github.com/SE-GUC/N-A/issues"
   },
-  "homepage": "https://github.com/SE-GUC/N-A#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/SE-GUC/N-A#readme"
 }

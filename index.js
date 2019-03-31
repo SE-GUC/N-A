@@ -29,7 +29,9 @@ app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
     <a href="/api/locations">locations</a>
-    <a href="./Notifications/notif">notifications</a>`)
+    <a href="./Notifications/notif">notifications</a>
+    <a href="/api/Projects">Projects</a>`
+    );
 })
 
 
@@ -42,7 +44,7 @@ app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
-app.use('./Notifications/notif',notifications)
+//app.use('./Notifications/notif.js',notifications)
 
 app.use('/api/locations',locations)
 // Handling 404

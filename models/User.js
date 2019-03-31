@@ -70,9 +70,9 @@ const UserSchema = new Schema ({
     Skills: {
         type: [String]
     },
-    //Ratings:{
-    //   type: [Rating]
-    //},
+    // Ratings:{
+    //    type: [Rating]
+    // },
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {
         type: [String],
