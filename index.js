@@ -23,26 +23,15 @@ const Co_working_spaces = require('./routes/api/co_working_spaces')
 const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
+
 const locations = require('./routes/api/locations')
-
-
-
 
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
-    <a href="/api/consultancyAgencies">consultancyAgencies</a>
-    <a href="/api/Co_working_spaces">Co_working_spaces</a>
-    <a href="/api/admins">admins</a>
-    <a href="/api/partner">partner</a>
-    
-    <a href="/api/Projects">Projects</a>
-    <a href="/api/Candidates">Candidates</a>
-    <a href="/api/locations">locations</a>
-    
-    
-    `);
+    <a href="/api/locations">locations</a>`);
 })
+
 
 // Direct routes to appropriate files 
 
@@ -54,11 +43,8 @@ app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
+
 app.use('/api/locations',locations)
-
-
-
-
 
 // Handling 404
 app.use((req, res) => {
