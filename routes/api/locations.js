@@ -4,6 +4,10 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const location= require('../../models/Location');
 const validator = require('../../validations/locationValidation.js')
+ 
+
+const fetch = require('node-fetch');
+
 
 const fetch = require('node-fetch');
 
@@ -239,7 +243,7 @@ router.put('/:id',(req,res)=>{
         //params:  JSON.stringify(parm),
         headers: { 'Content-Type': 'application/json' },
     })
-    }
+    } 
     res.json({msg: 'Reservation reviewed successfully'})
   }})
 

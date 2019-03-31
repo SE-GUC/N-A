@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
+
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
 const admins = require('./routes/api/admins')
 const Co_working_spaces = require('./routes/api/co_working_spaces')
@@ -43,6 +44,7 @@ app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
+
 
 app.use('/api/locations',locations)
 
