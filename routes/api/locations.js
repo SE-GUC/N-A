@@ -6,7 +6,6 @@ const location= require('../../models/Location');
 const validator = require('../../validations/locationValidation.js')
  
 
-const fetch = require('node-fetch');
 
 
 

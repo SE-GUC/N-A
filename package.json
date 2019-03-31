@@ -4,10 +4,8 @@
   "description": "Introduction to node",
   "main": "index.js",
   "scripts": {
-
     "start": "node index",
     "dev": "nodemon index",
-
     "test": "jest"
   },
   "keywords": [
@@ -18,15 +16,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
-
     "cors": "^2.8.5",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
-
+    "nodemon": "^1.18.10",
+    "web-push": "^3.3.3",
     "cores": "^0.8.5",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
     "fetch": "^1.1.0",
-
     "jest": "^24.5.0",
     "joi": "^14.3.1",
     "mongoose": "^5.4.20",
