@@ -71,7 +71,7 @@ const UserSchema = new Schema ({
         type: [String]
     },
     Ratings:{
-       type: [Rating]
+       type: [String]
     },
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {

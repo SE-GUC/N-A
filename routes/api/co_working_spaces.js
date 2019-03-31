@@ -1,102 +1,173 @@
+const express = require('express');
+const router = express.Router();
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const express = require('express')
-const router = express.Router()
-
-// We will be connecting using database
-const User = require('../../models/User')
-const cwsValidator = require('../../validations/coWorkingSpaceValidations')
-const userValidator = require('../../validations/userValidations')
-
-const seedCoWorkingSpaces = async () => {
-  const salt = bcrypt.genSaltSync(42)
-  const cws1 = new User({
-    User_Category: 'Partner_CoWorkingSpace',
-    Basic_Info: 'nintendo found in 1992 to produce video game consoles',
-    FirstName: 'Niccolò',
-    LastName:  'Machiavelli',
-    Birthdate: new Date(),
-    email: 'randm1@randm',
-    password: bcrypt.hashSync('123456',salt),
-    Business_Plans_Offered: '10% off games',
-    rooms: 10,
-    Facilities: 'easy payment'
-  })
-
-  await cws1.save();
-};
-
-// Get all coworking spaces
-router.get('/', async (req, res) => {
-  const coworkingSpaces = await User.find({User_Category: 'Partner_CoWorkingSpace'})
-  res.json({ data: coworkingSpaces })
+const Co_working_space= require('../../models/User');
+const validator = require('../../validations/coWorkingSpaceValidations')
+//Get all co_Working_spaces
+router.get('/', async (req,res) => {
+  const co_Working_spaces = await Co_Working_space.find()
+  res.json({data: co_Working_spaces})
 });
+// Get a certain Co_Working_space 
+router.get('/:id',(req,res)=>{
+  // Primary Key of Todo Document we wish to update
+  const todoID = req.params.id;
+  // Document used to update
+  // Find Document By ID and Update
+  Co_Working_space.findOneAndUpdate({_id :todoID},{},{returnOriginal :true},(err,result)=>{
+	  if(err)
+		  console.log(err);
+	  else{
+		  res.json(result);
+	  }
+	})   });
+// Create a new Co_Working_space
+ router.post('/', async (req,res) => {
+	try {
+		const isValidated = validator.createValidation(req.body)
+		if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+		const newCo_Working_space = await Co_Working_space.create(req.body)
 
-// Get a certain coworking space
-router.get('/:id', (req, res) => {
-        const id = req.params.id
-        User.findById(id, (err, cws) => {
-          res.send(cws)
-        })
-    })
-
- // Create a new Co_Working_space
-router.post('/', (req, res) => {
-
-  const cwsValidated = cwsValidator.createValidation(req.body)
-  if (cwsValidated.error) return res.status(400).send({ error: cwsValidated.error.details[0].message })
-  // const userValidated = userValidator.createValidation(req.body)
-  // if (userValidated.error) return res.status(400).send({ error: userValidator.error.details[0].message })
-
-  const { Basic_Info, FirstName, LastName, age,
-   email, password, Business_Plans_Offered,
-   Rooms, Facilities, Birthdate } = req.body;
-
-  const salt = bcrypt.genSaltSync(10)
-  const user = new User({
-    Basic_Info: Basic_Info,
-    FirstName: FirstName,
-    LastName: LastName,
-    Birthdate: Birthdate,
-    email: email,
-    password: bcrypt.hashSync(password,salt),
-    Business_Plans_Offered:  Business_Plans_Offered,
-    Rooms: Number.parseInt(Rooms),
-    Facilities: Facilities,
-    User_Category: 'Partner_CoWorkingSpace'
+		res.json({msg:'Co_Working_space was created successfully', data: newCo_Working_space})
+	   }
+	   catch(error) {
+		   // We will be handling the error later
+		   console.log(error)
+	   }  
   })
-
-  user.save()
-  .then(() => res.json({ data: user }))
-  .catch((error) => res.json({ err: error }));
+  // update a certain Co_Working_space
+router.put('/:id',(req,res)=>{
+  const todoID = req.params.id;
+  if(req.body.BasicInfo)
+  Co_Working_space.findOneAndUpdate({_id :todoID},{$set :{firstname: req.body.firstname}},{new :true},(err,result)=>{})
+  if(req.body.FirstName)
+  Co_Working_space.findOneAndUpdate({_id :todoID},{$set :{lastname:req.body.lastname}},{new :true},(err,result)=>{})
+  if(req.body.LastName)
+  Co_Working_space.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
+  if(req.body.email)
+  Co_Working_space.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{})
+  if(req.body.password)
+  Co_Working_space.findOneAndUpdate({_id :todoID},{$set :{password:req.body.password}},{new :true},(err,result)=>{})
+	res.json({msg:'Co_Working_space updated'})
 });
+  // delete a certain Co_Working_space
+router.delete('/:id', async (req,res) => {
+    try {
+     const id = req.params.id
+     const deletedCo_Working_space = await Co_Working_space.findByIdAndRemove(id)
+     res.json({msg:'Co_Working_space was deleted successfully', data: deletedCo_Working_space})
+    }
+    catch(error) {
+        // We will be handling the error later
+        console.log(error)
+    }  
+ })
+ 
+ //get Business_Plans_Offered
+router.get('/Business_Plans_Offered/:id',async  (req, res) => {
+	const co_Working_spaces= await co_Working_space.find();
+	const result=[]
+	for(let i=0;i<co_Working_spaces.length;i++){
+			result.push(co_Working_spaces[i].Intrests)
+		}
+		res.json({ data: result})
+	})
+// add intersests 
+router.post('/Business_Plans_Offered/:id', async (req, res) => {
+	const todoID = req.params.id;
+				if(req.body.interest){
+				co_Working_space.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.interest}},{new :true},(err,result)=>{})
+				res.json({msg:'done'});
+			}
+					
+				  });
+//delete Business_Plans_Offered
+router.delete('/Business_Plans_Offered/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.interest) {
+	var result=[]
 
-// update a certain coworking space
-router.put('/:id', (req, res) => {
-	const Co_working_spaceId = req.params.id;
-	const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id === Co_working_spaceId)
-	if(req.body.basic_Info)
-	Candidate.basic_Info = req.body.basic_Info;
-	if(req.body.Name)
-	Candidate.Name=req.body.Name;
-	if(req.body.Email)
-	Candidate.Email=req.body.Email;
-	if(req.body.Business_plans_offer)
-	Candidate.Business_plans_offer=req.body.Business_plans_offer;
-	if(req.body.Rooms)
-    Candidate.email=req.body.Rooms;
-    if(req.body.Facilities)
-    Candidate.email=req.body.Facilities;
-    res.send(Co_working_space)
-})
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]!=req.body.interest)
+			result.push((X.Intrests)[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Deleted successfully'})
+}})
+// update Business_Plans_Offered
+router.put('/Business_Plans_Offered/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.oldvalue&&req.body.newvalue) {
+	var result=[]
 
-//delete a certain Co_working_space
-router.delete('/:id', (req, res) => {
-    const Co_working_spaceId = req.params.id 
-    const Co_working_space = Co_working_spaces.find(Co_working_space => Co_working_space.id ===Co_working_spaceId)
-    const index = Co_working_spaces.indexOf(Co_working_space)
-    Co_working_spaces.splice(index,1)
-    res.send(Co_working_spaces)
-})
-router.get('/', (req, res) => res.json({ data: Co_working_spaces }))
-module.exports = router
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]==req.body.oldvalue)
+			result.push(req.body.newvalue)
+			else
+			result.push(X.Intrests[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Updated successfully'})
+}})
+
+
+
+//get Facilities
+router.get('/Facilities/:id',async  (req, res) => {
+	const co_Working_spaces= await co_Working_space.find();
+	const result=[]
+	for(let i=0;i<co_Working_spaces.length;i++){
+			result.push(co_Working_spaces[i].Intrests)
+		}
+		res.json({ data: result})
+	})
+// add intersests 
+router.post('/Facilities/:id', async (req, res) => {
+	const todoID = req.params.id;
+				if(req.body.interest){
+				co_Working_space.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.interest}},{new :true},(err,result)=>{})
+				res.json({msg:'done'});
+			}
+					
+				  });
+//delete Facilities
+router.delete('/Facilities/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.interest) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]!=req.body.interest)
+			result.push((X.Intrests)[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Deleted successfully'})
+}})
+// update Facilities
+router.put('/Facilities/:id',async (req, res) => {
+	const co_Working_spaceid=req.params.id
+	const X = await co_Working_space.findOne({"_id":co_Working_spaceid})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+	if (req.body.oldvalue&&req.body.newvalue) {
+	var result=[]
+
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]==req.body.oldvalue)
+			result.push(req.body.newvalue)
+			else
+			result.push(X.Intrests[i])
+	}
+	co_Working_space.findOneAndUpdate({_id :co_Working_spaceid},{$set :{Intrests: result}},{new :true},(err,result)=>{})
+				res.json({msg: 'Attribute Updated successfully'})
+}})
+ module.exports = router
