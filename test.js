@@ -1,4 +1,4 @@
-const funcs = require('./Projecttestfunctions');
+const funcs = require('./functions');
 
 test('Project amount increases by 1',async()=>{
 // expect.assertions(1)
@@ -223,7 +223,7 @@ jest.setTimeout(30000)
  
 /**enter* @jest-environment node */
 
-const funcs = require('./functions');
+
 test('adds 1 + 2 to be 3', () => {
 
     expect(funcs.add(1, 2)).toBe(3);
@@ -463,7 +463,7 @@ test('adds 1 + 2 to be 3', () => {
 
  
 
-const funcs = require('./functions');
+
 
 test('adding 1 + 1 the result should be 2',()=>{
     expect(funcs.add(1,1)).toBe(2);

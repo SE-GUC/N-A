@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
 const db = require('./config/keys').mongoURI
-const cors = require('cors')
 // Connect to mongo
 mongoose
     .connect(db)
@@ -31,7 +30,9 @@ const locations = require('./routes/api/locations')
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
-    <a href="/api/locations">locations</a>`);
+    <a href="/api/locations">locations</a>
+    <a href="/api/Projects">Projects</a>`
+    );
 })
 
 

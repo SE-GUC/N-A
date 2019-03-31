@@ -4,10 +4,8 @@
   "description": "Introduction to node",
   "main": "index.js",
   "scripts": {
-
     "start": "node index",
     "dev": "nodemon index",
-
     "test": "jest"
   },
   "keywords": [
@@ -23,14 +21,12 @@
     "express": "^4.16.4",
     "cores": "^0.8.5",
     "fetch": "^1.1.0",
-
     "jest": "^24.5.0",
     "joi": "^14.3.1",
     "mongoose": "^5.4.20",
     "node-fetch": "^2.3.0",
     "uuid": "^3.3.2"
   },
-  
   "devDependencies": {
     "jest": "^24.5.0",
     "nodemon": "^1.18.10"
@@ -43,5 +39,4 @@
     "url": "https://github.com/SE-GUC/N-A/issues"
   },
   "homepage": "https://github.com/SE-GUC/N-A#readme"
-  
 }
