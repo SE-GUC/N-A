@@ -49,15 +49,6 @@ router.put('/:id',(req,res)=>{
     res.json({msg:'reservation updated'})
   });
 
-// Accept/Reject reservation
-router.put('/:id',(req,res)=>{
-    const todoID = req.params.id;
-    if(req.body.name)
-    reservation.findOneAndUpdate({_id :todoID},{$set :{status: req.body.status}},{new :true},(err,result)=>{})
-    //add to calender_entry
-    res.json({msg:'reservation review placed'})
-  });
-
 // Delete a reservation
 router.delete('/:id', async (req,res) => {
     try {
