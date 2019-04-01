@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const Rating =require('././Rating');
 const Schema = mongoose.Schema
+=======
+
+const Schema = mongoose.Schema
+
+
+>>>>>>> 6cccc947f8adbbd0fd110877ab985bef159f0592
 const UserSchema = new Schema ({
    
     email: {
@@ -52,7 +59,9 @@ const UserSchema = new Schema ({
         },
     //For Consulting Agents
     Past_Events: {
+
             type: [String],
+
         },
     Avg_Rating: {
         type: Number
@@ -66,9 +75,15 @@ const UserSchema = new Schema ({
     Skills: {
         type: [String]
     },
+<<<<<<< HEAD
     Ratings:{
        type: [Schema.Types.Rating]     
     },
+=======
+    // Ratings:{
+    //    type: [Rating]
+    // },
+>>>>>>> 6cccc947f8adbbd0fd110877ab985bef159f0592
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {
         type: [String],

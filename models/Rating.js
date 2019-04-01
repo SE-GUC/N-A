@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const Schema = mongoose.Schema
 const RatingSchema = new Schema ({
   rating :{
@@ -13,3 +14,5 @@ const RatingSchema = new Schema ({
   candidate_id : String
 })
 module.exports = Rating = mongoose.model('ratings', RatingSchema)
+=======
+>>>>>>> 6cccc947f8adbbd0fd110877ab985bef159f0592
