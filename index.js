@@ -24,7 +24,7 @@ const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
-const notifications = require('./Notifications/notif')
+//const notifications = require('./Notifications/notif')
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
