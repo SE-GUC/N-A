@@ -1,3 +1,4 @@
+
  const funcs = require('./functions');
 
 test('Project amount increases by 1',async()=>{
@@ -463,6 +464,7 @@ test('adds 1 + 2 to be 3', () => {
 
  
 
+
 //Location testing
 
 test('Testing Post Method',async()=>{
@@ -485,6 +487,7 @@ test('Testing Post Method',async()=>{
   expect(test.data.data.city).toEqual(location.city)
   expect(test.data.data.street).toEqual(location.street)
   expect(test.data.data.capacity).toEqual(location.capacity)
+
 
 });   
 
