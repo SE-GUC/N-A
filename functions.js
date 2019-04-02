@@ -12,6 +12,13 @@ const functions = {
         return partners
 
         },
+        getpartner: async (id) => {
+
+          const partner = await axios.get('http://localhost:3000/api/partner/'+id)
+  
+          return partner
+  
+          },
         
     testaddpartner : async()=>{
         return axios({
@@ -30,10 +37,11 @@ const functions = {
           })
         
     },
-    testupdateFName: async()=>{
+    testupdateFName: async(id)=>{
         return axios({
             method: 'put',
-            url: 'http://localhost:3000/api/partner/FirstName/5c9cc8b3b19333217411d273',
+            url: 'http://localhost:3000/api/partner/FirstName/'+id
+            ,
             headers:{'Content-Type':'application/json'},
             data: {
                
@@ -49,10 +57,10 @@ const functions = {
             console.log(error);
           });
     },
-    testupdateLName: async()=>{
+    testupdateLName: async(id)=>{
       return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/partner/LastName/5c9cc8b3b19333217411d273',
+        url: 'http://localhost:3000/api/partner/LastName/'+id,
         headers:{'Content-Type':'application/json'},
         data: {
            
@@ -68,10 +76,10 @@ const functions = {
         console.log(error);
       });
     },
-    testupdateBirthdate: async()=>{
+    testupdateBirthdate: async(id)=>{
       return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/partner/Birthdate/5c9cc8b3b19333217411d273',
+        url: 'http://localhost:3000/api/partner/Birthdate/'+id,
         headers:{'Content-Type':'application/json'},
         data: {
            
@@ -86,10 +94,26 @@ const functions = {
       .catch(function (error) {
         console.log(error);
       });
-  },testupdateBasic_Info: async()=>{
+      
+  },  testdeletepartner: async(id)=>{
+    return axios({
+      method: 'delete',
+      url: 'http://localhost:3000/api/partner/deletepart/'+id,
+      headers:{'Content-Type':'application/json'},
+      
+
+      
+    }).then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  ,testupdateBasic_Info: async(id)=>{
     return axios({
       method: 'put',
-      url: 'http://localhost:3000/api/partner/Basic_Info/5c9cc8b3b19333217411d273',
+      url: 'http://localhost:3000/api/partner/Basic_Info/'+id,
       headers:{'Content-Type':'application/json'},
       data: {
          
@@ -106,10 +130,10 @@ const functions = {
     });
     
     
-},testupdatepassword: async()=>{
+},testupdatepassword: async(id)=>{
   return axios({
     method: 'put',
-    url: 'http://localhost:3000/api/partner/password/5c9cc8b3b19333217411d273',
+    url: 'http://localhost:3000/api/partner/password/'+id,
     headers:{'Content-Type':'application/json'},
     data: {
        
@@ -126,10 +150,10 @@ const functions = {
   });
   
   
-},testupdatemail: async()=>{
+},testupdatemail: async(id)=>{
   return axios({
     method: 'put',
-    url: 'http://localhost:3000/api/partner/email/5c9cc8b3b19333217411d273',
+    url: 'http://localhost:3000/api/partner/email/'+id,
     headers:{'Content-Type':'application/json'},
     data: {
        
@@ -146,10 +170,10 @@ const functions = {
   });
  
   
-  },testupdatepastproject: async()=>{
+  },testupdatepastproject: async(id)=>{
     return axios({
       method: 'put',
-      url: 'http://localhost:3000/api/partner/pproject/5c9cfab98528961dd0f9e503',
+      url: 'http://localhost:3000/api/partner/pproject/'+id,
       headers:{'Content-Type':'application/json'},
       data: {
          
@@ -166,10 +190,10 @@ const functions = {
     });
   
    
-    },testupdateboardmember: async()=>{
+    },testupdateboardmember: async(id)=>{
       return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/partner/Boardmembers/5c9cfab98528961dd0f9e503',
+        url: 'http://localhost:3000/api/partner/Boardmembers/'+id,
         headers:{'Content-Type':'application/json'},
         data: {
            
@@ -186,10 +210,10 @@ const functions = {
       });
      
       
-      },testdeleteproject: async()=>{
+      },testdeleteproject: async(id)=>{
         return axios({
           method: 'delete',
-          url: 'http://localhost:3000/api/partner/deleteproject/5c9cfb2a8528961dd0f9e504',
+          url: 'http://localhost:3000/api/partner/deleteproject/'+id,
           headers:{'Content-Type':'application/json'},
           data: {
              

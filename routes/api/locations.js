@@ -9,8 +9,6 @@ const validator = require('../../validations/locationValidation.js')
 const fetch = require('node-fetch');
 
 
-const fetch = require('node-fetch');
-
 
 //Get all locations
 router.get('/', async (req,res) => {

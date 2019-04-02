@@ -74,6 +74,8 @@ test('adds 1 + 2 to be 3', () => {
 
     
     const user =  await funcs.testaddpartner();
+    newpartid = user.data.data._id
+    window.partid= newpartid;
     const expectation = {
       Certificates: [],
             BoardMembers: [],
@@ -99,13 +101,13 @@ test('adds 1 + 2 to be 3', () => {
   expect(user.data.data.password).toEqual(expectation.password)
   });
   
-  test(`first partner's first name should be updated to seif  `, async () => {
+  test(`first partner's first name should be updated to seifo  `, async () => {
 
     expect.assertions(1)
-      const user =await funcs.testupdateFName();
+      const user =await funcs.testupdateFName(partid);
     const expected = {
       Certificates: [],
-      _id: '5c9cc8b3b19333217411d273',
+      
             FirstName: 'seifo',
             LastName: 'sharkawy',
             Basic_Info: 'media engineering and technology',
@@ -115,9 +117,9 @@ test('adds 1 + 2 to be 3', () => {
             User_Category: 'Partner',
             
     }
-    const x =  await funcs.getpartners();
+    const x =  await funcs.getpartner(partid);
 
-    expect(x.data.data[0].FirstName).toEqual(expected.FirstName)
+    expect(x.data.FirstName).toEqual(expected.FirstName)
 
   });
   module.exports = {
@@ -129,7 +131,7 @@ test('adds 1 + 2 to be 3', () => {
   
   test(`first partner's last name should be updated to kholy  `, async () => {
 
-    const user =  await funcs.testupdateLName();
+    const user =  await funcs.testupdateLName(partid);
     const expected = {
       Certificates: [],
       _id: '5c9cc8b3b19333217411d273',
@@ -141,8 +143,8 @@ test('adds 1 + 2 to be 3', () => {
             email: 'flinstone@gmail.com',
             User_Category: 'Partner',
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[0].LastName).toEqual(expected.LastName)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.LastName).toEqual(expected.LastName)
 
   });
 
@@ -151,194 +153,108 @@ test('adds 1 + 2 to be 3', () => {
   test(`first partner's Birth date should be updated to 09/08/1997  `, async () => {
 
     
-    const user =  await funcs.testupdateBirthdate();
+    const user =  await funcs.testupdateBirthdate(partid);
     const expected = {
       Birthdate: '1997-09-08T00:00:00.000Z'
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[0].Birthdate).toEqual(expected.Birthdate)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.Birthdate).toEqual(expected.Birthdate)
 
   });
   
   test(`first partner's basic information should be updated to media engineering and technology  `, async () => {
 
     
-    const user =  await funcs.testupdateBasic_Info();
+    const user =  await funcs.testupdateBasic_Info(partid);
     const expected = {
       Basic_Info: 'media engineering and technology'
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[0].Basic_Info).toEqual(expected.Basic_Info)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.Basic_Info).toEqual(expected.Basic_Info)
 
   });
   test(`first partner's password should be updated to 'udntknwmypassword'  `, async () => {
 
     
-    const user =  await funcs.testupdatepassword();
+    const user =  await funcs.testupdatepassword(partid);
     const expected = {
       password: 'udntknwmyp'
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[0].password).toEqual(expected.password)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.password).toEqual(expected.password)
 
   });
   test(`first partner's email should be updated to 'random@gmail.com' `, async () => {
 
     
-    const user =  await funcs.testupdatemail();
+    const user =  await funcs.testupdatemail(partid);
     const expected = {
       email: 'random@gmail.com'
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[0].email).toEqual(expected.email)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.email).toEqual(expected.email)
 
   });
   test(`partner's board member was deleted ' `, async () => {
 
     
-    const user =  await funcs.testdeletebmember();
+    const user =  await funcs.testdeletebmember(partid);
     const expected = {
       BoardMembers: []
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[2].BoardMembers).toEqual(expected.BoardMembers)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.BoardMembers).toEqual(expected.BoardMembers)
 
   });
   test(`partner's past project was deleted ' `, async () => {
 
     
-    const user =  await funcs.testdeleteproject();
+    const user =  await funcs.testdeleteproject(partid);
     const expected = {
       Past_Projects: []
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[2].Past_Projects).toEqual(expected.Past_Projects)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.Past_Projects).toEqual(expected.Past_Projects)
 
   });
   test(`partner's project was added ' `, async () => {
 
     
-    const user =  await funcs.testupdatepastproject();
+    const user =  await funcs.testupdatepastproject(partid);
     const s = 'Hilton Hotel'
     const expected = {
       Past_Projects:['Hilton Hotel']
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[1].Past_Projects).toEqual(expected.Past_Projects)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.Past_Projects).toEqual(expected.Past_Projects)
 
   });
   test(`partner's board member was added ' `, async () => {
 
     
-    const user =  await funcs.testupdateboardmember();
+    const user =  await funcs.testupdateboardmember(partid);
     const expected = {
       BoardMembers: ['ahmed yassin']
     }
-    const x =  await funcs.getpartners();
-    expect(x.data.data[1].BoardMembers).toEqual(expected.BoardMembers)
+    const x =  await funcs.getpartner(partid);
+    expect(x.data.BoardMembers).toEqual(expected.BoardMembers)
 
   });
-
- 
-
-const funcs = require('./functions');
-
-test('adding 1 + 1 the result should be 2',()=>{
-    expect(funcs.add(1,1)).toBe(2);
-
-    module.exports = {
-        setupTestFrameworkScriptFile: './jest.setup.js'
-      }
-      
-      // jest.setup.js
-      jest.setTimeout(30000)
-});
-test('Testing Get method ',async()=>{
-    expect.assertions(3);//Verifies that a certain number of assertions is called. Leaving it out will lead to succeeding the test even if name doesnt match
-    const test = await funcs.getLocationsid()
-            expect(test).toBeDefined()
-            expect(test.data._id).toEqual('5ca0c551baddba46db7b4006')
-            expect(test.data.name).toEqual("zebra")
-
-});
-
-  test('Testing Post Method',async()=>{
-      expect.assertions(5)
-      const test = await funcs.postLocations()
-      const location = {
-        name: 'opera',
-        country: 'egypt',
-        city:'cairo',
-         street: 'mohamedali',  
-         capacity: 12,
-      }
-      expect(test.data.data.name).toEqual(location.name)
-      expect(test.data.data.country).toEqual(location.country)
-      expect(test.data.data.city).toEqual(location.city)
-      expect(test.data.data.street).toEqual(location.street)
-      expect(test.data.data.capacity).toEqual(location.capacity)
-
-  });
-  test('Testing Put Method for both name and capacity',async()=>{
-    const test = await funcs.putLocations1()
-    const location = {
-        _id:'5ca0cd7ebaddba46db7b400c',
-        name: 'redbull', 
-        capacity: 2
-    }
-    const arr = await funcs.getLocationsid2(location._id)
-    expect(arr.data.name).toEqual(location.name)
-    //expect(arr.data.country).toEqual(location.country)
-   // expect(arr.data.city).toEqual(location.city)
-   // expect(arr.data.street).toEqual(location.street)
-    expect(arr.data.capacity).toEqual(location.capacity)
-
-});
-test('Testing Delete Method', async () => {
+  test(`partner was deleted ' `, async () => {
 
     
-    const location =  await funcs.deleteLocation();
+    const user =  await funcs.testdeletepartner(partid);
     const expected = {
-        _id:'5ca0f715baddba46db7b401a',
-        name: null,
-         capacity: null
-        }
-    const x =  await funcs.getLocationsid2('5ca0f715baddba46db7b401a');
-    expect(expected.name).toBeNull();
-    expect(expected.capacity).toBeNull();
-
-
+      Past_Projects: []
+    }
+    const x =  await funcs.getpartner(partid);
+    expect(x.data).toEqual("it is not here")
 
   });
-    
+
  
-test('Testing Post Method for Reservation',async()=>{
-          const pid = '5ca0c551baddba46db7b4006'
-          const test = await funcs.postReservation(pid)
-          const Reservation = {
-            to: "10 am",
-                from: "9 am",
-                day: "Monday",
-                ownerID: "mado"
-          }
-           const x =  await funcs.getLocationsid2('5ca0c551baddba46db7b4006');
-          expect(x.reservations).toEqual(test.reservations)
-          
-    
-      });
-      test('Testing Put Method for review and reservation',async()=>{
-        const pid = '5ca0c551baddba46db7b4006'
-        const test = await funcs.putReview(pid)
-        const Reservation = {
-          to: "10 am",
-              from: "9 am",
-              day: "Monday",
-              status: 1,
-              ownerID: "mado"
-        }
-         const x =  await funcs.getLocationsid2('5ca0c551baddba46db7b4006');
-        expect(x.reservations).toEqual(test.reservations)
-        
-  
-    });
+
+
+
+
  
