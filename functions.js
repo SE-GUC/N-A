@@ -508,13 +508,19 @@ newvalue:'MMM'
         console.log(error);
       });
       
-  },  testdeletepartner: async(id)=>{
+  },testupdatepassword: async(id)=>{
     return axios({
-      method: 'delete',
-      url: 'http://localhost:3000/api/partner/deletepart/'+id,
+      method: 'put',
+  
+      url: 'http://localhost:3000/api/partner/password/'+id,
+  
       headers:{'Content-Type':'application/json'},
-      
-
+      data: {
+         
+        password:'udntknwmyp'
+        
+      }
+  
       
     }).then(function (response) {
       console.log(response);
@@ -522,8 +528,9 @@ newvalue:'MMM'
     .catch(function (error) {
       console.log(error);
     });
-  }
-  ,testupdateBasic_Info: async(id)=>{
+    
+    
+  },testupdateBasic_Info: async(id)=>{
     return axios({
       method: 'put',
 
@@ -545,28 +552,6 @@ newvalue:'MMM'
     });
     
     
-},testupdatepassword: async(id)=>{
-  return axios({
-    method: 'put',
-
-    url: 'http://localhost:3000/api/partner/password/'+id,
-
-    headers:{'Content-Type':'application/json'},
-    data: {
-       
-      password:'udntknwmyp'
-      
-    }
-
-    
-  }).then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
-  
 },testupdatemail: async(id)=>{
   return axios({
     method: 'put',
@@ -591,7 +576,22 @@ newvalue:'MMM'
     console.log(error);
   });
 
-},
+},  testdeletepartner: async(id)=>{
+    return axios({
+      method: 'delete',
+      url: 'http://localhost:3000/api/partner/deletepart/'+id,
+      headers:{'Content-Type':'application/json'},
+      
+
+      
+    }).then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  ,
 
   //test delete 
   deleteconsultancyAgencies: async()=>{

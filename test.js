@@ -547,62 +547,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].FirstName).toEqual(expected.FirstName)
   });
-  test(`consultancyAgencies's data  should match the one being inserted  `, async () => {
 
-    
-    const user =  await funcs.testaddconsultancyAgencies();
-    const expectation = {
-      Certificates: [],
-            BoardMembers: [],
-            Past_Events: [],
-            Reviews: [],
-            Intrests: [],
-            Past_Projects: [],
-            Skills: [],
-            Business_Plans_Offered: [],
-            Facilites: [],
-            FirstName: 'ahmed',
-            LastName: 'yassin',
-            Basic_Info:'web configuration and innovation ',
-             password: 'rana23',   
-             Birthdate: '2001-3-3',
-             email: 'yassin@gmail.com',
-            User_Category : 'consultancyAgencies',
-            
-    }
-  expect(user.data.data.email).toEqual(expectation.email)
-  expect(user.data.data.FirstName).toEqual(expectation.FirstName)
-  expect(user.data.data.LastName).toEqual(expectation.LastName)
-  expect(user.data.data.password).toEqual(expectation.password)
-  });
-  test(`consultancyAgencies's data  should match the one being inserted  `, async () => {
-
-    
-    const user =  await funcs.testaddconsultancyAgencies();
-    const expectation = {
-      Certificates: [],
-            BoardMembers: [],
-            Past_Events: [],
-            Reviews: [],
-            Intrests: [],
-            Past_Projects: [],
-            Skills: [],
-            Business_Plans_Offered: [],
-            Facilites: [],
-            FirstName: 'ahmed',
-            LastName: 'yassin',
-            Basic_Info:'web configuration and innovation ',
-             password: 'rana23',   
-             Birthdate: '2001-3-3',
-             email: 'yassin@gmail.com',
-            User_Category : 'Consulting_Agent',
-            
-    }
-  expect(user.data.data.email).toEqual(expectation.email)
-  expect(user.data.data.FirstName).toEqual(expectation.FirstName)
-  expect(user.data.data.LastName).toEqual(expectation.LastName)
-  expect(user.data.data.password).toEqual(expectation.password)
-  }),
   test(`consultancyAgencies's data  should match the one being inserted  `, async () => {
 
     
