@@ -4,11 +4,15 @@
   "description": "Introduction to node",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "jest"
+=======
     "start": "node index",
 
     "dev": "nodemon index",
     "test": "jest"
 
+>>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
   },
   "keywords": [
     "server"
@@ -18,9 +22,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
+<<<<<<< HEAD
+    "cors": "^2.8.5",
+=======
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "body-parser": "^1.18.3",
+>>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
     "express": "^4.16.4",
     "nodemon": "^1.18.10",
     "web-push": "^3.3.3",
@@ -29,7 +37,11 @@
     "jest": "^24.5.0",
     "joi": "^14.3.1",
     "mongoose": "^5.4.20",
+<<<<<<< HEAD
+    "passport": "^0.4.0",
+=======
     "node-fetch": "^2.3.0",
+>>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -43,5 +55,8 @@
   "bugs": {
     "url": "https://github.com/SE-GUC/N-A/issues"
   },
-  "homepage": "https://github.com/SE-GUC/N-A#readme"
+  "homepage": "https://github.com/SE-GUC/N-A#readme",
+  "devDependencies": {
+    "jest": "^24.5.0"
+  }
 }
