@@ -1,9 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-<<<<<<< HEAD
-const app = express()
-=======
->>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
 const cors = require('cors')
 const db = require('./config/keys').mongoURI
 
@@ -18,34 +14,16 @@ mongoose
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
-<<<<<<< HEAD
-
-const consultancyAgencies = require('./routes/api/consultancyAgencies')
-
-
-
-
-
-app.get('/', (req, res) => {
-
-    res.send(`<h1>Welcome </h1>
-    <a href="/api/consultancyAgencies">consultancyAgencies</a>
-    
-    
-    
-    `);
-=======
 
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
-const Co_working_spaces = require('./routes/api/co_working_spaces')
 //const messages = require('./routes/api/messages')
 //const notifications = require('./routes/api/notifications')
 const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
-const notifications = require('./Notifications/notif')
+//const notifications = require('./Notifications/notif')
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
@@ -53,27 +31,18 @@ app.get('/', (req, res) => {
     <a href="./Notifications/notif">notifications</a>
     <a href="/api/Projects">Projects</a>`
     );
->>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
 })
 
 
 // Direct routes to appropriate files 
 
 app.use('/api/consultancyAgencies', consultancyAgencies)
-<<<<<<< HEAD
-
-
-
-
-=======
-app.use('/api/co_working_spaces', Co_working_spaces)
 app.use('/api/partner', partner)
 app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
 //app.use('./Notifications/notif.js',notifications)
->>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
 
 app.use('/api/locations',locations)
 // Handling 404
