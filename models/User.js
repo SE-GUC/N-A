@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema
-
-
 const UserSchema = new Schema ({
    
     email: {
@@ -70,9 +67,9 @@ const UserSchema = new Schema ({
     Skills: {
         type: [String]
     },
-    // Ratings:{
-    //    type: [Rating]
-    // },
+    Ratings:{
+       type: [Schema.Types.Rating]     
+    },
    //Required by Co-Working Space Patner
     Business_Plans_Offered: {
         type: [String],

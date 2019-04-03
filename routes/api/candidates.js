@@ -66,9 +66,11 @@ router.delete('/:id', async (req,res) => {
  })
 //get interests
 router.get('/interests/:id',async  (req, res) => {
+	const id = req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+ if(id==Candidates._id)
 			result.push(Candidates[i].interests)
 		}
 		res.json({ data: result})
@@ -122,6 +124,7 @@ router.get('/projectss/:id',async  (req, res) => {
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(id==Candidates._id)
 			result.push(Candidates[i].past_project)
 		}
 		res.json({ data: result})
@@ -173,6 +176,7 @@ router.get('/certificates/:id',async  (req, res) => {
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(id==Candidates._id)
 			result.push(Candidates[i].certificates)
 		}
 		res.json({ data: result})
@@ -224,6 +228,7 @@ router.get('/skills/:id',async  (req, res) => {
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
+		if(id==Candidates._id)
 			result.push(Candidates[i].skills)
 		}
 		res.json({ data: result})

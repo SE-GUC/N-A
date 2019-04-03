@@ -2,13 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const db = require('./config/keys').mongoURI
-
+ const app = express()
 // Connect to mongo
 mongoose
     .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
-    const app = express()
+   
 
 // Init middleware
 app.use(express.json())
@@ -24,7 +24,7 @@ const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
-const notifications = require('./Notifications/notif')
+//const notifications = require('./Notifications/notif')
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
