@@ -17,7 +17,6 @@ app.use(cors())
 
 
 const consultancyAgencies = require('./routes/api/consultancyAgencies')
-const Co_working_spaces = require('./routes/api/co_working_spaces')
 //const messages = require('./routes/api/messages')
 //const notifications = require('./routes/api/notifications')
 const projects = require('./routes/api/projects')
@@ -38,7 +37,6 @@ app.get('/', (req, res) => {
 // Direct routes to appropriate files 
 
 app.use('/api/consultancyAgencies', consultancyAgencies)
-app.use('/api/co_working_spaces', Co_working_spaces)
 app.use('/api/partner', partner)
 app.use('/api/candidates',Candidate)
 //app.use('/api/messages', messages)

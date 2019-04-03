@@ -1,5 +1,4 @@
-
- const funcs = require('./functions');
+const funcs = require('./functions');
 
 test('Project amount increases by 1',async()=>{
 // expect.assertions(1)
@@ -542,8 +541,8 @@ test('Testing Delete Method', async () => {
           expect(n3).toBe(n2-1)
           expect(n3).toBe(n1)
   });
-  // test for candidate
-  const funcs = require('./functions');
+//candidate tests
+const funcs = require('./functions');
 test(`first Candidate 's id should be this certain encrypted id  `, async () => {
     const user =  await funcs.getCandidates();
     expect(user.data.data[0]._id).toEqual("5ca0d91447286e02c049f6f6")
@@ -725,8 +724,7 @@ test(`candidate delete skills`, async () => {
   const user =  await funcs.deletecandidateskills();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
 });
-//testavgrating
-//get
+
 //testrating
 //get
 test(` get candidate skills`, async () => {
@@ -749,9 +747,10 @@ test(`candidate delete skills`, async () => {
   const user =  await funcs.deletecandidaterating();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
 });
+//testavgrating
 //avg_rating
 test(` get candidate avgrating`, async () => {
   const user =  await funcs.getCandidaterating();
   expect(user.data).to(1);
-});
+});  
  
