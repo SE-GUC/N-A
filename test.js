@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const funcs = require('./functions');
 <<<<<<< HEAD
 test(`first Candidate 's id should be this certain encrypted id  `, async () => {
@@ -36,6 +37,10 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].FirstName).toEqual(expected.FirstName)
 =======
+=======
+
+ const funcs = require('./functions');
+>>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677
 
 test('Project amount increases by 1',async()=>{
 // expect.assertions(1)
@@ -672,75 +677,85 @@ test(` get candidate avgrating`, async () => {
  
 
 
+//Location testing
 
-test('adding 1 + 1 the result should be 2',()=>{
-    expect(funcs.add(1,1)).toBe(2);
+test('Testing Post Method',async()=>{
+  expect.assertions(6)
+  const test = await funcs.postLocations()
+  idd= test.data.data._id
+  window.gid = idd
+  console.log(idd)
+  console.log(gid)
+  const location = {
+    name: 'opera',
+    country: 'egypt',
+    city:'cairo',
+     street: 'mohamedali',  
+     capacity: 12,
+  }
+  expect(test.data.msg).toEqual('location regiesterd successfully')
+  expect(test.data.data.name).toEqual(location.name)
+  expect(test.data.data.country).toEqual(location.country)
+  expect(test.data.data.city).toEqual(location.city)
+  expect(test.data.data.street).toEqual(location.street)
+  expect(test.data.data.capacity).toEqual(location.capacity)
 
-    module.exports = {
-        setupTestFrameworkScriptFile: './jest.setup.js'
-      }
-      
-      // jest.setup.js
-      jest.setTimeout(30000)
-});
+
+});   
+
 test('Testing Get method ',async()=>{
-    expect.assertions(3);//Verifies that a certain number of assertions is called. Leaving it out will lead to succeeding the test even if name doesnt match
-    const test = await funcs.getLocationsid()
-            expect(test).toBeDefined()
-            expect(test.data._id).toEqual('5ca0c551baddba46db7b4006')
-            expect(test.data.name).toEqual("zebra")
+    expect.assertions(1);//Verifies that a certain number of assertions is called. Leaving it out will lead to succeeding the test even if name doesnt match
+    const test = await funcs.getLocationsid(gid)
+            expect(test.data.name).toEqual("opera")
 
 });
 
-  test('Testing Post Method',async()=>{
-      expect.assertions(5)
-      const test = await funcs.postLocations()
-      const location = {
-        name: 'opera',
-        country: 'egypt',
-        city:'cairo',
-         street: 'mohamedali',  
-         capacity: 12,
-      }
-      expect(test.data.data.name).toEqual(location.name)
-      expect(test.data.data.country).toEqual(location.country)
-      expect(test.data.data.city).toEqual(location.city)
-      expect(test.data.data.street).toEqual(location.street)
-      expect(test.data.data.capacity).toEqual(location.capacity)
-
-  });
-  test('Testing Put Method for both name and capacity',async()=>{
-    const test = await funcs.putLocations1()
+  
+  test('Testing Put Method ',async()=>{
+    expect.assertions(3);
+    const test = await funcs.putLocations(gid)
     const location = {
-        _id:'5ca0cd7ebaddba46db7b400c',
-        name: 'redbull', 
+         name: 'zoo', 
         capacity: 2
     }
-    const arr = await funcs.getLocationsid2(location._id)
-    expect(arr.data.name).toEqual(location.name)
+    const x = await funcs.getLocationsid(gid)
+    expect(test.data.msg).toEqual('location updated')
+    expect(x.data.name).toEqual(location.name)
     //expect(arr.data.country).toEqual(location.country)
    // expect(arr.data.city).toEqual(location.city)
    // expect(arr.data.street).toEqual(location.street)
-    expect(arr.data.capacity).toEqual(location.capacity)
+    expect(x.data.capacity).toEqual(location.capacity)
+
+});
+test('Testing Post Method for Reservation',async()=>{
+  const test = await funcs.postReservation(gid)
+  expect(test.data.msg).toEqual('New reservation requested')
+  
+});
+
+test('Testing Put Method for review and reservation',async()=>{
+const test = await funcs.putReview(gid)
+
+expect(test.data.msg).toEqual('Reservation reviewed successfully')
 
 });
 test('Testing Delete Method', async () => {
 
-    
-    const location =  await funcs.deleteLocation();
-    const expected = {
-        _id:'5ca0f715baddba46db7b401a',
-        name: null,
-         capacity: null
-        }
-    const x =  await funcs.getLocationsid2('5ca0f715baddba46db7b401a');
-    expect(expected.name).toBeNull();
-    expect(expected.capacity).toBeNull();
-
-
-
+          const l=await funcs.getLocations()
+          const n1=l.data.data.length;
+          const l2=await funcs.postLocations()
+          const l3=await funcs.getLocations()
+          const n2=l3.data.data.length
+          const sid=l2.data.data._id
+          await funcs.deleteLocation(sid)
+          const l5=await funcs.getLocations()
+          const n3=l5.data.data.length          
+          expect(n1).toBe(n2-1)
+          expect(n3).toBe(n2-1)
+          expect(n3).toBe(n1)
   });
     
+<<<<<<< HEAD
  
 test('Testing Post Method for Reservation',async()=>{
           const pid = '5ca0c551baddba46db7b4006'
@@ -773,3 +788,6 @@ test('Testing Post Method for Reservation',async()=>{
     });
  
 >>>>>>> 6cccc947f8adbbd0fd110877ab985bef159f0592
+=======
+ 
+>>>>>>> 140ac7c9ed6024ef868551cdabd4ee85d443c677

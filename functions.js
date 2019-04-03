@@ -670,12 +670,12 @@ const functions = {
       },
     add: (x,y) => x+y,
 
-
-    getLocationsid: async ()=>{
-        const locations = await axios.get('http://localhost:3000/api/locations/5ca0c551baddba46db7b4006')
-        return locations
-    },
-    getLocationsid2: async (v)=>{
+// Locationssss
+getLocations: async ()=>{
+  const locations = await axios.get('http://localhost:3000/api/locations/')
+  return locations
+},
+    getLocationsid: async (v)=>{
         const locations = await axios.get('http://localhost:3000/api/locations/'+v)
         return locations
     },
@@ -693,31 +693,24 @@ const functions = {
             }
         })
     },
-    putLocations1: async()=>{
+    putLocations: async(v)=>{
         return axios({
             method: 'put',
-            url: 'http://localhost:3000/api/locations/5ca0cd7ebaddba46db7b400c',
+            url: 'http://localhost:3000/api/locations/'+v,
             headers:{'Content-Type':'application/json'},
             data: {
-                name: 'redbull', 
-                 capacity: 2,
+              name: 'zoo',
+              country: 'UK',
+              city:'londo',
+               street: 'londonstreet',  
+               capacity: 2,
             }
         })
     },
-    putLocations2: async()=>{
-        return axios({
-            method: 'put',
-            url: 'http://localhost:3000/api/locations/5ca0cd7ebaddba46db7b400c',
-            headers:{'Content-Type':'application/json'},
-            data: {
-                country: 'UnitedKingdom', 
-                }
-        })
-    },
-    deleteLocation: async()=>{
+    deleteLocation: async(v)=>{
         return axios({
           method: 'delete',
-          url: 'http://localhost:3000/api/locations/5ca0dc2ebaddba46db7b4018',
+          url: 'http://localhost:3000/api/locations/'+v,
           headers:{'Content-Type':'application/json'},
           data: {
             name: 'opera',  
@@ -755,11 +748,6 @@ const functions = {
           });
   
         },
-        
-
-
-
-
     
    
     postReservation: async(v)=>{
