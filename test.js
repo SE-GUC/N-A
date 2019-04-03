@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 const funcs = require('./functions');
-=======
-
- const funcs = require('./functions');
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
 
 test('Project amount increases by 1',async()=>{
 // expect.assertions(1)
@@ -214,16 +209,16 @@ jest.setTimeout(30000)
       const M=await funcs.Pending()
       expect(M.data.data.length).toBe(0)
       
-     })
+     });
      test('Projects that have been posted to the site and need members',async()=>{
       const M=await funcs.Avalible()
       expect(M.data.data.length).toBe(0)
       
-     })
+     });
      test('Is this member certified for this project',async()=>{
         const P=await funcs.Certified()
         expect(P.data.data).toEqual(true)
-     })
+     });
 
  
 /**enter* @jest-environment node */
@@ -546,9 +541,7 @@ test('Testing Delete Method', async () => {
           expect(n3).toBe(n2-1)
           expect(n3).toBe(n1)
   });
-<<<<<<< HEAD
 //candidate tests
-const funcs = require('./functions');
 test(`first Candidate 's id should be this certain encrypted id  `, async () => {
     const user =  await funcs.getCandidates();
     expect(user.data.data[0]._id).toEqual("5ca0d91447286e02c049f6f6")
@@ -567,7 +560,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
   expect(user.data.data.FirstName).toMatch(expectation.FirstName)
   expect(user.data.data.LastName).toMatch(expectation.LastName)
   expect(user.data.data.password).toMatch(expectation.password)
-  }),
+  });
  test(`first Candidate 's first name should be updated to seif  `, async () => {
     expect.assertions(1)
       const user =await funcs.updateFNameCandidate();
@@ -584,8 +577,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     }
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].FirstName).toEqual(expected.FirstName)
-=======
-    
+  });
   test(`consultancyAgencies's data  should match the one being inserted  `, async () => {
 
     
@@ -641,7 +633,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
   expect(user.data.data.FirstName).toEqual(expectation.FirstName)
   expect(user.data.data.LastName).toEqual(expectation.LastName)
   expect(user.data.data.password).toEqual(expectation.password)
-  });
+  }),
   test(`consultancyAgencies's data  should match the one being inserted  `, async () => {
 
     
@@ -669,7 +661,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
   expect(user.data.data.FirstName).toEqual(expectation.FirstName)
   expect(user.data.data.LastName).toEqual(expectation.LastName)
   expect(user.data.data.password).toEqual(expectation.password)
-  });
+  }),
   
   test(`first consultancyAgencies's first name should be updated to seif  `, async () => {
 
@@ -691,15 +683,13 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
 
     expect(x.data.data[0].FirstName).toEqual(expected.FirstName)
 
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
-  });
+  }),
   module.exports = {
     setupTestFrameworkScriptFile: './jest.setup.js'
-  }
-<<<<<<< HEAD
+  },
 
   // jest.setup.js
-  jest.setTimeout(30000)
+  jest.setTimeout(30000),
 
   test(`first Candidate 's last name should be updated to kholy  `, async () => {
 
@@ -707,10 +697,9 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     const expected = {
       Certificates: [],
       _id: '5c9fc5b379d49213e88a8bd9',
-=======
-  
+    }}),
   // jest.setup.js
-  jest.setTimeout(30000)
+  jest.setTimeout(30000),
   
   test(`first consultancyAgencies's last name should be updated to kholy  `, async () => {
 
@@ -718,31 +707,29 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     const expected = {
       Certificates: [],
       _id: '5c9cc8b3b19333217411d273',
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
             FirstName: 'yassin',
             LastName: 'kholy',
             Basic_Info: 'web configuration and design',
             password: '12345',
             Birthdate: '2001-12-31T22:00:00.000Z',
             email: 'flinstone@gmail.com',
-<<<<<<< HEAD
             User_Category: 'Candidate ',
-    }
+    },
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].LastName).toEqual(expected.LastName)
 
-  });
+  }),
   test(`first Candidate 's Birth date should be updated to 09/08/1997  `, async () => {
 
 
     const user =  await funcs.updateBirthdateCandidate();
     const expected = {
       Birthdate: '1997-09-08T00:00:00.000Z'
-    }
+    },
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].Birthdate).toEqual(expected.Birthdate)
 
-  });
+  }),
   test(`first Candidate 's password should be updated to 'udntknwmypassword'  `, async () => {
     const user =  await funcs.updatepasswordCandidate();
     const expected = {
@@ -750,7 +737,7 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     }
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].password).toEqual(expected.password)
-  });
+  }),
   test(`first Candidate 's email should be updated to 'random@gmail.com' `, async () => {
 
 
@@ -761,12 +748,12 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
     const x =  await funcs.getCandidates();
     expect(x.data.data[0].email).toEqual(expected.email)
 
-  });
+  }),
   //delete
   test(`candidate delete`, async () => {
     const user =  await funcs.deletebmember();
     expect(user.data).toEqual({msg:'Candidate was deleted successfully'})
-  });
+  }),
   // test interests
   //post
   test(`Candidate interests insert  `, async () => {
@@ -777,17 +764,17 @@ test(`first Candidate 's id should be this certain encrypted id  `, async () => 
   test(` get candidate interests`, async () => {
     const user =  await funcs.getCandidateinterests();
     expect(user.data).toEqual({"data": [["AAA"]]})
-  });
+  }),
   //update
   test(` update candidate interests`, async () => {
     const user =  await funcs.updatecandidateinterestss();
     expect(user.data).toEqual({"msg":"Attribute Updated successfully"})
-  })
+  }),
   //delete
   test(`candidate delete intereset`, async () => {
     const user =  await funcs.deletecandidateinterests();
     expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
-  });
+  }),
 //test projects 
 //post
 test(`Candidate projects insert  `, async () => {
@@ -798,17 +785,17 @@ expect(user.data).toEqual({"msg":"done"})
  test(` get candidate projects`, async () => {
     const user =  await funcs.getCandidateproject();
     expect(user.data).toEqual({"data": [["AAA"]]})
-  });
+  }),
 //update
 test(` update candidate projects`, async () => {
   const user =  await funcs.updatecandidateprojects();
   expect(user.data).toEqual({"msg":"Attribute Updated successfully"})
-});
+}),
 //delete
 test(`candidate delete project`, async () => {
   const user =  await funcs.deletecandidateproject();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
-});
+}),
   //test certificate
 //post 
 test(`Candidate certificates insert  `, async () => {
@@ -819,76 +806,69 @@ expect(user.data).toEqual({"msg":"done"})
  test(` get candidate certificate`, async () => {
     const user =  await funcs.getCandidatecertificates();
     expect(user.data).toEqual({"data": [["AAA"]]})
-  });
+  }),
 //update
 test(` update candidate certificates`, async () => {
   const user =  await funcs.updatecandidatecertificates();
   expect(user.data).toEqual({"msg":"Attribute Updated successfully"})
-});
+}),
 //delete
 test(`candidate delete certificate`, async () => {
   const user =  await funcs.deletecandidatecertificate();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
-});
+}),
 //test skills
 //post
 test(`Candidate skills insert  `, async () => {
   const user =  await funcs.addCandidateskills();
   const candidate=await funcs.getCandidates()
 expect(user.data).toEqual({"msg":"done"})
-})
+}),
 //get
  test(` get candidate skills`, async () => {
     const user =  await funcs.getCandidateskills();
     expect(user.data).toEqual({"data": [["AAA"]]})
-  });
+  }),
 //update
 test(` update candidate skills`, async () => {
   const user =  await funcs.updatecandidateskills();
   expect(user.data).toEqual({"msg":"Attribute Updated successfully"})
-});
+}),
 //delete
 test(`candidate delete skills`, async () => {
   const user =  await funcs.deletecandidateskills();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
-});
+}),
 
 //testrating
 //get
 test(` get candidate skills`, async () => {
   const user =  await funcs.getCandidaterating();
   expect(user.data).toEqual({"data": [[{}]]})
-});
+}),
 //post
 test(`Candidate rating insert  `, async () => {
   const user =  await funcs.addCandidaterating();
   const candidate=await funcs.getCandidates()
 expect(user.data).toEqual({"msg":"done"})
-})
+}),
 //update
 test(` update candidate skills`, async () => {
   const user =  await funcs.updatecandidaterating();
   expect(user.data).toEqual({"msg":"Attribute Updated successfully"})
-});
+}),
 //delete
 test(`candidate delete skills`, async () => {
   const user =  await funcs.deletecandidaterating();
   expect(user.data).toEqual({msg: 'Attribute Deleted successfully'})
-});
+}),
 //testavgrating
 //avg_rating
 test(` get candidate avgrating`, async () => {
   const user =  await funcs.getCandidaterating();
   expect(user.data).to(1);
-});  
+}),  
  
-=======
-            User_Category: 'Consulting_Agent',
-    }
-    const x =  await funcs.getconsultancyAgenciess();
-    expect(x.data.data[0].LastName).toEqual(expected.LastName)
-
-  });
 
   
 
@@ -902,7 +882,7 @@ test(` get candidate avgrating`, async () => {
     const x =  await funcs.getconsultancyAgenciess();
     expect(x.data.data[0].Birthdate).toEqual(expected.Birthdate)
 
-  });
+  }),
   
   test(`first consultancyAgencies's basic information should be updated to media engineering and technology  `, async () => {
 
@@ -914,7 +894,7 @@ test(` get candidate avgrating`, async () => {
     const x =  await funcs.getconsultancyAgenciess();
     expect(x.data.data[0].Basic_Info).toEqual(expected.Basic_Info)
 
-  });
+  }),
   test(`first consultancyAgencies's password should be updated to 'udntknwmypassword'  `, async () => {
 
     
@@ -925,7 +905,7 @@ test(` get candidate avgrating`, async () => {
     const x =  await funcs.getconsultancyAgenciess();
     expect(x.data.data[0].password).toEqual(expected.password)
 
-  });
+  }),
   test(`first consultancyAgencies's email should be updated to 'random@gmail.com' `, async () => {
 
     
@@ -936,13 +916,13 @@ test(` get candidate avgrating`, async () => {
     const x =  await funcs.getconsultancyAgenciess();
     expect(x.data.data[0].email).toEqual(expected.email)
 
-  });
+  }),
   
   //delete
   test('consultancyAgencies delete', async () => {
     const user =  await funcs.deleteconsultancyAgencies();
     expect(user.data).toEqual({msg:'consultancyAgency was deleted successfully'})
-  }); 
+  }), 
   // test BoardMembers
   //post
   test('consultancyAgencies BoardMember insert', async () => {
@@ -953,18 +933,18 @@ test(` get candidate avgrating`, async () => {
   test('get consultancyAgencies BoardMembers', async () => {
     const user =  await funcs.getconsultancyAgenciesBoardMembers();
     //expect(user.data).toEqual({"data": [["AAA"]]})
-  });
+  }),
   //update
   test('update consultancyAgencies BoardMember', async () => {
     const user =  await funcs.updateconsultancyAgenciesBoardMembers();
     expect(user.data).toEqual({"msg":"BoardMember Updated successfully"})
-  })
+  }),
   
   //delete
   test('consultancyAgencies delete BoardMember', async () => {
     const user =  await funcs.deleteconsultancyAgenciesBoardMember();
     expect(user.data).toEqual({"msg":"BoardMember Deleted successfully"})
-  });
+  }),
 
   
     //post
@@ -976,19 +956,15 @@ test(` get candidate avgrating`, async () => {
       test('get consultancyAgencies Past_Events', async () => {
         const user =  await funcs.getconsultancyAgenciesPast_Events();
         //expect(user.data).toEqual({"data": [["AAA"]]})
-      });
+      }),
       //update
       test('update consultancyAgencies Past_Events', async () => {
         const user =  await funcs.updateconsultancyAgenciesPast_Events();
         expect(user.data).toEqual({"msg":"Past_Event Updated successfully"})
-      })
+      }),
       
       //delete
-      test('consultancyAgencies delete Past_Events', async () => {
+     test('consultancyAgencies delete Past_Events', async () => {
         const user =  await funcs.deleteconsultancyAgenciesPast_Events();
         expect(user.data).toEqual({"msg":"Past_Event Deleted successfully"})
-      });
-  
- 
-
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
+      })
