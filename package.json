@@ -1,14 +1,41 @@
+<<<<<<< HEAD
 {
   "name": "server",
   "version": "0.0.1",
   "description": "Introduction to node",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-
+    "test": "jest"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": " ",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel": "^6.23.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "mongoose": "^5.4.19",
+    "passport": "^0.4.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0"
+  }
+}
+=======
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "Introduction to node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index",
     "test": "jest"
-
   },
   "keywords": [
     "server"
@@ -45,3 +72,4 @@
   },
   "homepage": "https://github.com/SE-GUC/N-A#readme"
 }
+>>>>>>> 6cccc947f8adbbd0fd110877ab985bef159f0592
