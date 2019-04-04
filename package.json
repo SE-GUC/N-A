@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/SE-GUC/N-A#readme",
   "devDependencies": {
-    "jest": "^24.5.0"
+    "jest": "^24.7.0"
   }
 }

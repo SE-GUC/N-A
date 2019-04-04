@@ -28,35 +28,43 @@ router.post('/', async (req,res) => {
      const isValidated = validator.createValidation(req.body)
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      const newadmin = await admin.create(req.body)
-     res.json({msg:'admin signed up successfully', data: newadmin})
+     res.json({msg:'Candidate was created successfully', data: newadmin})
     }
     catch(error) {
         console.log(error)
     }
  })
-
-
  // Update a admin's details
 router.put('/:id',(req,res)=>{
     const todoID = req.params.id;
-    if(req.body.FirstName)
-    admin.findOneAndUpdate({_id :todoID},{$set :{FirstName: req.body.FirstName}},{new :true},(err,result)=>{})
-    if(req.body.LastName)
+    if(req.body.FirstName){
+        admin.findOneAndUpdate({_id :todoID},{$set :{FirstName: req.body.FirstName}},{new :true},(err,result)=>{})
+        res.json({msg:'Admin was updated successfully', data:req.body.FirstName})
+    }
+    if(req.body.LastName){
     admin.findOneAndUpdate({_id :todoID},{$set :{LastName:req.body.LastName}},{new :true},(err,result)=>{})
-    if(req.body.email)
+    res.json({msg:'Admin was updated successfully', data:req.body.LastName})
+}
+    if(req.body.email){
     admin.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{})
-    if(req.body.password)
+    res.json({msg:'Admin was updated successfully', data:req.body.email})
+}
+    if(req.body.password){
     admin.findOneAndUpdate({_id :todoID},{$set :{password: req.body.password}},{new :true},(err,result)=>{})
-    if(req.body.Birthdate)
-    admin.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
-  });
+        res.json({msg:'Admin was updated successfully', data:req.body.password}) 
+    }
 
+    if(req.body.Birthdate){
+    admin.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
+    res.json({msg:'Admin was updated successfully', data:req.body.Birthdate})
+}
+});
 // Delete a admin
 router.delete('/:id', async (req,res) => {
     try {
      const id = req.params.id
      const deletedadmin = await admin.findByIdAndRemove(id)
-     res.json({msg:'admin was deleted successfully', data: deletedadmin})
+     res.json({msg:'admin was deleted successfully'})
     }
     catch(error) {
         console.log(error)
