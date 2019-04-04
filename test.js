@@ -1,5 +1,24 @@
 const funcs = require('./functions');
-<<<<<<< HEAD
+test(`Candidate 's data should match the one being inserted`, async () => {
+  const user =  await funcs.addadmin();
+  window.zid = user.data.data._id
+  const expectation = {
+          FirstName: 'ahmed',
+          LastName: 'yassin',
+          password: 'rana23',   
+          Birthdate: '1/1/2001',
+          email:'yassin@gmail.com',
+          User_Category : 'Admin'
+  }
+expect(user.data.data.email).toEqual(expectation.email)
+expect(user.data.data.FirstName).toEqual(expectation.FirstName)
+expect(user.data.data.LastName).toEqual(expectation.LastName)
+expect(user.data.data.password).toEqual(expectation.password)
+});
+test(`first Candidate 's id should be this certain encrypted id`, async () => {
+  const user =  await funcs.getadmins(zid);
+  expect(user.data._id).toEqual(zid)
+});
 test(`first Candidate 's first name should be updated to Mahmoud  `, async () => {
     const user =await funcs.updateFNameadmin(zid);
   const expected = {
@@ -44,7 +63,6 @@ test(`candidate delete`, async () => {
   const user =  await funcs.deleteadmin(zid);
   expect(user.data).toEqual({msg:'admin was deleted successfully'})
 });
-=======
 
 test('Project amount increases by 1',async()=>{
 // expect.assertions(1)
@@ -1014,4 +1032,3 @@ test(` get candidate avgrating`, async () => {
         const user =  await funcs.deleteconsultancyAgenciesPast_Events();
         expect(user.data).toEqual({"msg":"Past_Event Deleted successfully"})
       })
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc

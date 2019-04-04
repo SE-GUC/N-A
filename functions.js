@@ -1,6 +1,26 @@
 const axios = require('axios');
 <<<<<<< HEAD
 const functions =  {
+  getadmins: async (z) => {
+    const Candidates = await axios.get('http://localhost:3000/api/admins/' + z)
+    return Candidates
+    },
+   //test for post 
+  addadmin: async()=>{
+    return axios({
+        method: 'post',
+        url: 'http://localhost:3000/api/admins',
+        headers:{'Content-Type':'application/json'},
+        data: {
+             FirstName: 'ahmed',
+             LastName: 'yassin',
+             password: 'rana23',   
+             Birthdate: '1/1/2001',
+             email: 'yassin@gmail.com',
+             User_Category : 'Admin'
+        }
+      })
+  },
 //test for update    
 updateFNameadmin: async(z)=>{
   return axios({
