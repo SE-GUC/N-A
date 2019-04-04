@@ -117,7 +117,7 @@ router.put('/Business_Plans_Offered/:id',async (req, res) => {
 				res.json({msg: 'Attribute Updated successfully'})
 }})
 
-///////////////////
+//////////////////////////////////////////
 //get Facilites
 router.get('/Facilites/:id',async  (req, res) => {
   const co_Working_spaces= await  Co_working_space.find();
