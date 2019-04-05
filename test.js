@@ -847,3 +847,144 @@ test(`candidate delete test`, async () => {
   const user =  await funcs.deletecandidate(cid);
   expect(user.data).toEqual({data: "Candidate was deleted successfully"})
 })  
+//consultancyAgencies tests
+//post
+test(`consultancyAgencies 's data  should match the one being inserted`, async () => {
+  const user =  await funcs.addconsultancyAgencies();
+  const expectation = {
+          FirstName: 'test',
+          LastName: 'test',
+          password: 'test123',
+          Basic_Info:'boola',
+          Birthdate: '5/5/1998',
+          email:'random@gmail.com',
+          User_Category : 'Consulting_Agent'
+  }
+  window.caid = user.data.data._id
+expect(user.data.data.email).toMatch(expectation.email)
+expect(user.data.data.FirstName).toMatch(expectation.FirstName)
+expect(user.data.data.LastName).toMatch(expectation.LastName)
+expect(user.data.data.password).toMatch(expectation.password)
+expect(user.data.data.User_Category).toMatch(expectation.User_Category)
+});
+ //get
+test(`consultancyAgenciess get`, async () => {
+  const user =  await funcs.getconsultancyAgencies(caid);
+  expect(user.data._id).toEqual(caid)
+});
+//update
+//firstname
+test(`first consultancyAgencies 's first name should be updated to Mahmoud`, async () => {
+  expect.assertions(1)
+    const user =await funcs.updateFNameconsultancyAgencies(caid);
+  const expected = {
+          FirstName: 'Mahmoud',
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.FirstName).toEqual(expected.FirstName)
+});
+module.exports = {
+  setupTestFrameworkScriptFile: './jest.setup.js'
+},
+
+// jest.setup.js
+jest.setTimeout(30000),
+//lastname
+test(` consultancyAgencies 's last name should be updated to Nabil  `, async () => {
+
+  const user =  await funcs.updateLNameconsultancyAgencies(caid);
+  const expected = {
+    LastName:'Nabil'
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.LastName).toEqual(expected.LastName)
+}),
+// jest.setup.js
+jest.setTimeout(30000),
+// update birthdate
+test(`first consultancyAgencies 's Birth date should be updated to 09/08/1997  `, async () => {
+  const user =  await funcs.updateBirthdateconsultancyAgencies(caid);
+  const expected = {
+    Birthdate: '1997-09-08T00:00:00.000Z'
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.Birthdate).toEqual(expected.Birthdate)
+})
+//update password
+test(`first consultancyAgencies 's password should be updated to '123456789'  `, async () => {
+  const user =  await funcs.updatepasswordconsultancyAgencies(caid);
+  const expected = {
+    password: '123456789'
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.password).toEqual(expected.password)
+})
+//update email
+test(`first consultancyAgencies 's email should be updated to 'mahmoud@gmail.com' `, async () => {
+  const user =  await funcs.updateemailconsultancyAgencies(caid);
+  const expected = {
+    email: 'mahmoud@gmail'
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.email).toEqual(expected.email)
+
+}),
+// test BoardMembers
+//post
+test(`consultancyAgencies BoardMembers insert  `, async () => {
+  const user =  await funcs.addconsultancyAgenciesBoardMember(caid);
+  const expected={
+    BoardMembers:["AAA"]
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+expect(x.data.BoardMembers).toEqual(expected.BoardMembers)
+}),
+//get
+test(`get consultancyAgencies BoardMembers`, async () => {
+  const user =  await funcs.getconsultancyAgenciesBoardMembers(caid);
+  expect(user.data).toEqual({"data": [["AAA"]]})
+}),
+//update
+test(` update consultancyAgencies BoardMembers`, async () => {
+  const user =  await funcs.updateconsultancyAgenciesBoardMemberss(caid);
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.BoardMembers).toEqual(["MMM"])
+}),
+//delete
+test(`consultancyAgencies delete BoardMembers`, async () => {
+  const user =  await funcs.deleteconsultancyAgenciesBoardMembers(caid);
+  const x =  await funcs.getconsultancyAgencies(caid);
+  expect(x.data.BoardMembers).toEqual([])
+}),
+//test Past_Events 
+//post
+test(`consultancyAgencies Past_Events insert  `, async () => {
+const user =  await funcs.addconsultancyAgenciesPast_Events(caid);
+  const expected={
+  Past_Events:["AAA"]
+  }
+  const x =  await funcs.getconsultancyAgencies(caid);
+expect(x.data.Past_Events).toEqual(expected.Past_Events)
+}),
+//get 
+test(` get consultancyAgencies Past_Events`, async () => {
+const user = await funcs.getconsultancyAgenciesPast_Events(caid);
+expect(user.data).toEqual({"data": [["AAA"]]})
+}),
+//update
+test(` update consultancyAgencies Past_Events`, async () => {
+const user =  await funcs.updateconsultancyAgenciesPast_Events(caid);
+const x =  await funcs.getconsultancyAgencies(caid);
+expect(x.data.Past_Events).toEqual(["MMM"])
+}),
+//delete
+test(`consultancyAgencies delete Past_Events`, async () => {
+const user =  await funcs.deleteconsultancyAgenciesPast_Events(caid);
+const x =  await funcs.getconsultancyAgencies(caid);
+expect(x.data.Past_Events).toEqual([])
+}),
+//delete
+test(`consultancyAgencies delete`, async () => {
+const user =  await funcs.deleteconsultancyAgencies(caid);
+expect(user.data).toEqual({msg:'consultancyAgency was deleted successfully'})
+})
