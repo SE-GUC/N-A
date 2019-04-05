@@ -20,7 +20,6 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "fetch": "^1.1.0",
-    "jest": "^24.5.0",
     "joi": "^14.3.1",
     "mongoose": "^5.4.21",
     "node-fetch": "^2.3.0",
@@ -38,6 +37,6 @@
   },
   "homepage": "https://github.com/SE-GUC/N-A#readme",
   "devDependencies": {
-    "jest": "^24.5.0"
+    "jest": "^24.7.0"
   }
 }
