@@ -1,7 +1,5 @@
 const funcs = require('./functions');
-<<<<<<< HEAD
-=======
-test(`Candidate 's data should match the one being inserted`, async () => {
+test(`Admin 's data should match the one being inserted`, async () => {
   const user =  await funcs.addadmin();
   window.zid = user.data.data._id
   const expectation = {
@@ -17,25 +15,25 @@ expect(user.data.data.FirstName).toEqual(expectation.FirstName)
 expect(user.data.data.LastName).toEqual(expectation.LastName)
 expect(user.data.data.password).toEqual(expectation.password)
 });
-test(`first Candidate 's id should be this certain encrypted id`, async () => {
+test(`first Admin 's id should be this certain encrypted id`, async () => {
   const user =  await funcs.getadmins(zid);
   expect(user.data._id).toEqual(zid)
 });
-test(`first Candidate 's first name should be updated to Mahmoud  `, async () => {
+test(`first Admin 's first name should be updated to Mahmoud  `, async () => {
     const user =await funcs.updateFNameadmin(zid);
   const expected = {
           FirstName: 'Mahmoud',
   }
   expect(user.data.data).toEqual(expected.FirstName)
 });
-test(`first Candidate 's last name should be updated to kholy  `, async () => {
+test(`first Admin 's last name should be updated to kholy  `, async () => {
   const user =  await funcs.updateLNameadmin(zid);
   const expected = {
     LastName:'seliem'
   }
   expect(user.data.data).toEqual(expected.LastName)
   });
-test(`first Candidate 's Birth date should be updated to 09/08/1997  `, async () => {
+test(`first Admin 's Birth date should be updated to 09/08/1997  `, async () => {
   const user =  await funcs.updatebirthdateadmin(zid);
   const expected = {
     Birthdate: '1997-09-08'
@@ -43,14 +41,14 @@ test(`first Candidate 's Birth date should be updated to 09/08/1997  `, async ()
   expect(user.data.data).toEqual(expected.Birthdate)
 
 });
-test(`first Candidate 's password should be updated to 'udntknwmypassword'  `, async () => {
+test(`first Admin 's password should be updated to 'udntknwmypassword'  `, async () => {
   const user =  await funcs.updatepaswordadmin(zid);
   const expected = {
     password:'123456789'
   }
   expect(user.data.data).toEqual(expected.password)
 });
-test(`first Candidate 's email should be updated to 'random@gmail.com' `, async () => {
+test(`first Admin 's email should be updated to 'random@gmail.com' `, async () => {
 
 
   const user =  await funcs.updateemailadmin(zid);
@@ -61,7 +59,7 @@ test(`first Candidate 's email should be updated to 'random@gmail.com' `, async 
 
 });
 //delete
-test(`candidate delete`, async () => {
+test(`Admin delete`, async () => {
   const user =  await funcs.deleteadmin(zid);
   expect(user.data).toEqual({msg:'admin was deleted successfully'})
 });
@@ -607,7 +605,6 @@ test('Testing Delete Method', async () => {
           expect(n3).toBe(n2-1)
           expect(n3).toBe(n1)
   });
->>>>>>> 4a82516f54b16108c89667aa575ef45764cfb627
 //candidate tests
 //post
  test(`Candidate 's data  should match the one being inserted`, async () => {
@@ -822,7 +819,6 @@ test(` update candidate rating`, async () => {
 //testavgrating
 //avg_rating
 test(` get candidate avgrating`, async () => {
-<<<<<<< HEAD
   jest.setTimeout(30000)
   const user =  await funcs.getCandidateavgrating(cid);
   expect(user).toEqual(2);
@@ -834,14 +830,11 @@ test(`candidate delete rating`, async () => {
   expect(x.data.Ratings).toEqual([])
 })*///,*/
 //delete
-test(`candidate delete`, async () => {
+test(`candidate delete test`, async () => {
   const user =  await funcs.deletecandidate(cid);
   expect(user.data).toEqual({data: "Candidate was deleted successfully"})
 })
-=======
-  const user =  await funcs.getCandidaterating();
-  expect(user.data).to(1);
-}),  
+ 
  
 
   
@@ -942,4 +935,3 @@ test(`candidate delete`, async () => {
         const user =  await funcs.deleteconsultancyAgenciesPast_Events();
         expect(user.data).toEqual({"msg":"Past_Event Deleted successfully"})
       })
->>>>>>> 4a82516f54b16108c89667aa575ef45764cfb627
