@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-<<<<<<< HEAD
-=======
     "dev": "nodemon index",
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc
     "test": "jest"
   },
   "keywords": [
@@ -19,27 +16,17 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
-<<<<<<< HEAD
-=======
     "cores": "^0.8.5",
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "fetch": "^1.1.0",
-    "jest": "^24.5.0",
     "joi": "^14.3.1",
-<<<<<<< HEAD
-    "mongoose": "^5.4.19",
-    "passport": "^0.4.0",
-    "uuid": "^3.3.2"
-=======
     "mongoose": "^5.4.21",
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "uuid": "^3.3.2",
     "web-push": "^3.3.3"
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc
   },
   "repository": {
     "type": "git",
@@ -50,10 +37,6 @@
   },
   "homepage": "https://github.com/SE-GUC/N-A#readme",
   "devDependencies": {
-<<<<<<< HEAD
     "jest": "^24.7.0"
-=======
-    "jest": "^24.5.0"
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc
   }
 }

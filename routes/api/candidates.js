@@ -7,8 +7,12 @@ const validator = require('../../validations/candidateValidation')
 
 //Get all Candidates
 router.get('/', async (req,res) => {
-    const Candidates = await Candidate.find()
-    res.json({data: Candidates})
+		const Candidates = await Candidate.find()
+		var result = []
+		for(let i=0;i<Candidates.length;i++)
+		if(Candidates[i]. User_Category=='Member')
+		result.push(Candidates[i])
+    res.json({data:result})
 });
 // Get a certain candidate 
 router.get('/:id',(req,res)=>{
@@ -38,26 +42,33 @@ router.get('/:id',(req,res)=>{
 	   }  
 	})
 // update a certain Candidate
-router.put('/:id',(req,res)=>{
-  const todoID = req.params.id;
-  if(req.body.firstname)
-  Candidate.findOneAndUpdate({_id :todoID},{$set :{firstname: req.body.firstname}},{new :true},(err,result)=>{})
-  if(req.body.lastname)
-  Candidate.findOneAndUpdate({_id :todoID},{$set :{lastname:req.body.lastname}},{new :true},(err,result)=>{})
+router.put('/:id', async(req,res)=>{
+	const todoID = req.params.id;
+	const isValidated = validator.updateValidation(req.body)
+	if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+	const X = await Candidate.findOne({"_id":todoID})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+  if(req.body.FirstName)
+	Candidate.findOneAndUpdate({_id :todoID},{$set :{ FirstName: req.body. FirstName}},{new :true},(err,result)=>{res.json(result)})
+  if(req.body.LastName)
+  Candidate.findOneAndUpdate({_id :todoID},{$set :{LastName:req.body.LastName}},{new :true},(err,result)=>{res.json(result)})
   if(req.body.Birthdate)
-  Candidate.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{})
+  Candidate.findOneAndUpdate({_id :todoID},{$set :{Birthdate:req.body.Birthdate}},{new :true},(err,result)=>{res.json(result)})
   if(req.body.email)
-  Candidate.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{})
+  Candidate.findOneAndUpdate({_id :todoID},{$set :{email:req.body.email}},{new :true},(err,result)=>{res.json(result)})
   if(req.body.password)
-  Candidate.findOneAndUpdate({_id :todoID},{$set :{password:req.body.password}},{new :true},(err,result)=>{})
-	res.json({msg:'candidate updated'})
+  Candidate.findOneAndUpdate({_id :todoID},{$set :{password:req.body.password}},{new :true},(err,result)=>{res.json(result)})
 });
   // delete a certain candidate
 router.delete('/:id', async (req,res) => {
     try {
-     const id = req.params.id
-     const deletedCandidate = await Candidate.findByIdAndRemove(id)
-     res.json({msg:'Candidate was deleted successfully', data: deletedCandidate})
+			const todoID = req.params.id;
+			const X = await Candidate.findOne({"_id":todoID})
+			if(!X)
+			return res.status(404).send({error: 'does not exist'})
+     const deletedCandidate = await Candidate.findByIdAndRemove(todoID)
+     res.json({data:'Candidate was deleted successfully'})
     }
     catch(error) {
         // We will be handling the error later
@@ -67,21 +78,25 @@ router.delete('/:id', async (req,res) => {
 //get interests
 router.get('/interests/:id',async  (req, res) => {
 	const id = req.params.id
+	const X = await Candidate.findOne({"_id":id})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
- if(id==Candidates._id)
-			result.push(Candidates[i].interests)
+ 	if(id==Candidates[i]._id)
+			result.push(Candidates[i].Intrests)
 		}
 		res.json({ data: result})
 	})
 // add intersests 
 router.post('/interests/:id', async (req, res) => {
 	const todoID = req.params.id;
-				if(req.body.interest)
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {interests:req.body.interest}},{new :true},(err,result)=>{})
-					
-						res.json({msg:'done'});
+	const X = await Candidate.findOne({"_id":todoID})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+				if(req.body.Interest)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Intrests:req.body.Interest}},{new :true},(err,result)=>{res.json({data:result})})			
 				  });
 //delete interests
 router.delete('/interests/:id',async (req, res) => {
@@ -89,19 +104,17 @@ router.delete('/interests/:id',async (req, res) => {
 	const X = await Candidate.findOne({"_id":Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
-	if (req.body.interest) {
+	if (req.body.Interest) {
 	var result=[]
 
-	for(var i=0;i<(X.interests).length;i++){
-		if((X.interests)[i]!=req.body.interests)
-			result.push((X.interests)[i])
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]!=req.body.Interest)
+			result.push((X.Intrests)[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{interests: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Intrests: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
-
 // update interests
-router.put('/past_projects/:id',async (req, res) => {
+router.put('/interests/:id',async (req, res) => {
 	const Candidateid=req.params.id
 	const X = await Candidate.findOne({"_id":Candidateid})
 	if(!X)
@@ -109,23 +122,25 @@ router.put('/past_projects/:id',async (req, res) => {
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
 
-	for(var i=0;i<(X.interests).length;i++){
-		if((X.interests)[i]==req.body.oldvalue)
+	for(var i=0;i<(X.Intrests).length;i++){
+		if((X.Intrests)[i]==req.body.oldvalue)
 			result.push(req.body.newvalue)
 			else
-			result.push(X.interests[i])
-
+			result.push(X.Intrests[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{interests: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Updated successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Intrests: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
 //get project
-router.get('/projectss/:id',async  (req, res) => {
+router.get('/projects/:id',async  (req, res) => {
+	const todoID =req.params.id
+	const x = await Candidate.findOne({"_id":todoID})
+	if(!x)
+	return res.status(404).send({error: 'does not exist'})
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-		if(id==Candidates._id)
-			result.push(Candidates[i].past_project)
+		if(todoID==Candidates[i]._id)
+			result.push(Candidates[i].Past_Projects)
 		}
 		res.json({ data: result})
 	})
@@ -138,15 +153,13 @@ router.put('/projects/:id',async (req, res) => {
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
 
-	for(var i=0;i<(X.past_projects).length;i++){
-		if((X.past_projects)[i]==req.body.oldvalue)
+	for(var i=0;i<(X.Past_Projects).length;i++){
+		if((X.Past_Projects)[i]==req.body.oldvalue)
 			result.push(req.body.newvalue)
 			else
-			result.push(X.past_projects[i])
-
+			result.push(X.Past_Projects[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{past_projects: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Updated successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Past_Projects: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
 //delete project
 router.delete('/projects/:id',async (req, res) => {
@@ -154,58 +167,58 @@ router.delete('/projects/:id',async (req, res) => {
 	const X = await Candidate.findOne({"_id":Candidateid})
 	if(!X)
 	return res.status(404).send({error: ' does not exist'})
-	if (req.body.project) {
+	if (req.body.Past_Projects) {
 	var result=[]
 
-	for(var i=0;i<(X.past_projects).length;i++){
-		if((X.past_projects)[i]!=req.body.project)
-			result.push((X.project)[i])
+	for(var i=0;i<(X.Past_Projects).length;i++){
+		if((X.Past_Projects)[i]!=req.body.Past_Projects)
+			result.push((X.Past_Projects)[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{past_projects: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Past_Projects: result}},{new :true},(err,result)=>{res.json(result)})
 }})
 //add project
 router.post('/projects/:id',async (req, res) => {
 	const todoID = req.params.id;
-				if(req.body.project)
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {past_projects:req.body.project}},{new :true},(err,result)=>{})					
-						res.json({msg:'done'});
+	const X = await Candidate.findOne({"_id":todoID})
+	if(!X)
+	return res.status(404).send({error: 'does not exist'})
+				if(req.body.Past_Projects)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Past_Projects:req.body.Past_Projects}},{new :true},(err,result)=>{res.json({data:result})})					
 				  });
-//get certificates
-router.get('/certificates/:id',async  (req, res) => {
+//get Certificates
+router.get('/Certificates/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-		if(id==Candidates._id)
-			result.push(Candidates[i].certificates)
+		if(Candidates[i]._id==id)
+			result.push(Candidates[i].Certificates)
 		}
 		res.json({ data: result})
 	})
-//add certificates
-router.post('/certificates/:id', async(req, res) => {
+//add Certificates
+router.post('/Certificates/:id', async(req, res) => {
 	const todoID = req.params.id;
-				if(req.body.certificate)
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {certificates:req.body.certificates}},{new :true},(err,result)=>{})
-						res.json({msg:'done'});
+				if(req.body.Certificates)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Certificates:req.body.Certificates}},{new :true},(err,result)=>{res.json({data:result})})
 				  });
-//delete certificates
-router.delete('/certificates/:id',async (req, res) => {
+//delete Certificates
+router.delete('/Certificates/:id',async (req, res) => {
 	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
+	const X = await Candidate.findOne({_id:Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
-	if (req.body.certificate) {
+	if (req.body.Certificates) {
 	var result=[]
 
-	for(var i=0;i<(X.certificates).length;i++){
-		if((X.certificates)[i]!=req.body.certificates)
-			result.push((X.certificates)[i])
+	for(var i=0;i<(X.Certificates).length;i++){
+		if((X.Certificates)[i]!=req.body.Certificates)
+			result.push((X.Certificates)[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{certificates: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Certificates: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
 //update certificate
-router.put('/certificates/:id',async (req, res) => {
+router.put('/Certificates/:id',async (req, res) => {
 	const Candidateid=req.params.id
 	const X = await Candidate.findOne({"_id":Candidateid})
 	if(!X)
@@ -213,124 +226,132 @@ router.put('/certificates/:id',async (req, res) => {
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
 
-	for(var i=0;i<(X.certificates).length;i++){
-		if((X.certificates)[i]==req.body.oldvalue)
+	for(var i=0;i<(X.Certificates).length;i++){
+		if((X.Certificates)[i]==req.body.oldvalue)
 			result.push(req.body.newvalue)
 			else
-			result.push(X.certificates[i])
+			result.push(X.Certificates[i])
 
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{certificates: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Updated successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Certificates: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
-//get skills
-router.get('/skills/:id',async  (req, res) => {
+//get Skills
+router.get('/Skills/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-		if(id==Candidates._id)
-			result.push(Candidates[i].skills)
+		if(Candidates[i]._id==id)
+			result.push(Candidates[i].Skills)
 		}
 		res.json({ data: result})
 	})
-//add skills
-router.post('/skills/:id',async (req, res) => {
+//add Skills
+router.post('/Skills/:id',async (req, res) => {
 	const todoID = req.params.id;
-				if(req.body.skill)
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {skills:req.body.skill}},{new :true},(err,result)=>{})
-					
-						res.json({msg:'done'});
+				if(req.body.Skills)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Skills:req.body.Skills}},{new :true},(err,result)=>{res.json({data:result})})
 				  });
-//delete skills
-router.delete('/skills/:id',async (req, res) => {
+//delete Skills
+router.delete('/Skills/:id',async (req, res) => {
 	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
+	const X = await Candidate.findOne({_id:Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
-	if (req.body.skill) {
+	if (req.body.Skills) {
 	var result=[]
 
-	for(var i=0;i<(X.skills).length;i++){
-		if((X.skills)[i]!=req.body.interests)
-			result.push((X.skills)[i])
+	for(var i=0;i<(X.Skills).length;i++){
+		if((X.Skills)[i]!=req.body.Skills)
+			result.push((X.Skills)[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{skills: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Skills: result}},{new :true},(err,result)=>{res.json({data:result})})
+		
 }})
-//update skiils
-router.put('/skills/:id',async (req, res) => {
+//update skills
+router.put('/Skills/:id',async (req, res) => {
 	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
+	const X = await Candidate.findOne({_id:Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
 
-	for(var i=0;i<(X.skills).length;i++){
-		if((X.skills)[i]==req.body.oldvalue)
+	for(var i=0;i<(X.Skills).length;i++){
+		if((X.Skills)[i]==req.body.oldvalue)
 			result.push(req.body.newvalue)
 			else
-			result.push(X.skills[i])
+			result.push(X.Skills[i])
 
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{skills: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Updated successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Skills: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
-//get reviews
-router.get('/reviews/:id',async  (req, res) => {
+//Get Ratings
+router.get('/rating/:id',async  (req, res) => {
+	const id =req.params.id
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-			result.push(Candidates[i].review)
+		if(Candidates[i]._id==id)
+			result.push(Candidates[i].Ratings)
 		}
 		res.json({ data: result})
 	})
-//add reviewes
-router.post('/reviews/:id', async(req, res) => {
+// Create a new Rating
+router.post('/rating/:id',async (req, res) => {
 	const todoID = req.params.id;
-				if(req.body.review)
-				Candidate.findOneAndUpdate({_id :todoID},{$push: {review:req.body.review}},{new :true},(err,result)=>{})
-					
-						res.json({msg:'done'});
+				if(req.body.Ratings)
+				Candidate.findOneAndUpdate({_id :todoID},{$push: {Ratings:req.body.Ratings}},{new :true},(err,result)=>{res.json({data:result})})
 				  });
-//delete reviewes
-router.delete('/reviews/:id',async (req, res) => {
+// update a certain Rating
+router.put('/rating/:id',async (req, res) => {
 	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
-	if(!X)
-	return res.status(404).send({error: 'does not exist'})
-	if (req.body.review) {
-	var result=[]
-
-	for(var i=0;i<(X.review).length;i++){
-		if((X.review)[i]!=req.body.review)
-			result.push((X.review)[i])
-	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{review: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Deleted successfully'})
-}})
-//update reviewes
-router.put('/reviews/:id',async (req, res) => {
-	const Candidateid=req.params.id
-	const X = await Candidate.findOne({"_id":Candidateid})
+	const X = await Candidate.findOne({_id:Candidateid})
 	if(!X)
 	return res.status(404).send({error: 'does not exist'})
 	if (req.body.oldvalue&&req.body.newvalue) {
 	var result=[]
-
-	for(var i=0;i<(X.review).length;i++){
-		if((X.review)[i]==req.body.oldvalue)
+	for(let i=0;i<(X.Ratings).length;i++){
+		if((((X.Ratings)[i].rating)==req.body.oldvalue.rating)&&
+		(((X.Ratings)[i].review)==req.body.oldvalue.review)&&
+		(((X.Ratings)[i].project_id)==req.body.oldvalue.project_id)&&(((X.Ratings)[i].candidate_id)==req.body.oldvalue.candidate_id))
 			result.push(req.body.newvalue)
 			else
-			result.push(X.review[i])
-
+			result.push(X.Ratings[i])
 	}
-	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{review: result}},{new :true},(err,result)=>{})
-				res.json({msg: 'Attribute Updated successfully'})
+	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Ratings: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
-
-
-
-
+  // delete a certain Rating
+	router.delete('/rating/:id',async (req, res) => {
+		const Candidateid=req.params.id
+		const X = await Candidate.findOne({_id:Candidateid})
+		if(!X)
+		return res.status(404).send({error: 'does not exist'})
+		if (req.body.Ratings) {
+		var result=[]
+		for(var i=0;i<(X.Ratings).length;i++){
+			if(!(JSON.stringify((X.Ratings)[i])===JSON.stringify(req.body.Ratings)))
+				result.push((X.Ratings)[i])
+		}
+		Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Ratings: result}},{new :true},(err,result)=>{res.json({data:result})})
+	}})
+//get avg Ratings
+router.get('/ratingsavg/:id',async  (req, res) => {
+	const id =req.params.id
+	const Candidates= await Candidate.find();
+	const result=[]
+	for(let i=0;i<Candidates.length;i++){
+		if(Candidates[i]._id==id){
+		for(let j=0;j<Candidates[i].Ratings.length;j++)
+			result.push(Candidates[i].Ratings[j].rating)
+		}
+	}
+		var sum=0
+		console.log(result)
+		for(let i=0;i<result.length;i++){
+	sum=	 parseInt(result[i])+sum
+	}
+    const avg = sum / result.length;
+		res.json({avg})
+	})
 module.exports = router;
-

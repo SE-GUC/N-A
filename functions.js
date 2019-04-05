@@ -1,5 +1,4 @@
 const axios = require('axios');
-<<<<<<< HEAD
 const functions =  {
   getadmins: async (z) => {
     const Candidates = await axios.get('http://localhost:3000/api/admins/' + z)
@@ -76,18 +75,11 @@ updateFNameadmin: async(z)=>{
                     data: {
                               
                     }
-                  })}
-    }
-    module.exports = functions
-=======
-const functions = {
+                  })},
 
-<<<<<<< HEAD
    //   add: (x,y) => x+y,
 
 
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
 	getconsultancyAgenciess: async () => {
 
     const consultancyAgencies = await axios.get('http://localhost:3000/api/consultancyAgencies')
@@ -122,17 +114,14 @@ testupdateFNameconsultancyAgency: async()=>{
            
                   FirstName:'seifo'
           
-        }
-
+        },
         
-<<<<<<< HEAD
     testaddconsultancyAgencies : async()=>{
         return axios({
             method: 'post',
             url: 'http://localhost:3000/api/consultancyAgencies',
         })},
         add: (x,y) => x+y,
-=======
       }).then(function (response) {
         console.log(response);
       })
@@ -330,7 +319,6 @@ newvalue:'MMM'
 })
 },
           
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
         getProject: async () => {
           const Project = await axios.get('http://localhost:3000/api/projects/')
           return Project
@@ -514,15 +502,9 @@ newvalue:'MMM'
                 LastName: 'yassin',
                 Basic_Info:'web configuration and innovation ',
                  password: 'rana23',   
-<<<<<<< HEAD
-                 Birthdate: '2001-3-3',
-                 email: 'yassin@gmail.com',
-                User_Category : 'Consulting_Agent'
-=======
                  Birthdate: '1/1/2001',
                  email: 'yassin@gmail.com',
                 User_Category : 'Partner'
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
             }
           })
         
@@ -530,10 +512,6 @@ newvalue:'MMM'
     testupdateFName: async()=>{
         return axios({
             method: 'put',
-<<<<<<< HEAD
-            url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
             url: 'http://localhost:3000/api/partner/FirstName/5c9cc8b3b19333217411d273',
             headers:{'Content-Type':'application/json'},
             data: {
@@ -553,10 +531,6 @@ newvalue:'MMM'
     testupdateLName: async()=>{
       return axios({
         method: 'put',
-<<<<<<< HEAD
-        url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
         url: 'http://localhost:3000/api/partner/LastName/5c9cc8b3b19333217411d273',
         headers:{'Content-Type':'application/json'},
         data: {
@@ -576,10 +550,6 @@ newvalue:'MMM'
     testupdateBirthdate: async()=>{
       return axios({
         method: 'put',
-<<<<<<< HEAD
-        url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
         url: 'http://localhost:3000/api/partner/Birthdate/5c9cc8b3b19333217411d273',
         headers:{'Content-Type':'application/json'},
         data: {
@@ -598,10 +568,6 @@ newvalue:'MMM'
   },testupdateBasic_Info: async()=>{
     return axios({
       method: 'put',
-<<<<<<< HEAD
-      url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
       url: 'http://localhost:3000/api/partner/Basic_Info/5c9cc8b3b19333217411d273',
       headers:{'Content-Type':'application/json'},
       data: {
@@ -622,10 +588,6 @@ newvalue:'MMM'
 },testupdatepassword: async()=>{
   return axios({
     method: 'put',
-<<<<<<< HEAD
-    url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
     url: 'http://localhost:3000/api/partner/password/5c9cc8b3b19333217411d273',
     headers:{'Content-Type':'application/json'},
     data: {
@@ -646,10 +608,6 @@ newvalue:'MMM'
 },testupdatemail: async()=>{
   return axios({
     method: 'put',
-<<<<<<< HEAD
-    url: 'http://localhost:3000/api/consultancyAgencies/5ca11e6eb78ab03250aff870',
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
     url: 'http://localhost:3000/api/partner/email/5c9cc8b3b19333217411d273',
     headers:{'Content-Type':'application/json'},
     data: {
@@ -665,7 +623,6 @@ newvalue:'MMM'
   .catch(function (error) {
     console.log(error);
   });
-<<<<<<< HEAD
 },
 
   //test delete 
@@ -762,11 +719,9 @@ getconsultancyAgenciesPast_Events: async () => {
   
   
   ,testupdatepastproject: async()=>{
-=======
  
   
   },testupdatepastproject: async()=>{
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
     return axios({
       method: 'put',
       url: 'http://localhost:3000/api/partner/pproject/5c9cfab98528961dd0f9e503',
@@ -931,10 +886,12 @@ getLocations: async ()=>{
             }
         })
     },
+
+
 // test for candidate
     //test for get
-	getCandidates: async () => {
-        const Candidates = await axios.get('http://localhost:3000/api/Candidates')
+	getCandidates: async (c) => {
+        const Candidates = await axios.get('http://localhost:3000/api/Candidates/'+c)
         return Candidates
         },
        //test for post 
@@ -944,66 +901,66 @@ getLocations: async ()=>{
             url: 'http://localhost:3000/api/Candidates',
             headers:{'Content-Type':'application/json'},
             data: {
-                 FirstName: 'ahmed',
-                 LastName: 'yassin',
-                 password: 'rana23',   
-                 Birthdate: '1/1/2001',
-                 email: 'yassin@gmail.com',
+                 FirstName: 'test',
+                 LastName: 'test',
+                 password: 'test123',   
+                 Birthdate: '5/5/1998',
+                 email: 'random@gmail.com',
                  User_Category : 'Member'
             }
           })
     } ,
 //test for update    
-    updateFNameCandidate: async()=>{
+    updateFNameCandidate: async(c)=>{
         return axios({
             method: 'put',
-            url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
+            url: 'http://localhost:3000/api/Candidates/'+c,
             headers:{'Content-Type':'application/json'},
             data: {
-                      FirstName:'seifo'
+                      FirstName:'Mahmoud'
             }})}
             ,
-    updateLNameCandidate: async()=>{
+    updateLNameCandidate: async(c)=>{
       return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
-                  LastName:'kholy'
+                  LastName:'Nabil'
         }})},
-    testupdateLNameCandidate: async()=>{
+    updateBirthdateCandidate: async(c)=>{
       return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/partner/LastName/5c9cc8b3b19333217411d273',
-        headers:{'Content-Type':'application/json'},
-        data: {
-                  LastName:'kholy'  
-        }
-      })
-    },
-    updateBirthdateCandidate: async()=>{
-      return axios({
-        method: 'put',
-        url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
                   Birthdate:'1997-09-08T00:00:00.000Z'
         }})},
-  updatepasswordCandidate: async()=>{
+  updatepasswordCandidate: async(c)=>{
   return axios({
     method: 'put',
-    url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa'
+    url: 'http://localhost:3000/api/Candidates/'+c
     ,
     headers:{'Content-Type':'application/json'},
     data: {
-      password:'udntknwmyp'
+      password:'123456789'
     }
   })},
+  updateemailCandidate: async(c)=>{
+    return axios({
+      method: 'put',
+      url: 'http://localhost:3000/api/Candidates/'+c
+      ,
+      headers:{'Content-Type':'application/json'},
+      data: {
+        email:'mahmoud@gmail'
+      }
+    })},  
   //test delete 
-  deletebmember: async()=>{
+  deletecandidate: async(c)=>{
           return axios({
             method: 'delete',
-            url: 'http://localhost:3000/api/Candidates/5ca12dd90906934584e82afb',
+            url: 'http://localhost:3000/api/Candidates/'+c ,
             headers:{'Content-Type':'application/json'},
             data: {
             }
@@ -1011,37 +968,37 @@ getLocations: async ()=>{
   },
         
 //get interessts
-    getCandidateinterests: async () => {
-    const Candidates = await axios.get('http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa')
+    getCandidateinterests: async (c) => {
+    const Candidates = await axios.get('http://localhost:3000/api/Candidates/interests/'+c)
     return Candidates
     },
     //add interest
-    addCandidateinterest : async()=>{
+    addCandidateinterest : async(c)=>{
     return axios({
     method: 'post',
-    url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
+    url: 'http://localhost:3000/api/Candidates/interests/'+c,
     headers:{'Content-Type':'application/json'},
     data: {
-        interest:'AAA'
+        Interest:'AAA'
     }
     })
     },
     //delete interests
-    deletecandidateinterests: async()=>{
+    deletecandidateinterests: async(c)=>{
     return axios({
     method: 'delete',
-    url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
+    url: 'http://localhost:3000/api/Candidates/interests/'+c,
     headers:{'Content-Type':'application/json'},
     data: {
-      interest :'MMM'
+      Interest :'MMM'
     }
   })
 },
     //update interests
-    updatecandidateinterestss: async()=>{
+    updatecandidateinterestss: async(c)=>{
       return axios({
       method: 'put',
-      url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
+      url: 'http://localhost:3000/api/Candidates/interests/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
       oldvalue:'AAA' ,
@@ -1050,37 +1007,37 @@ getLocations: async ()=>{
       })
       },
   //get project
-    getCandidateproject: async () => {
-    const Candidates = await axios.get('http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa')
+    getCandidateproject: async (c) => {
+    const Candidates = await axios.get('http://localhost:3000/api/Candidates/projects/'+c)
     return Candidates
     },
     //add project
-    addCandidateproject : async()=>{
+    addCandidateproject : async(c)=>{
     return axios({
     method: 'post',
-    url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
+    url: 'http://localhost:3000/api/Candidates/projects/'+c,
     headers:{'Content-Type':'application/json'},
     data: {
-        project:'AAA'
+      Past_Projects:'AAA'
     }
     })
     },
     //delete project
-    deletecandidateproject: async()=>{
+    deletecandidateproject: async(c)=>{
         return axios({
         method: 'delete',
-        url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/projects/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
-        project:'MMM'
+          Past_Projects:'MMM'
         }
         })
         },
     //update project 
-    updatecandidateprojects: async()=>{
+    updatecandidateprojects: async(c)=>{
         return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/projects/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
         oldvalue:'AAA' ,
@@ -1089,37 +1046,37 @@ getLocations: async ()=>{
         })
         },
     //get certificate
-    getCandidatecertificates: async () => {
-    const Candidates = await axios.get('http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa')
+    getCandidatecertificates: async (c) => {
+    const Candidates = await axios.get('http://localhost:3000/api/Candidates/Certificates/'+c)
     return Candidates
     },
     //add certificate
-    addCandidatecertificate : async()=>{
+    addCandidatecertificate : async(c)=>{
     return axios({
     method: 'post',
-    url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
+    url: 'http://localhost:3000/api/Candidates/Certificates/'+c,
     headers:{'Content-Type':'application/json'},
     data: {
-        certificate:'AAA'
+      Certificates:'AAA'
     }
     })
     },
     //delete certificate
-    deletecandidatecertificate: async()=>{
+    deletecandidatecertificate: async(c)=>{
         return axios({
         method: 'delete',
-        url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/Certificates/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
-        certificate:'MMM'
+          Certificates:'MMM'
         }
         })
         },
     //update certificate
-    updatecandidatecertificates: async()=>{
+    updatecandidatecertificates: async(c)=>{
         return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/Certificates/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
         oldvalue:'AAA' ,
@@ -1128,15 +1085,15 @@ getLocations: async ()=>{
         })
         },
     //get skills
-    getCandidateskills: async () => {
-    const Candidates = await axios.get('http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa')
+    getCandidateskills: async (c) => {
+    const Candidates = await axios.get('http://localhost:3000/api/Candidates/Skills/'+c)
     return Candidates
     },
     //add skills
-    addCandidateskills : async()=>{
+    addCandidateskills : async(c)=>{
     return axios({
     method: 'post',
-    url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
+    url: 'http://localhost:3000/api/Candidates/Skills/'+c,
     headers:{'Content-Type':'application/json'},
     data: {
         Skills:'AAA'
@@ -1144,10 +1101,10 @@ getLocations: async ()=>{
     })
     },
     //delete skills
-    deletecandidateskills: async()=>{
+    deletecandidateskills: async(c)=>{
         return axios({
         method: 'delete',
-        url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/Skills/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
             Skills:'MMM'
@@ -1155,10 +1112,10 @@ getLocations: async ()=>{
         })
         },
     //update skills 
-    updatecandidateskills: async()=>{
+    updatecandidateskills: async(c)=>{
         return axios({
         method: 'put',
-        url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
+        url: 'http://localhost:3000/api/Candidates/Skills/'+c,
         headers:{'Content-Type':'application/json'},
         data: {
         oldvalue:'AAA' ,
@@ -1168,49 +1125,67 @@ getLocations: async ()=>{
         },
     //rating
     //getrating
-    getCandidaterating: async () => {
-      const Candidates = await axios.get('http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa')
+    getCandidaterating: async (c) => {
+      const Candidates = await axios.get('http://localhost:3000/api/Candidates/rating/'+c)
       return Candidates
       },
     //postrating
-    addCandidaterating : async()=>{
+    addCandidaterating : async(c)=>{
       return axios({
       method: 'post',
-      url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
+      url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-          Ratings:[1,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
+          Ratings:{
+            rating:1,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
       }
-      })
+      }})
       },
     //updatetating
-    updatecandidaterating : async()=>{
+    updatecandidaterating : async(c)=>{
       return axios({
       method: 'put',
-      url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
+      url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-      oldvalue: [1,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"],
-      newvalue: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
+      oldvalue:{
+        rating:1,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
+      } ,
+      newvalue:{
+            rating:2,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
       }
-      })
+      }})
       },
     //deleterating
-    deletecandidaterating: async()=>{
+    deletecandidaterating: async(c)=>{
       return axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
+      url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-          Ratings: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
+          Ratings: {
+            rating:2,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
+          }
       }
       })
       },
    //avgrating
-   getCandidaterating: async()=>{
+   getCandidateavgrating: async(c)=>{
     return axios({
       method:'get',
-      url: 'http://localhost:3000/api/Candidates/ratingsavg/5ca12dc90906934584e82afa',
+      url: 'http://localhost:3000/api/Candidates/ratingsavg/'+c,
       headers:{'Content-Type':'application/json'},
      data: {
          Ratings: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
@@ -1218,295 +1193,5 @@ getLocations: async ()=>{
 
    })
  },
-   //test for get
-   getCandidates: async () => {
-    const Candidates = await axios.get('http://localhost:3000/api/Candidates')
-    return Candidates
-    },
-   //test for post 
-addCandidate: async()=>{
-    return axios({
-        method: 'post',
-        url: 'http://localhost:3000/api/Candidates',
-        headers:{'Content-Type':'application/json'},
-        data: {
-             FirstName: 'ahmed',
-             LastName: 'yassin',
-             password: 'rana23',   
-             Birthdate: '1/1/2001',
-             email: 'yassin@gmail.com',
-             User_Category : 'Member'
-        }
-      })
-} ,
-//test for update    
-updateFNameCandidate: async()=>{
-    return axios({
-        method: 'put',
-        url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
-        headers:{'Content-Type':'application/json'},
-        data: {
-                  FirstName:'seifo'
-        }})}
-        ,
-updateLNameCandidate: async()=>{
-  return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-              LastName:'kholy'
-    }})},
-testupdateLNameCandidate: async()=>{
-  return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/partner/LastName/5c9cc8b3b19333217411d273',
-    headers:{'Content-Type':'application/json'},
-    data: {
-              LastName:'kholy'  
-    }
-  })
-},
-updateBirthdateCandidate: async()=>{
-  return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-              Birthdate:'1997-09-08T00:00:00.000Z'
-    }})},
-updatepasswordCandidate: async()=>{
-return axios({
-method: 'put',
-url: 'http://localhost:3000/api/Candidates/5ca12dc90906934584e82afa'
-,
-headers:{'Content-Type':'application/json'},
-data: {
-  password:'udntknwmyp'
-}
-})},
-//test delete 
-deletebmember: async()=>{
-      return axios({
-        method: 'delete',
-        url: 'http://localhost:3000/api/Candidates/5ca12dd90906934584e82afb',
-        headers:{'Content-Type':'application/json'},
-        data: {
-        }
-      })        
-},
-    
-//get interessts
-getCandidateinterests: async () => {
-const Candidates = await axios.get('http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa')
-return Candidates
-},
-//add interest
-addCandidateinterest : async()=>{
-return axios({
-method: 'post',
-url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
-headers:{'Content-Type':'application/json'},
-data: {
-    interest:'AAA'
-}
-})
-},
-//delete interests
-deletecandidateinterests: async()=>{
-return axios({
-method: 'delete',
-url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
-headers:{'Content-Type':'application/json'},
-data: {
-  interest :'MMM'
-}
-})
-},
-//update interests
-updatecandidateinterestss: async()=>{
-  return axios({
-  method: 'put',
-  url: 'http://localhost:3000/api/Candidates/interests/5ca12dc90906934584e82afa',
-  headers:{'Content-Type':'application/json'},
-  data: {
-  oldvalue:'AAA' ,
-  newvalue:'MMM'
-  }
-  })
-  },
-//get project
-getCandidateproject: async () => {
-const Candidates = await axios.get('http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa')
-return Candidates
-},
-//add project
-addCandidateproject : async()=>{
-return axios({
-method: 'post',
-url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
-headers:{'Content-Type':'application/json'},
-data: {
-    project:'AAA'
-}
-})
-},
-//delete project
-deletecandidateproject: async()=>{
-    return axios({
-    method: 'delete',
-    url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-    project:'MMM'
-    }
-    })
-    },
-//update project 
-updatecandidateprojects: async()=>{
-    return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/Candidates/projects/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-    oldvalue:'AAA' ,
-    newvalue:'MMM'
-    }
-    })
-    },
-//get certificate
-getCandidatecertificates: async () => {
-const Candidates = await axios.get('http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa')
-return Candidates
-},
-//add certificate
-addCandidatecertificate : async()=>{
-return axios({
-method: 'post',
-url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
-headers:{'Content-Type':'application/json'},
-data: {
-    certificate:'AAA'
-}
-})
-},
-//delete certificate
-deletecandidatecertificate: async()=>{
-    return axios({
-    method: 'delete',
-    url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-    certificate:'MMM'
-    }
-    })
-    },
-//update certificate
-updatecandidatecertificates: async()=>{
-    return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/Candidates/Certificates/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-    oldvalue:'AAA' ,
-    newvalue:'MMM'
-    }
-    })
-    },
-//get skills
-getCandidateskills: async () => {
-const Candidates = await axios.get('http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa')
-return Candidates
-},
-//add skills
-addCandidateskills : async()=>{
-return axios({
-method: 'post',
-url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
-headers:{'Content-Type':'application/json'},
-data: {
-    Skills:'AAA'
-}
-})
-},
-//delete skills
-deletecandidateskills: async()=>{
-    return axios({
-    method: 'delete',
-    url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-        Skills:'MMM'
-    }
-    })
-    },
-//update skills 
-updatecandidateskills: async()=>{
-    return axios({
-    method: 'put',
-    url: 'http://localhost:3000/api/Candidates/Skills/5ca12dc90906934584e82afa',
-    headers:{'Content-Type':'application/json'},
-    data: {
-    oldvalue:'AAA' ,
-    newvalue:'MMM'
-    }
-    })
-    },
-//rating
-//getrating
-getCandidaterating: async () => {
-  const Candidates = await axios.get('http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa')
-  return Candidates
-  },
-//postrating
-addCandidaterating : async()=>{
-  return axios({
-  method: 'post',
-  url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
-  headers:{'Content-Type':'application/json'},
-  data: {
-      Ratings:[1,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
-  }
-  })
-  },
-//updatetating
-updatecandidaterating : async()=>{
-  return axios({
-  method: 'put',
-  url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
-  headers:{'Content-Type':'application/json'},
-  data: {
-  oldvalue: [1,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"],
-  newvalue: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
-  }
-  })
-  },
-//deleterating
-deletecandidaterating: async()=>{
-  return axios({
-  method: 'delete',
-  url: 'http://localhost:3000/api/Candidates/rating/5ca12dc90906934584e82afa',
-  headers:{'Content-Type':'application/json'},
-  data: {
-      Ratings: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
-  }
-  })
-  },
-//avgrating
-getCandidaterating: async()=>{
-return axios({
-  method:'get',
-  url: 'http://localhost:3000/api/Candidates/ratingsavg/5ca12dc90906934584e82afa',
-  headers:{'Content-Type':'application/json'},
- data: {
-     Ratings: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
- }
-
-<<<<<<< HEAD
-})
-}
 }
 module.exports = functions
-=======
->>>>>>> 2c224713f73dcabd24b482a3034b5304f458f144
->>>>>>> 944e89ba95abfcd4f72288ff577461da4c88c7bc
