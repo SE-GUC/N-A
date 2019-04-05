@@ -28,6 +28,7 @@ const projects = require('./routes/api/projects')
 const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
+const Co_working_spaces=require('./routes/api/co_working_spaces')
 //const notifications = require('./Notifications/notif')
 app.get('/', (req, res) => {
 
@@ -50,6 +51,7 @@ app.use('/api/projects',projects)
 //app.use('./Notifications/notif.js',notifications)
 app.use('/api/admins',admin)
 app.use('/api/locations',locations)
+app.use('/api/co_working_spaces',Co_working_spaces)
 // Handling 404
 app.use((req, res) => {
     res.status(404).send({err: 'We can not find what you are looking for'});
