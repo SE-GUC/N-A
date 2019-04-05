@@ -1,4 +1,4 @@
-const funcs = require('./functions');
+const funcs = require('./functions');/*
 test(`Admin 's data should match the one being inserted`, async () => {
   const user =  await funcs.addadmin();
   window.zid = user.data.data._id
@@ -285,7 +285,7 @@ jest.setTimeout(30000)
      });
 
  
-/**enter* @jest-environment node */
+/**enter* @jest-environment node *//*
 test('adds 1 + 2 to be 3', () => {
 
     expect(funcs.add(1, 2)).toBe(3);
@@ -987,4 +987,144 @@ expect(x.data.Past_Events).toEqual([])
 test(`consultancyAgencies delete`, async () => {
 const user =  await funcs.deleteconsultancyAgencies(caid);
 expect(user.data).toEqual({msg:'consultancyAgency was deleted successfully'})
+})*/
+//Co_working_space tests
+//post
+test(`Co_working_space 's data  should match the one being inserted`, async () => {
+  const user =  await funcs.addCo_working_space();
+  const expectation = {
+          Basic_Info: 'test',
+          FirstName: 'test',
+          LastName: 'test',
+          password: 'test123',   
+          Birthdate: '5/5/1998',
+          email:'random@gmail.com',
+          User_Category : 'Partner_CoWorkingSpace'
+  }
+  window.mid = user.data.data._id
+expect(user.data.data.email).toMatch(expectation.email)
+expect(user.data.data.FirstName).toMatch(expectation.FirstName)
+expect(user.data.data.LastName).toMatch(expectation.LastName)
+expect(user.data.data.password).toMatch(expectation.password)
+expect(user.data.data.User_Category).toMatch(expectation.User_Category)
+});
+ //get
+ 
+test(`Co_working_spaces get`, async () => {
+  const user =  await funcs.getCo_working_spaces(mid);
+  expect(user.data._id).toEqual(mid)
+});
+//update
+//firstname
+test(`first Co_working_space 's first name should be updated to Mohamed`, async () => {
+  expect.assertions(1)
+    const user =await funcs.updateFNameCo_working_space(mid);
+  const expected = {
+    FirstName:'Mohamad'
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.FirstName).toEqual(expected.FirstName)
+});
+module.exports = {
+  setupTestFrameworkScriptFile: './jest.setup.js'
+},
+
+// jest.setup.js
+jest.setTimeout(30000),
+//lastname
+test(` Co_working_space 's last name should be updated to galal  `, async () => {
+  const user =  await funcs.updateLNameCo_working_space(mid);
+  const expected = {
+    LastName:'galal'
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.LastName).toEqual(expected.LastName)
+}),
+// update birthdate
+test(`first Co_working_space 's Birth date should be updated to 09/08/1997  `, async () => {
+  const user =  await funcs.updateBirthdateCo_working_space(mid);
+  const expected = {
+    Birthdate:'1997-09-08T00:00:00.000Z'
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.Birthdate).toEqual(expected.Birthdate)
+})
+//update password
+test(`first Co_working_space 's password should be updated to 'udntknwmypassword'  `, async () => {
+  const user =  await funcs.updatepasswordCo_working_space(mid);
+  const expected = {
+    password: '12345'
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.password).toEqual(expected.password)
+})
+//update email
+test(`first Co_working_space 's email should be updated to 'random@gmail.com' `, async () => {
+  const user =  await funcs.updateemailCo_working_space(mid);
+  const expected = {
+    email:'student@gmail'
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.email).toEqual(expected.email)
+
+})//,
+// test Business_Plans_Offered
+//post
+test(`Co_working_space Business_Plans_Offered insert  `, async () => {
+  const user =  await funcs.addCo_working_spaceBusiness_Plan_Offered(mid);
+  const expected={
+    Business_Plans_Offered:["AAA"]
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+expect(x.data.Business_Plans_Offered).toEqual(expected.Business_Plans_Offered)
+}),
+//get
+test(`get co_working_space Business_Plans_Offered`, async () => {
+  const user =  await funcs.getCo_working_spaceBusiness_Plans_Offered(mid);
+  expect(user.data).toEqual({"data": [["AAA"]]})
+}),
+//update
+test(` update Co_working_space Business_Plans_Offered`, async () => {
+  const user =  await funcs.updateCo_working_spaceBusiness_Plans_Offereds(mid);
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.Business_Plans_Offered).toEqual(["MMM"])
+}),
+//delete
+test(`Co_working_space delete plans offered`, async () => {
+  const user =  await funcs.deleteCo_working_spaceBusiness_Plans_Offered(mid);
+  const x =  await funcs.getCo_working_spaces(mid);
+  expect(x.data.Business_Plans_Offered).toEqual([])
+}),
+//test Facilites 
+//post
+test(`Co_working_space Facilites insert  `, async () => {
+const user =  await funcs.addCo_working_spaceFacility(mid);
+  const expected={
+  Facilites:["AAA"]
+  }
+  const x =  await funcs.getCo_working_spaces(mid);
+expect(x.data.Facilites).toEqual(expected.Facilites)
+}),
+//get 
+test(` get Co_working_space Facilites`, async () => {
+const user = await funcs.getCo_working_spaceFacility(mid);
+expect(user.data).toEqual({"data": [["AAA"]]})
+}),
+//update
+test(` update Co_working_space Facilites`, async () => {
+const user =  await funcs.updateCo_working_spaceFacilites(mid);
+const x =  await funcs.getCo_working_spaces(mid);
+expect(x.data.Facilites).toEqual(["MMM"])
+}),
+//delete
+test(`Co_working_space delete Facility`, async () => {
+const user =  await funcs.deleteCo_working_spaceFacility(mid);
+const x =  await funcs.getCo_working_spaces(mid);
+expect(x.data.Facilites).toEqual([])
+}),
+
+//delete
+test(`Co_working_space delete test`, async () => {
+const user =  await funcs.deleteCo_working_space(mid);
+expect(user.data).toEqual({msg:'Co_Working_space was deleted successfully'})
 })
