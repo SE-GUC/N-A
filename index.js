@@ -1,6 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const passport = require('passport')
 const cors = require('cors')
+// Require Router Handlers
+const admin = require('./routes/api/admins')
+const app = express()
+
+// DB Config
 const db = require('./config/keys').mongoURI
 
 // Connect to mongo
@@ -8,7 +14,6 @@ mongoose
     .connect(db)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err))
-    const app = express()
 
 // Init middleware
 app.use(express.json())
