@@ -7,7 +7,7 @@ module.exports = {
             LastName: Joi.string().min(3).max(100).required(),
             email: Joi.string().min(4).max(100).required(),
             password: Joi.string().min(3).max(100).required(),
-            Basic_Info:Joi.string().min(8).max(100).required(),
+            Basic_Info:Joi.string().min(3).max(100).required(),
             Birthdate: Joi.date().required(),
             User_Category:Joi.string().valid('Consulting_Agent').required()
         }
@@ -19,8 +19,8 @@ module.exports = {
         const updateSchema = {
             FirstName: Joi.string().min(3).max(500),
             LastName: Joi.string().min(3).max(100),
-            email: Joi.string().min(10).max(100),
-            password: Joi.string().min(10).max(100),
+            email: Joi.string().min(3).max(100),
+            password: Joi.string().min(3).max(100),
             Basic_Info:Joi.string().min(8).max(100),
             Birthdate: Joi.date()
 

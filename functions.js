@@ -1193,5 +1193,164 @@ getLocations: async ()=>{
 
    })
  },
+//consultancy agency 
+// test for consultancyAgencies
+    //test for get
+    getconsultancyAgencies: async (b1) => {
+      const consultancyAgencies = await axios.get('http://localhost:3000/api/consultancyAgencies/'+b1)
+      return consultancyAgencies
+      },
+     //test for post consultancyAgencies
+  addconsultancyAgencies: async()=>{
+      return axios({
+          method: 'post',
+          url: 'http://localhost:3000/api/consultancyAgencies',
+          headers:{'Content-Type':'application/json'},
+          data: {
+               FirstName: 'test',
+               LastName: 'test',
+               password: 'test123',
+               Basic_Info:'boola',
+               Birthdate: '5/5/1998',
+               email: 'random@gmail.com',
+               User_Category : 'Consulting_Agent'
+          }
+        })
+  } ,
+//test for update FNameconsultancyAgencies
+  updateFNameconsultancyAgencies: async(b1)=>{
+      return axios({
+          method: 'put',
+          url: 'http://localhost:3000/api/consultancyAgencies/'+b1,
+          headers:{'Content-Type':'application/json'},
+          data: {
+                    FirstName:'Mahmoud'
+          }})}
+          ,
+  updateLNameconsultancyAgencies: async(b1)=>{
+    return axios({
+      method: 'put',
+      url: 'http://localhost:3000/api/consultancyAgencies/'+b1,
+      headers:{'Content-Type':'application/json'},
+      data: {
+                LastName:'Nabil'
+      }})},
+  updateBirthdateconsultancyAgencies: async(b1)=>{
+    return axios({
+      method: 'put',
+      url: 'http://localhost:3000/api/consultancyAgencies/'+b1,
+      headers:{'Content-Type':'application/json'},
+      data: {
+                Birthdate:'1997-09-08T00:00:00.000Z'
+      }})},
+updatepasswordconsultancyAgencies: async(b1)=>{
+return axios({
+  method: 'put',
+  url: 'http://localhost:3000/api/consultancyAgencies/'+b1
+  ,
+  headers:{'Content-Type':'application/json'},
+  data: {
+    password:'123456789'
+  }
+})},
+updateemailconsultancyAgencies: async(b1)=>{
+  return axios({
+    method: 'put',
+    url: 'http://localhost:3000/api/consultancyAgencies/'+b1
+    ,
+    headers:{'Content-Type':'application/json'},
+    data: {
+      email:'mahmoud@gmail'
+    }
+  })},  
+//test delete consultancyAgencies
+deleteconsultancyAgencies: async(b1)=>{
+        return axios({
+          method: 'delete',
+          url: 'http://localhost:3000/api/consultancyAgencies/'+b1 ,
+          headers:{'Content-Type':'application/json'},
+          data: {
+          }
+        })        
+},
+      
+//BoardMembers
+  getconsultancyAgenciesBoardMembers: async (b1) => {
+  const consultancyAgencies = await axios.get('http://localhost:3000/api/consultancyAgencies/BoardMembers/'+b1)
+  return consultancyAgencies
+  },
+  //add boardmemebr
+  addconsultancyAgenciesBoardMember : async(b1)=>{
+  return axios({
+  method: 'post',
+  url: 'http://localhost:3000/api/consultancyAgencies/BoardMembers/'+b1,
+  headers:{'Content-Type':'application/json'},
+  data: {
+    BoardMembers:'AAA'
+  }
+  })
+  },
+  //delete BoardMembers
+  deleteconsultancyAgenciesBoardMembers: async(b1)=>{
+  return axios({
+  method: 'delete',
+  url: 'http://localhost:3000/api/consultancyAgencies/BoardMembers/'+b1,
+  headers:{'Content-Type':'application/json'},
+  data: {
+    BoardMembers :'MMM'
+  }
+})
+},
+  //update BoardMembers
+  updateconsultancyAgenciesBoardMemberss: async(b1)=>{
+    return axios({
+    method: 'put',
+    url: 'http://localhost:3000/api/consultancyAgencies/BoardMembers/'+b1,
+    headers:{'Content-Type':'application/json'},
+    data: {
+    oldvalue:'AAA' ,
+    newvalue:'MMM'
+    }
+    })
+    },
+//get Past_Events
+  getconsultancyAgenciesPast_Events: async (b1) => {
+  const consultancyAgencies = await axios.get('http://localhost:3000/api/consultancyAgencies/Past_Events/'+b1)
+  return consultancyAgencies
+  },
+  //add Past_Events
+  addconsultancyAgenciesPast_Events : async(b1)=>{
+  return axios({
+  method: 'post',
+  url: 'http://localhost:3000/api/consultancyAgencies/Past_Events/'+b1,
+  headers:{'Content-Type':'application/json'},
+  data: {
+    Past_Events:'AAA'
+  }
+  })
+  },
+  //delete Past_Events
+  deleteconsultancyAgenciesPast_Events: async(b1)=>{
+      return axios({
+      method: 'delete',
+      url: 'http://localhost:3000/api/consultancyAgencies/Past_Events/'+b1,
+      headers:{'Content-Type':'application/json'},
+      data: {
+        Past_Events:'MMM'
+      }
+      })
+      },
+  //update Past_Events 
+  updateconsultancyAgenciesPast_Events: async(b1)=>{
+      return axios({
+      method: 'put',
+      url: 'http://localhost:3000/api/consultancyAgencies/Past_Events/'+b1,
+      headers:{'Content-Type':'application/json'},
+      data: {
+      oldvalue:'AAA' ,
+      newvalue:'MMM'
+      }
+      })
+      }
 }
 module.exports = functions
