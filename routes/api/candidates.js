@@ -286,7 +286,7 @@ router.put('/Skills/:id',async (req, res) => {
 	}
 	Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Skills: result}},{new :true},(err,result)=>{res.json({data:result})})
 }})
-/*//Get Ratings
+//Get Ratings
 router.get('/rating/:id',async  (req, res) => {
 	const id =req.params.id
 	const Candidates= await Candidate.find();
@@ -330,11 +330,10 @@ router.put('/rating/:id',async (req, res) => {
 		if (req.body.Ratings) {
 		var result=[]
 		for(var i=0;i<(X.Ratings).length;i++){
-			if(!(JSON.stringify((X.Ratings)[i])===JSON.stringify(req.body.oldvalue)))
+			if(!(JSON.stringify((X.Ratings)[i])===JSON.stringify(req.body.Ratings)))
 				result.push((X.Ratings)[i])
 		}
 		Candidate.findOneAndUpdate({_id :Candidateid},{$set :{Ratings: result}},{new :true},(err,result)=>{res.json({data:result})})
-					res.json({msg: 'Attribute Deleted successfully'})
 	}})
 //get avg Ratings
 router.get('/ratingsavg/:id',async  (req, res) => {
@@ -342,13 +341,17 @@ router.get('/ratingsavg/:id',async  (req, res) => {
 	const Candidates= await Candidate.find();
 	const result=[]
 	for(let i=0;i<Candidates.length;i++){
-		if(Candidates[i]._id==id)
-			result.push(Candidates[i].Ratings)
+		if(Candidates[i]._id==id){
+		for(let j=0;j<Candidates[i].Ratings.length;j++)
+			result.push(Candidates[i].Ratings[j].rating)
 		}
+	}
 		var sum=0
-		for(let i=0;i<result.length;i++)
-		 sum = result[i].rating+sum;
+		console.log(result)
+		for(let i=0;i<result.length;i++){
+	sum=	 parseInt(result[i])+sum
+	}
     const avg = sum / result.length;
 		res.json({avg})
-	})*/
+	})
 module.exports = router;

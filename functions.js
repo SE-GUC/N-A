@@ -1136,9 +1136,13 @@ getLocations: async ()=>{
       url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-          Ratings:"[1,'5ca0dc9c47286e02c049f6cdcdcfa','5ca0dc9c47286e02c049f6fa','5ca0dc9c47286eefrfrfre2']"
+          Ratings:{
+            rating:1,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
       }
-      })
+      }})
       },
     //updatetating
     updatecandidaterating : async(c)=>{
@@ -1147,10 +1151,19 @@ getLocations: async ()=>{
       url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-      oldvalue:"[1,'5ca0dc9c47286e02c049f6cdcdcfa','5ca0dc9c47286e02c049f6fa','5ca0dc9c47286eefrfrfre2']",
-      newvalue: "[2,'5ca0dc9c47286e02c049f6cdcdcfa','5ca0dc9c47286e02c049f6fa','5ca0dc9c47286eefrfrfre2']"
+      oldvalue:{
+        rating:1,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
+      } ,
+      newvalue:{
+            rating:2,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
       }
-      })
+      }})
       },
     //deleterating
     deletecandidaterating: async(c)=>{
@@ -1159,7 +1172,12 @@ getLocations: async ()=>{
       url: 'http://localhost:3000/api/Candidates/rating/'+c,
       headers:{'Content-Type':'application/json'},
       data: {
-          Ratings: [2,"5ca0dc9c47286e02c049f6cdcdcfa","5ca0dc9c47286e02c049f6fa","5ca0dc9c47286eefrfrfre2"]
+          Ratings: {
+            rating:2,
+            review:"5ca0dc9c47286e02c049f6cdcdcfa",
+            candidate_id:'5ca0dc9c47286e02c049f6fa',
+            project_id:'5ca0dc9c47286eefrfrfre2'
+          }
       }
       })
       },
