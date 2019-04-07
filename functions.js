@@ -364,6 +364,20 @@ const functions = {
     add: (x,y) => x+y,
 
 // Locationssss
+postLocations: async()=>{
+  return axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/locations/',
+      headers:{'Content-Type':'application/json'},
+      data: {
+          name: 'opera',
+          country: 'egypt',
+          city:'cairo',
+           street: 'mohamedali',  
+           capacity: 12,
+      }
+  })
+},
 getLocations: async ()=>{
   const locations = await axios.get('http://localhost:3000/api/locations/')
   return locations
@@ -372,20 +386,7 @@ getLocations: async ()=>{
         const locations = await axios.get('http://localhost:3000/api/locations/'+v)
         return locations
     },
-    postLocations: async()=>{
-        return axios({
-            method: 'post',
-            url: 'http://localhost:3000/api/locations/',
-            headers:{'Content-Type':'application/json'},
-            data: {
-                name: 'opera',
-                country: 'egypt',
-                city:'cairo',
-                 street: 'mohamedali',  
-                 capacity: 12,
-            }
-        })
-    },
+   
     putLocations: async(v)=>{
         return axios({
             method: 'put',
