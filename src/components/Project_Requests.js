@@ -1,12 +1,14 @@
 import React from 'react';
 import Project from './pages/Project.js'
 import axios from 'axios';
-class All_Projects extends React.Component {
+class Project_Requests extends React.Component {
   state={
     Projects:[]
-  }
+  }   
+
+ 
   componentDidMount() {
-    axios.get(`https://lirtenhub-na.herokuapp.com/api/Projects`)
+    axios.get(`https://lirtenhub-na.herokuapp.com/api/Projects/approved/notyet`)
       .then(res => {
         const P = res.data.data;
         this.setState({Projects:P });
@@ -14,10 +16,12 @@ class All_Projects extends React.Component {
      
   }
   render() {
-    return this.state.Projects.map((P)=>(
+
+    return (
+        this.state.Projects.map((P)=>(
       <Project P={P}/>    
-    ));
+    )))
   }
 }
 
-export default All_Projects;
+export default Project_Requests;
