@@ -1,0 +1,1 @@
+Note that you're required to generate ur own vapid keys by typing "./node_modules/.bin/web-push generate-vapid-keys" in terminal and pasting both keys in config and public key in public/app.js
