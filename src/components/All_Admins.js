@@ -16,7 +16,7 @@ class All_Admins extends React.Component {
      
   }
   render() {
-    return this.state.Admins.map((M)=>(
+    return this.state.Admins.map((M)=>( 
       <Admin M={M}/>    
     ));
   }
