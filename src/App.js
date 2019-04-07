@@ -13,12 +13,12 @@ import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
 import All_Partners from './components/All_Partners';
 
-
+import AppBar from './components/AppBar';
 
 class App extends React.Component {
-
+ 
   render() {
-
+    
     return (
 
 
@@ -26,7 +26,11 @@ class App extends React.Component {
       <Router>
 
           <div>
-
+            <header>
+            <AppBar />
+         
+            </header>
+         
           <Route exact path="/Locations" component={All_Locations}/>
 
           <Route exact path="/Projects" component={All_Projects}/>
@@ -34,7 +38,8 @@ class App extends React.Component {
           <Route exact path="/Project_Requests" component={Project_Requests}/>
 
           <Route exact path="/All_Partners" component={All_Partners}/>
-
+          
+          
           </div>
 
       </Router>
