@@ -10,11 +10,11 @@ import All_Candidates from './components/All_Candidates'
 import All_Projects from './components/All_Projects'
 
 import Project_Requests from './components/Project_Requests'
-<<<<<<< HEAD
-import All_co_working_spaces from './components/All_co_working_spaces'
-=======
 
->>>>>>> 13a03a74e152af23d94a0efab5c936b6e11d78b9
+import All_co_working_spaces from './components/All_co_working_spaces'
+
+
+
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 
 import 'tachyons'
@@ -45,13 +45,13 @@ class App extends React.Component {
           <Route exact path="/Projects" component={All_Projects}/>
 
           <Route exact path="/Project_Requests" component={Project_Requests}/>
-<<<<<<< HEAD
+
           <Route exact path="/co_working_spaces" component={All_co_working_spaces}/>
-=======
+
 
           <Route exact path="/All_Partners" component={All_Partners}/>
 
->>>>>>> 13a03a74e152af23d94a0efab5c936b6e11d78b9
+
           </div>
 
       </Router>
