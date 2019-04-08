@@ -330,11 +330,11 @@ newvalue:'MMM'
           InsertProject:async()=>{
            return   axios.post('http://localhost:3000/api/projects/', {
                   name: 'jtest1',
-                  descreption:'jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1',
+                  description:'jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1jtest1',
                   Payment_Type:'Online',
                   partner_id:'1',
-                  need_Consultancy:'false',
-                  main_skill:'tester'
+                  need_Consultancy:true,
+                  main_skill:'testskill'
               })
           },
           updateName:async()=>{
@@ -407,7 +407,7 @@ newvalue:'MMM'
       
           updatemain_skill:async()=>{
               return  await axios.put('http://localhost:3000/api/projects/main_skill/5ca0305c5bb45716a83a51b5', {
-                  main_skill: 'computer nerd',
+                  main_skill: 'testskill',
                      
                  })
              },
@@ -419,7 +419,7 @@ newvalue:'MMM'
           },
           Addskill:async()=>{
               return  await axios.put('http://localhost:3000/api/projects/addSkill/5ca0305c5bb45716a83a51b5', {
-                  Skill: 'jtestaddskill',
+                  Skill: 'testskill',
                      
                  })
              },
