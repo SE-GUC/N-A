@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
     <a href="/api/locations">locations</a>
+    test
     <a href="./Notifications/notif">notifications</a>
     <a href="/api/Projects">Projects</a>`
     );
