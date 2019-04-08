@@ -2,14 +2,7 @@
 // The Project Model
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const uuid = require('uuid')
 const ProjectSchema=new Schema({
-        id:{
-            type:String,
-            default: function genid(){
-                uuid.v4();
-            }
-        },
         name :{
             type:String,
             required:true   
@@ -23,13 +16,14 @@ const ProjectSchema=new Schema({
             type: Boolean,
             default:null
         },
-        descreption:{
+        description:{
             type:String,
             required:true
         },
         price:{
             type:Number,
-            required:false
+            required:false,
+            default:null
         },
         Payment_Type:{
             type:String,
@@ -46,7 +40,12 @@ const ProjectSchema=new Schema({
         },
         consultancy_agency_id:{
             type:String,
-            required:false
+            required:false,
+            default:null
+        },
+        current_cons_applied_ids:{
+            type: [String],
+            default:[]
         },
         members_needed:{
             type:Number,
@@ -57,42 +56,55 @@ const ProjectSchema=new Schema({
             default:0
         },
         current_members_applied_ids:{
-            type: [String]
+            type: [String],
+            default:[]
         },
         accepted_members_ids:{
-            type:[String]
+            type:[String],
+            defualt:[]
         },
         main_skill:{
             type:String,
             required:true
         },
         extra_skills:{
-            type:[String]
+            type:[String],
+            default:[]
         },
         extra_attributes:{
-            type:[String]
+            type:[String],
+            default:[]
         },
         Expected_Duration:{
             type:String,
-            required:false
+            required:false,
+            default:null
         },
         Start_Date:{
             type:Date,
-            required:false
+            required:false,
+            default:null
         },
         End_Date:{
             type:Date,
-            required:false
+            required:false,
+            default:null
         },
         
         least_exp_level_needed:{  //Senior-Associate-Executive...
             type:String,
-            required:false
+            required:false,
+            default:null
         },
         comitment_level_needed:{
-            Type: String,
-            required:false
-        }  
+            type: String,
+            required:false,    
+            default:null
+        },
+        tasks :{ // if the project needed a consultancy
+            type:[String],
+            default:[]
+        }
         
     })   
 

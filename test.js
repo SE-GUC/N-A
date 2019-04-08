@@ -200,7 +200,7 @@ jest.setTimeout(30000)
      test('Projects that need consultancy',async()=>{
       //expect.assertions(1)
       const P=await funcs.NeedCon()
-      expect(P.data.data[0].consultancy_agency_id).toEqual(undefined)
+      expect(P.data.data[0].consultancy_agency_id).toEqual(null)
       expect(P.data.data[0].need_Consultancy).toEqual(true)
       
       
