@@ -1,37 +1,43 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const uuid = require('uuid')
 
-const reservationSchema = new Schema({
-    to: {
+
+const ReservationSchema = new Schema({
+    RoomID: {
         type: String,
         required: true
     },
-    from: {
-        type: String,
-        required: true
-    },
-    day: {
-        type: String,
-        enum: ["Monday","Tuseday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    
+    LocationID:{
+        type: Number,
         required: true
     },
     status: {
-        type: Number,
-        enum: [-1,0,1],//-1 -> rejected, 0 -> not yet reviewed, 1 -> accepted, when <1> then place in calender_entry
-        default: 0,
-        required: false
+        type: boolean,
+        default: null
     },
-    ownerID: {
-        type: String,//id of reservering owner
+  
+    OwnerId:{//coworking space
+        type: String,
         required: true
-    }/*,
-    capacity: {
-        type: Number,
-        required: true
-    }*/
+    },
+    from:{
+        type: Date,
+        required:true
+
+    },
+    to:{
+        type: Date,
+        required:true
+ 
+    },
+    client:{
+        type: String,
+        required:true
+    }
+    
 })
 
-module.exports = reservation = mongoose.model('reservations', reservationSchema)
+module.exports = mongoose.model('reservations', ReservationSchema)
 
 
