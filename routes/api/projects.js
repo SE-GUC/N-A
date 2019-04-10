@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Project = require('../../models/Project');
 const User = require('../../models/User');
+const Skill = require('../../models/Skill');
 const validator = require('../../validations/projectValidations')
 
 
@@ -22,19 +23,34 @@ router.get('/:id',async (req,res)=> {
 })
 
 router.post('/',async (req, res) => {
-	const isValidated = validator.createValidation(req.body)
+    let isValidated
+    if(req.body.need_Consultancy==true)
+         isValidated = validator.createValidation(req.body)
+    else
+         isValidated = validator.createValidationwithoutcons(req.body)
     if (isValidated.error) 
         return res.status(400).send({ error: isValidated.error.details[0].message })
+    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    if(!Y)
+        return res.status(400).send({error: 'We dont support that skill in lirten'})
     const X= await Project.create(req.body)
-	return res.json({msg:'Project was Posted successfully,Now wait until an admin approves it', data: X});
+	return res.json({msg:'Project was Posted successfully,Now wait until an admin approves it or consultancy applies', data: X});
 });
-router.put('/:id', async(req, res) => { //i think it ussless though
+router.put('/:id', async(req, res) => { 
     const pid = req.params.id 
     const X = await Project.findOne({"_id":pid})
     if(!X)
     return res.status(404).send({error: 'Project does not exist'})
+    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
+        return res.status(400).send({error: 'The Project cannot be edited anymore'})
+    }
     const isValidated = validator.UpdateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    
+    if(req.body.main_skill!=null&!Y)
+        return res.status(400).send({error: 'We dont support that skill in lirten'})
+    
     const updatedP = await X.updateOne(req.body)
     res.json({msg: "Project Updated Succsefully"})
 })
@@ -86,7 +102,9 @@ router.put('/approved/:id', async(req, res) => {
     // }
     const isValidated = validator.updateValidationapproved(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
+    await X.updateOne(req.body)
+    if(req.body.approved==true)
+    await X.updateOne({status:'Allocation'})
     res.json({msg: 'Project updated successfully'})
 })
 router.put('/Expected_Duration/:id',async (req, res) => {
@@ -128,7 +146,7 @@ router.put('/comitment_level/:id',async (req, res) => {
     const updatedP = await X.updateOne(req.body)
     res.json({msg: 'Project updated successfully'})
 })
-router.put('/descreption/:id',async (req, res) => {
+router.put('/description/:id',async (req, res) => {
     const pid = req.params.id 
     const X = await Project.findOne({'_id':pid})
     if(!X)
@@ -136,7 +154,7 @@ router.put('/descreption/:id',async (req, res) => {
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
-    const isValidated = validator.updateValidationdescreption(req.body)
+    const isValidated = validator.updateValidationdescription(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
     const updatedP = await X.updateOne(req.body)
     res.json({msg: 'Project updated successfully'})
@@ -178,6 +196,7 @@ router.put('/consultancy_agency_id/:id', async(req, res) => {
     const isValidated = validator.updateValidationconsid(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
     const updatedP = await X.updateOne(req.body)
+    await X.updateOne({'status':"Negotiation"})
     res.json({msg: 'Project updated successfully'})
 })
  router.put('/need_Consultancy/:id', async(req, res) => {
@@ -218,6 +237,9 @@ router.put('/main_skill/:id',async (req, res) => {
     }
     const isValidated = validator.updateValidationmainskill(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    if(!Y)
+        return res.status(400).send({error: 'We dont support that skill in lirten'})
     const updatedP = await X.updateOne(req.body)
     res.json({msg: 'Project updated successfully'})
 })
@@ -250,6 +272,9 @@ router.put('/addSkill/:id',async(req,res)=>{
     }
     const isValidated = validator.addskill(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    const Y=await Skill.findOne({'Name':req.body.Skill})
+    if(!Y)
+        return res.status(400).send({error: 'We dont support that skill in lirten'})
     X.extra_skills.push(req.body.Skill)
     const updatedP=await X.updateOne({"extra_skills":X.extra_skills})
     res.json({msg: 'Skill Added successfully'})
@@ -313,7 +338,7 @@ router.get('/approved/notyet',async  (req, res) => {
     const Projects= await Project.find();
     const result=[]
     for(let i=0;i<Projects.length;i++){
-        if((Projects[i]).approved==null)
+        if(Projects[i].approved==null&&(Projects[i].need_Consultancy==false||Projects[i].consultancy_agency_id!=null))
             result.push(Projects[i])
     }
     res.json({ data: result})
@@ -389,20 +414,55 @@ router.get('/Pending/member',async(req,res)=>{ // returns for each project the m
     }
     res.json({data:result})
 })
+router.get('/Pendingmember/:id',async(req,res)=>{ // returns for each project the members who applied to it
+    const pid=req.params.id
+    const X=await Project.findOne({"_id":pid})
+    if(!X)
+        return res.status(404).send({error: 'Project not found'})
+    res.json({data:X.current_members_applied_ids})
+})
 router.get('/Consultancy/needed',async(req,res)=>{
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
-        if(!X[i].consultancy_agency_id&&X[i].need_Consultancy==true&&X[i].status=='Initiation')
+        if(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==null)
             result.push(X[i])
     }
     res.json({data:result})
+})
+router.put('/consapply/:id',async(req,res)=>{
+    const pid=req.params.id
+    const consid=req.body.consid
+    const X= await Project.findOne({"_id":pid})
+    if(X.need_Consultancy!=true||X.consultancy_agency_id!=null)
+        return res.status(404).send({error: 'Sorry you cant apply to this Project'})
+    const result=X.current_cons_applied_ids
+    result.push(consid)
+    
+    await X.updateOne({"current_cons_applied_ids":result})
+    res.json({msg:'Your requesnt to consult the project has been submitted'})
+})
+router.put('/consassign/:id',async(req,res)=>{
+    const pid=req.params.id
+    const consid=req.body.id
+    const X= await Project.findOne({"_id":pid})
+    if(X.need_Consultancy==false||X.consultancy_agency_id!=null)
+        return res.status(404).send({error: 'Sorry you cant assign A consultancy to this Project'})
+    await X.updateOne({'consultancy_agency_id':consid})
+    res.json({msg:'The consultancy has been assigned to your project sucessfully'})
+
+})
+
+router.get('/consapplied/:id',async(req,res)=>{
+    const pid=req.params.id
+    const X=Project.findOne({'_id':pid})
+    res.json({data:X.current_cons_applied_ids})
 })
 router.get('/View/avalible',async(req,res)=>{
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
-        if(X[i].approved==true&&X[i].status=='Allocation'&&X[i].accepted_members_ids.length!=X[i].members_needed)
+        if(X[i].approved==true&&X[i].need_Consultancy==false&&X[i].status=='Allocation'&&X[i].accepted_members_ids.length!=X[i].members_needed)
             result.push(X[i])
     }
     res.json({data:result})
@@ -417,17 +477,31 @@ router.get('/View/myprojects',async(req,res)=>{
     }
     res.json({data:result})
 })
-// router.get('/View/myprojects',async(req,res)=>{
-//     const id=req.body.id
-//     const X=await Project.find()
-//     result=[]
-//     for(let i=0;i<X.length;i++){
-//         if(X[i].partner_id==id||(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==id)||X[i].accepted_members_ids.includes(id))
-//             result.push(X[i])
-//     }
-//     res.json({data:result})
-// })
-router.post('/certified/:id',async(req,res)=>{
+router.put('/declinemember/:id',async(req,res)=>{
+    const pid=req.params.id
+    const memberid=req.body.memberid
+    const X=await Project.findOne({'_id':pid})
+    result=[]
+    for(let i=0;i<X.current_members_applied_ids.length;i++){
+        if(X.current_members_applied_ids[i]!=memberid)
+            result.push(X.current_members_applied_ids[i])
+    }
+    await X.updateOne({"current_members_applied_ids":result})
+    res.json({msg:'membere was declined sucessfully'})
+})
+router.put('/declinecons/:id',async(req,res)=>{
+    const pid=req.params.id
+    const consid=req.body.consid
+    const X=await Project.findOne({'_id':pid})
+    result=[]
+    for(let i=0;i<X.current_cons_applied_ids.length;i++){
+        if(X.current_cons_applied_ids[i]!=consid)
+            result.push(X.current_cons_applied_ids[i])
+    }
+    await X.updateOne({'current_cons_applied_ids':result})
+    res.json({msg:'consultancy was declined sucessfully'})
+})
+router.post('/certified/:id',async(req,res)=>{ // check 3aleh tany
     const pid=req.params.id
     const mem_id=req.body.id
     //console.log(mem_id)

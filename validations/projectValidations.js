@@ -1,10 +1,30 @@
 const Joi = require('joi')
 
 module.exports = {
+    createValidationwithoutcons: request => {
+        const createSchema = {
+            name: Joi.string().min(5).max(50).required(),
+            description: Joi.string().min(50).max(500).required(),
+            Payment_Type: Joi.string().valid('Online','FaceToFace','Other').required(),
+            partner_id: Joi.string().required(),
+            need_Consultancy:Joi.boolean().required(),
+            main_skill : Joi.string().required(),
+            price: Joi.number().required(),
+            members_needed:Joi.number().required(),
+            least_exp_level_needed: Joi.string().required(),
+            comitment_level_needed:Joi.string().required(),
+            Expected_Duration :Joi.string().required(),
+            consultancy_agency_id:Joi.string()
+           
+        }
+
+        return Joi.validate(request, createSchema)
+    },
+    
     createValidation: request => {
         const createSchema = {
             name: Joi.string().min(5).max(50).required(),
-            descreption: Joi.string().min(50).max(500).required(),
+            description: Joi.string().min(50).max(500).required(),
             Payment_Type: Joi.string().valid('Online','FaceToFace','Other').required(),
             partner_id: Joi.string().required(),
             need_Consultancy:Joi.boolean().required(),
@@ -23,7 +43,7 @@ module.exports = {
     UpdateValidation: request => {
         const createSchema = {
             name: Joi.string().min(5).max(50),
-            descreption: Joi.string().min(50).max(500),
+            description: Joi.string().min(50).max(500),
             Payment_Type: Joi.string().valid('Online','FaceToFace','Other'),
             status: Joi.string().valid('Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed'),
             need_Consultancy:Joi.boolean(),
@@ -58,9 +78,9 @@ module.exports = {
         }
         return Joi.validate(request, updateSchema)
     }, 
-    updateValidationdescreption: request => {
+    updateValidationdescription: request => {
         const updateSchema = {
-            descreption: Joi.string().min(50).max(500).required()
+            description: Joi.string().min(50).max(500).required()
         }
         return Joi.validate(request, updateSchema)
     }, 

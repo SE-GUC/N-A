@@ -4,3 +4,5 @@ In Sprint2 Backlog submission story points for stories 1.6 & 1.7 are 2 points ea
 
 To access the notification Pre_Test example => RUN in the terminal "node ./Notifications/notif"
 Heroku URI: https://lirtenhub-na.herokuapp.com/
+
+resolved conflicts for sprint 2 and 3 as dr Aysha confirmed with Mahmoud Nabil 
