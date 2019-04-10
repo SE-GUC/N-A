@@ -1,15 +1,15 @@
 
-// The Project Model
+// The Task Model
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const ProjectSchema=new Schema({
+const taskSchema=new Schema({
         name :{
             type:String,
             required:true   
         },
         status :{
             type :String,
-            enum:['Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed'],
+            enum:['Initiation','Review','Allocation','Implementation','Completed'],
             default:'Initiation'
         },
         approved:{
@@ -20,48 +20,32 @@ const ProjectSchema=new Schema({
             type:String,
             required:true
         },
-        price:{
+        compensation:{
             type:Number,
-            required:false,
-            default:null
+            required:true,
         },
         Payment_Type:{
             type:String,
-            enum:['Online','FaceToFace','Other'],
             required:true
         },
-        partner_id:{
+        Consultancy_id:{ 
             type:String,
             required:true
         },
-        need_Consultancy:{
-            type :Boolean,
+        Partner_id:{ 
+            type:String,
             required:true
         },
-        consultancy_agency_id:{
-            type:String,
-            required:false,
-            default:null
-        },
-        current_cons_applied_ids:{
-            type: [String],
-            default:[]
-        },
-        members_needed:{
-            type:Number,
-            default:1
-        },
-        current_members_count:{
-            type:Number,
-            default:0
+        project_id:{ 
+            type:String
         },
         current_members_applied_ids:{
             type: [String],
             default:[]
         },
-        accepted_members_ids:{
-            type:[String],
-            defualt:[]
+        member_id:{ // the accepted member to work on the task
+            type:String,
+            defualt:null
         },
         main_skill:{
             type:String,
@@ -77,12 +61,11 @@ const ProjectSchema=new Schema({
         },
         Expected_Duration:{
             type:String,
-            required:false,
-            default:null
+            required:true,
         },
         Start_Date:{
             type:Date,
-            required:false,
+            required:true,
             default:null
         },
         End_Date:{
@@ -93,21 +76,17 @@ const ProjectSchema=new Schema({
         
         least_exp_level_needed:{  //Senior-Associate-Executive...
             type:String,
-            required:false,
-            default:null
+            required:true
+           
         },
         comitment_level_needed:{
             type: String,
-            required:false,    
-            default:null
-        },
-        tasks :{ // if the project needed a consultancy
-            type:[String],
-            default:[]
-        }
+            required:true,
+           
+        }  
         
     })   
 
 
-module.exports = Project=mongoose.model('Projects', ProjectSchema)
+module.exports = Project=mongoose.model('tasks', taskSchema)
 

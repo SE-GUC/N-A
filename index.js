@@ -29,11 +29,14 @@ const partner = require('./routes/api/partner')
 const Candidate = require('./routes/api/candidates')
 const locations = require('./routes/api/locations')
 const Co_working_spaces=require('./routes/api/co_working_spaces')
+const skills = require('./routes/api/skills')
+const tasks = require('./routes/api/tasks')
 //const notifications = require('./Notifications/notif')
 app.get('/', (req, res) => {
 
     res.send(`<h1>Welcome </h1>
     <a href="/api/locations">locations</a>
+    test
     <a href="./Notifications/notif">notifications</a>
     <a href="/api/Projects">Projects</a>`
     );
@@ -45,6 +48,8 @@ app.get('/', (req, res) => {
 app.use('/api/consultancyAgencies', consultancyAgencies)
 app.use('/api/partner', partner)
 app.use('/api/candidates',Candidate)
+app.use('/api/skills',skills)
+app.use('/api/tasks',tasks)
 //app.use('/api/messages', messages)
 //app.use('/api/notifications', notifications)
 app.use('/api/projects',projects)
