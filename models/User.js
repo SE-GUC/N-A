@@ -74,7 +74,9 @@ const UserSchema = new Schema ({
     Business_Plans_Offered: {
         type: [String],
     },
-    
+    Locations:{
+        type:[String]
+    },
     Facilites: {
         type: [String],
     }

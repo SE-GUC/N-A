@@ -13,7 +13,7 @@ router.get('/', async (req,res) => {
 })
 
 // Get a certain location 
-router.get('/:id',(req,res)=>{
+router.get('/:id',async(req,res)=>{
   const pid = req.params.id
 	const X =await location.findOne({"_id":pid})
 	if(!X)
@@ -38,9 +38,12 @@ router.post('/', async (req,res) => {
   try {
     const newLocation = await location.create(req.body)
     const usr=await user.findOne({"_id":req.body.ownerID})
+    if(!usr)
+    return res.status(404).send({error: 'Location does not exist'})
     const result=usr.Locations
-    .push(newLocation._id)
-    await loc.updateOne({'Locations':result})
+    result.push(newLocation._id)
+    console.log(result)
+    await usr.updateOne({'Locations':result})
 
   res.json({msg:'Location created successfully', data: newLocation})
  }

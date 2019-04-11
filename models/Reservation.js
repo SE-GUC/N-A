@@ -9,11 +9,11 @@ const ReservationSchema = new Schema({
     },
     
     LocationID:{
-        type: Number,
+        type: String,
         required: true
     },
     status: {
-        type: boolean,
+        type: Boolean,
         default: null
     },
   
@@ -31,7 +31,7 @@ const ReservationSchema = new Schema({
         required:true
  
     },
-    client:{
+    client:{//id
         type: String,
         required:true
     }
