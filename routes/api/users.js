@@ -171,7 +171,19 @@ router.get('/pending/update',async(req,res)=>{
 	res.json({data:result})
 
 })
+router.post('/changepassword/:id',async(req,res)=>{
+	const newpassword=req.body.newpassword
+	const confirm=req.body.confirm
+	if(newpassword!=confirm){
+		return res.status(400).send({ error:'not a match'});
+	}
+	const salt = bcrypt.genSaltSync(10);
+	const hashedPassword = bcrypt.hashSync(newpassword, salt);
+	const U=await User.find({'_id':req.params.id})
+	await U.updateOne({'Hashed_password':hashedPassword})
+	res.json({msg:'OK'})
 
+})
 router.put('/Logout/:id',async(req)=>{
 	const X=await User.findOne({'_id':req.params.id})
 	await X.updateOne({'Islogedin':false})
