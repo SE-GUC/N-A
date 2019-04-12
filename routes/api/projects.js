@@ -30,7 +30,7 @@ router.post('/',async (req, res) => {
          isValidated = validator.createValidationwithoutcons(req.body)
     if (isValidated.error) 
         return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    const Y=await Skill.findOne({'_id':req.body.main_skill})
     if(!Y)
         return res.status(400).send({error: 'We dont support that skill in lirten'})
     const X= await Project.create(req.body)
@@ -237,7 +237,7 @@ router.put('/main_skill/:id',async (req, res) => {
     }
     const isValidated = validator.updateValidationmainskill(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    const Y=await Skill.findOne({'_id':req.body.main_skill})
     if(!Y)
         return res.status(400).send({error: 'We dont support that skill in lirten'})
     const updatedP = await X.updateOne(req.body)
@@ -272,7 +272,7 @@ router.put('/addSkill/:id',async(req,res)=>{
     }
     const isValidated = validator.addskill(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'Name':req.body.Skill})
+    const Y=await Skill.findOne({'_id':req.body.Skill})
     if(!Y)
         return res.status(400).send({error: 'We dont support that skill in lirten'})
     X.extra_skills.push(req.body.Skill)
@@ -308,7 +308,7 @@ router.delete('/delskill/:id',async (req, res) => {
     var result=[]
     
     for(var i=0;i<(X.extra_skills).length;i++){
-        if((X.extra_skills)[i]!=req.body.Skill)
+        if((X.extra_skills)[i]._id!=req.body.Skill)
             result.push((X.extra_skills)[i])
     }
     

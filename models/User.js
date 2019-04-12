@@ -1,82 +1,146 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 const UserSchema = new Schema ({
-   
-    email: {
-        type: String,
-        required: true
+   //All Users 
+   Email:{
+       type:String,
+       required:true
+   },
+   Hashed_password:{
+       type:String,
+       required:true
+   },
+   Join_Date:{
+       type:Date,
+       default:null
+   },
+   Valid:{
+        type:Boolean,
+        default:false
+   },
+   Membership_expiration_date:{
+        type:String,
+        default:null
+   },
+   Country:{
+       type:String,
+       required:true
+   },
+   City:{
+       type:String,
+       required:true
+   },
+   Bio:{
+       type:String,
+       required:true
+   },
+   Requested_updates_in_profile:{
+        type:[],
+        default:[]
+   },
+   Avg_Rating: {
+        type: Number,
+        default:0.0
     },
-    FirstName: {
-        type: String,
-        required: true
+   Ratings:{
+        type: [String],
+        default:[]
     },
-    LastName: {
-        type: String,
-        required: true
-    },
-      
-    password: {
-        type: String,
-        required: true
-    },
-    Birthdate: {
-        type: Date,
-        required: true
-    },
-
-    Join_Date: { 
-        type:Date,
-        default: Date.now
-
-     },
-    
-    Basic_Info: {
-        type: String,
-    },
-    User_Category :{
+   User_Category :{
         type :String,
         enum:['Admin','Member','Consulting_Agent','Partner','Partner_CoWorkingSpace'],
         required:true
-    },
-    Certificates: {
-        type: [String]
-    }, 
-    //Required using joi in routes/api if you are partner or consulting agent ...
-    BoardMembers: {
-        type: [String]
-        },
-    //for Consulting Agents
-    Studies: {
-            type: String,
-        },
-    //For Consulting Agents
-    Past_Events: {
+   },
+   phone_number:{
+        type:String,
+        required:false
+   },
+   Islogedin:{
+        type:Boolean,
+        default:null
+   },
+   //Partner&Member&Consultancy
+   Past_Projects:{
+       type:[String]
+   },
 
-            type: [String],
+   //Partner&Member
+   First_Name:{
+       type:String,
+       required:false
+   },
+   Last_Name:{
+       type:String,
+       required:false
+   },
+   Birth_Date:{
+       type:Date,
+       required:false
+   },
+   Age:{
+       type:Number,
+       required:false
+   },
+   //Member
+   Skills:{
+        type: [String],
+        required:false
+   },
+   Applied_Skills:{
+        type: [String],
+        required:false
+   },
+   Intrests:{
+       type:[String],
+       required:false
+   },
+   Experience_Level:{
+       type:String,
+       required:false
+   },
+   Certificates: {
+    type: [String]
+}, 
+   //Consultancy Agency & Co_Working
+   Name:{
+       type:String,
+       required:false
+   },
+   Established_since:{
+       type:Date,
+       required:false
+   },
+   //Consultancy Agency 
+   Partners:{
+       type:[String],
+       required:false
+   },
+   Board_members:{
+       type:[String],
+       default:[]
+   },
+   Studies:{
+       type:[String],
+       required:false
+   },
+   //Co-Working-Space
+   
+   Business_Plans_Offered: {
+    type: [String],
+   },
 
-        },
-    Avg_Rating: {
-        type: Number
-    },
-    Intrests: {
-        type: [String]
-    },
-    Past_Projects: {
-        type: [String]
-    },
-    Skills: {
-        type: [String]
-    },
-    Ratings:{
-       type: [Schema.Types.Rating]     
-    },
-   //Required by Co-Working Space Patner
-    Business_Plans_Offered: {
-        type: [String],
-    },
-    
-    Facilites: {
-        type: [String],
-    }
+   Facilites: {//TBH i dont know what this is
+    type: [String],
+   },
+   Locations:{
+       type:[String]
+   },
+   Reservation_requests:{
+       type:[String],
+       default:[]
+   }
+   
+
+   
 })
 module.exports = User = mongoose.model('users', UserSchema)
