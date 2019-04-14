@@ -9,14 +9,9 @@ const User = props => (
         <td>{props.todo.Birthdate}</td>
         <td>{props.todo.email}</td>
         <td>{props.todo.password}</td>
-        <td>{props.todo.Basic_Info}</td>
-        <td>{props.todo.BoardMembers}</td>
-        <td>{props.todo.Past_Events}</td>
         <td>
-           <td><Link to={"/ConsultancyAgencies/edit/"+props.todo._id}>Edit</Link></td> 
-           <td><Link to={"/ConsultancyAgencies/delete/"+props.todo._id}>Delete</Link></td> 
-           <td><Link to={"/ConsultancyAgencies/BoardMembers/"+props.todo._id}>BoardMembers</Link></td> 
-           <td><Link to={"/ConsultancyAgencies/Past_Events/"+props.todo._id}>Past_Events</Link></td> 
+           <td><Link to={"/Admins/edit/"+props.todo._id}>Edit</Link></td> 
+           <td><Link to={"/Admins/delete/"+props.todo._id}>Delete</Link></td> 
         </td>
     </tr>
 )
@@ -29,10 +24,9 @@ export default class TodosList extends Component {
     }
 
     componentDidMount() {
-        axios.get(`https://lirtenhub-na.herokuapp.com/api/consultancyAgencies`)
+        axios.get(`https://lirtenhub-na.herokuapp.com/api/admins`)
             .then(response => {
                 this.setState({todos: [response.data.data.pop()]});
-                console.log(response.data.data)
             })
             .catch(function (error) {
                 console.log(error);
@@ -57,9 +51,7 @@ export default class TodosList extends Component {
                             <th>BirthDate</th>
                             <th>email</th>
                             <th>password</th>
-                            <th>Basic_Info</th>
-                            <th>BoardMembers</th>
-                            <th>Past_Events</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -76,10 +76,18 @@ onChangeUserBasic_Info(e) {
             email:this.state.email,
             Basic_Info: this.state.Basic_Info
         }
+        const User2 = {
+            FirstName: this.state.FirstName,
+            LastName: this.state.LastName,
+            User_Category: this.state.User_Category,
+            Birthdate:this.state.Birthdate,
+            password:this.state.password,
+            email:this.state.email
+        }
         if(User.User_Category==='Member'){
-        axios.post(`https://lirtenhub-na.herokuapp.com/api/Candidates`,User)
+        axios.post(`https://lirtenhub-na.herokuapp.com/api/Candidates`,User2)
             .then(res => console.log(res.data));
-            this.props.history.push('/Candidates/get');
+           // this.props.history.push('/Candidates/get');
 
         }
         
@@ -90,6 +98,20 @@ onChangeUserBasic_Info(e) {
              this.props.history.push('/ConsultancyAgencies/get');
 
             }
+            if(User.User_Category==='Admin'){
+                console.log('MMM')
+            axios.post(`https://lirtenhub-na.herokuapp.com/api/admins`,User2)
+                 .then(res => console.log(res.data));
+                 this.props.history.push('/Admins/get');
+    
+                }    
+                if(User.User_Category==='Partner_CoWorkingSpace'){
+                    console.log('AAA')
+                axios.post(`https://lirtenhub-na.herokuapp.com/api/co_working_spaces`,User)
+                     .then(res => console.log(res.data));
+                     this.props.history.push('/co_working_space/get');
+        
+                    }    
 
         this.setState({
           FirstName: '',
@@ -180,6 +202,32 @@ onChangeUserBasic_Info(e) {
                                     onChange={this.onChangeUserCategory}
                                     />
                             <label className="form-check-label">Consulting_Agent</label>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="form-check form-check-inline">
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="UserOptions"
+                                    id="Admin"
+                                    value="Admin"
+                                    checked={this.state.User_Category==='Admin'}
+                                    onChange={this.onChangeUserCategory}
+                                    />
+                            <label className="form-check-label">Admin</label>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="form-check form-check-inline">
+                            <input  className="form-check-input"
+                                    type="radio"
+                                    name="UserOptions"
+                                    id="Partner_CoWorkingSpace"
+                                    value="Partner_CoWorkingSpace"
+                                    checked={this.state.User_Category==='Partner_CoWorkingSpace'}
+                                    onChange={this.onChangeUserCategory}
+                                    />
+                            <label className="form-check-label">Partner_CoWorkingSpace</label>
                         </div>
                     </div>
                     <div className="form-group">
