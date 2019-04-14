@@ -11,7 +11,7 @@ export default class update extends Component {
             Past_Events: ''
         }
     }
-    onChangeCertificates(e) {
+    onChangePast_Events(e) {
         this.setState({
             Past_Events: e.target.value
         });
