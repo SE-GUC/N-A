@@ -31,7 +31,7 @@ export default class Delete_Location extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}><center>
         <label>
-            Location's Name (Required):
+            Location’s Name (Required):
             <input type="text" id="id" onChange={this.handleChangeid} />
           </label><p></p>
           <button type="submit">Delete</button>
