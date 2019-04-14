@@ -2,12 +2,12 @@ import React from 'react';
 import Location from './pages/Location.js'
 import axios from 'axios';
 
-class All_Locations extends React.Component {
+class Get_Location extends React.Component {
   state={
     locations:[]
   }
   componentDidMount() {
-    axios.get(`https://lirtenhub-na.herokuapp.com/api/locations`)
+    axios.get(`http://localhost:5000/api/locations`)
       .then(res => {
         const L = res.data.data;
         this.setState({locations:L });
@@ -21,4 +21,4 @@ class All_Locations extends React.Component {
   }
 }
 
-export default All_Locations;
+export default Get_Location;
