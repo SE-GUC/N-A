@@ -56,23 +56,23 @@ export default class Update_Location extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}><center>
         <label>
-            Location's Current Name (Required):
+            Location’s Current Name (Required):
             <input type="text" id="id" onChange={this.handleChangeid} />
           </label><p></p>
           <label>
-            Location's New Name (Not Required):
+            Location’s New Name (Not Required):
             <input type="text" name="name" onChange={this.handleChangename} />
           </label><p></p>
           <label>
-            Location's New photo_link (Not Required):
+            Location’s New photo_link (Not Required):
             <input type="text" photo_link="photo_link" onChange={this.handleChangephotolink} />
           </label><p></p>
           <label>
-            Location's New fee (Not Required):
+            Location’s New fee (Not Required):
             <input type="number" fee="fee" onChange={this.handleChangefee} />
           </label><p></p>
           <label>
-            Location's New Capacity (Not Required):
+            Location’s New Capacity (Not Required):
             <input type="number" capacity="capacity" onChange={this.handleChangecapacity} />
           </label><p></p>
           <button type="submit">Update</button>
