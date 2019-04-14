@@ -55,7 +55,7 @@ export default class Create_Location extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}><center>
           <label>
-            Location's Name:
+            Location’s Name:
             <input type="text" name="name" onChange={this.handleChangename} />
           </label><p></p>
           <label>
