@@ -61,7 +61,8 @@ import deleteAdmin from "./components/deleteAdmin";
 import getAdmin from "./components/Adminsget";
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
-
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 class App extends React.Component {
   render() {
     return (
