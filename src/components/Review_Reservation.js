@@ -65,7 +65,7 @@ export default class Review_Reservation extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}><center>
         <label>
-            Location's Name (Required):
+            Location’s Name (Required):
             <input type="text" loc_id="loc_id" onChange={this.handleChangelocid} />
           </label><p></p>
           <label>
