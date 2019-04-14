@@ -1,6 +1,15 @@
 import React from 'react';
 import './App.css';
-import All_Locations from './components/All_Locations'
+import Get_Location from './components/Get_Location'
+import Create_Location from './components/Create_Location'
+import Update_Location from './components/Update_Location'
+import Delete_Location from './components/Delete_Location'
+import Get_Reservation from './components/Get_Reservation'
+import Get_Calender_Entries from './components/Get_Calender_Entries'
+import Create_Reservation from './components/Create_Reservation'
+import Update_Reservation from './components/Update_Reservation'
+import Delete_Reservation from './components/Delete_Reservation'
+import Review_Reservation from './components/Review_Reservation'
 import All_Admins from './components/All_Admins'
 import All_Candidates from './components/All_Candidates'
 import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
@@ -19,7 +28,16 @@ class App extends React.Component {
 
       <Router>
           <div>
-          <Route exact path="/Locations" component={All_Locations}/>
+          <Route exact path="/Locations" component={Get_Location}/>
+          <Route exact path="/CLocation" component={Create_Location}/>
+          <Route exact path="/ULocation" component={Update_Location}/>
+          <Route exact path="/DLocation" component={Delete_Location}/>
+          <Route exact path="/Reservations" component={Get_Reservation}/>
+          <Route exact path="/Calenders" component={Get_Calender_Entries}/>
+          <Route exact path="/CReservation" component={Create_Reservation}/>
+          <Route exact path="/UReservation" component={Update_Reservation}/>
+          <Route exact path="/DReservation" component={Delete_Reservation}/>
+          <Route exact path="/RReview" component={Review_Reservation}/>
           <Route exact path="/Admins" component={All_Admins}/>
           <Route exact path="/Candidates" component={All_Candidates}/>
           <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>

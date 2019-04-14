@@ -9,9 +9,9 @@ import './Locations.css';
   render() {
     return (//L is Actullay the Location Info itself
       <div >
-        <h3>{this.props.L.name}
+        <h3>{"Location "+this.props.L.name/*+" ::: "+this.props.L._id*/}
         <div></div>
-        {this.props.L.country+", "+this.props.L.city+", "+this.props.L.street}</h3>
+        {"Located in "+this.props.L.country+", "+this.props.L.city+", "+this.props.L.street}</h3>
       </div>
     )
   }
