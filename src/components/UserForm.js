@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {  Link} from 'react-router-dom'
 export default class  UserForm extends Component {
 
     constructor(props) {
@@ -80,6 +79,7 @@ onChangeUserpassword(e) {
           email:'',
           password:''
         })
+        this.props.history.push('/Candidates/get');
     }
 
     render() {
@@ -144,7 +144,6 @@ onChangeUserpassword(e) {
                         <input type="submit" value="Sign up" className="btn btn-primary" />
                     </div>
                 </form>
-                <Link to={"/Candidates/get"}>go to your account</Link>
             </div>
         )
     }
