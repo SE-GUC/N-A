@@ -75,7 +75,7 @@ export default class Create_Reservation extends React.Component {
             <input type="text" day="day" onChange={this.handleChangeday} />
           </label><p></p>
           <label>
-          Reservation Owner ID (Required):
+          Reservation Owner Name (Required):
             <input type="text" ownerID="ownerID" onChange={this.handleChangeownerID} />
           </label><p></p>
           
