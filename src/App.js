@@ -44,6 +44,21 @@ import ConsultancyAgencyPast_Eventsupdate from "./components/ConsultancyAgencyPa
 import ConsultancyAgencyBoardMembersupdate from "./components/ConsultancyAgencyBoardMembersUpdate"
 import ConsultancyAgencyPast_Eventsdelete from "./components/ConsultancyAgencyPast_EventsDelete"
 import ConsultancyAgencyBoardMembersDelete from "./components/ConsultancyAgencyBoardMembersDelete"
+import Delete_BusPlanOffered from './components/coworkingspacebusplansofferedDelete'
+import BusPlanOffered from './components/CoworkingspacesBussinessplansOffered'
+import Delete_Facilites from './components/coworkingspacefacilitesDelete'
+import Update_Facilites from './components/Co_working_spacesFacilitiesUpdate'
+import Add_Facilites from './components/Co_working_spacefacilityAdd'
+import Add_Business_plans_offered from './components/Co_working_spaceBusiness_plans_offeredAdd'
+import Update_Business_plans_offered from './components/Co_working_spacesBusiness_plans_offeredUpdate'
+import Update_Coworkingspace from './components/updateCo_working_spaces'
+import All_coworkingplaces from './components/All_co_working_spaces'
+import Facilites from './components/CoworkingspaceFacilities'
+import Delete_Coworkingspace from './components/deleteCoworkingspace'
+import coworkingplacesget from './components/getcoworkingspace'
+import updateAdmin from "./components/updateAdmin";
+import deleteAdmin from "./components/deleteAdmin";
+import getAdmin from "./components/Adminsget";
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
 
@@ -70,7 +85,7 @@ class App extends React.Component {
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/signup" component={UserForm}/>
           <Route path="/Candidates/get" component={getCandidate} />
-          <Route path="/Candidates/edit/:id" component={EditCandidate} />
+          <Route path="/Candidates/edit/:id" component={EditCandidate} /> 
           <Route path="/Candidates/delete/:id" component={deleteCandidate} />
           <Route path="/Candidates/Certificate/:id" component={CandidateCertificate} />
           <Route path="/Candidates/Intrests/:id" component={CandidateIntrests} />
@@ -98,9 +113,24 @@ class App extends React.Component {
           <Route path="/ConsultancyAgencies/BoardMembersupdate/:id" component={ConsultancyAgencyBoardMembersupdate} />
           <Route path="/ConsultancyAgencies/BoardMembersadd/:id" component={ConsultancyAgencyBoardMembersAdd} />
           <Route path="/ConsultancyAgencies/BoardMembersdelete/:id" component={ConsultancyAgencyBoardMembersDelete} />
-          </div>
+          <Route path="/co_working_space/Business_Plans_Offereddelete/:id" component={Delete_BusPlanOffered} />
+          <Route path="/co_working_space/getBusinessPlansOffered/:id" component={BusPlanOffered} />
+          <Route path="/co_working_space/Facilitesdelete/:id" component={Delete_Facilites} />
+          <Route path="/co_working_space/getFacilites/:id" component={Facilites} />
+          <Route path="/co_working_space/delete/:id" component={Delete_Coworkingspace} />
+          <Route path="/co_working_space/Business_Plans_Offeredupdate/:id" component={Update_Business_plans_offered} />
+          <Route path="/co_working_space/Facilitesupdate/:id" component={Update_Facilites} />
+          <Route path="/co_working_spaces/Facilitesadd/:id" component={Add_Facilites} />
+          <Route path="/co_working_space/Business_plans_offeredAdd/:id" component={Add_Business_plans_offered} />
+          <Route path="/co_working_space/edit/:id" component={Update_Coworkingspace} />
+          <Route path="/co_working_space/get" component={coworkingplacesget} />
+          <Route exact path="/Admins/edit/:id" component={updateAdmin}/>
+          <Route exact path="/Admins/delete/:id" component={deleteAdmin}/>
+          <Route exact path="/Admins/get" component={getAdmin}/>
+          </div> 
       </Router>
     )}
+   
     
    
         
