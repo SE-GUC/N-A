@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-export default class  UserForm extends Component {
+
+export default class update extends Component {
 
     constructor(props) {
         super(props);
@@ -22,10 +23,28 @@ export default class  UserForm extends Component {
             email:'',
             password:'',
             Basic_Info:''
-
         }
     }
+    componentDidMount() {
+        axios.get(`https://lirtenhub-na.herokuapp.com/api/consultancyAgencies/`+this.props.match.params.id)
+            .then(response => {
+                this.setState({
+                    FirstName: response.data.FirstName,
+                    LastName: response.data.LastName,
+                    User_Category: response.User_Category,
+                    Birthdate: response.data.Birthdate,
+                    email:response.data.email,
+                    password:response.data.password,
+                    Basic_Info:response.data.Basic_Info
 
+                })
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+    }
+
+ 
     onChangeFirstName(e) {
         this.setState({
             FirstName: e.target.value
@@ -60,53 +79,28 @@ onChangeUserpassword(e) {
 }
 onChangeUserBasic_Info(e) {
     this.setState({
-       Basic_Info: e.target.value
+        Basic_Info: e.target.value
     });
   }
-
     onSubmit(e) {
         e.preventDefault();
-        console.log(`Form submitted:`);
-        const User = {
+        const obj = {
             FirstName: this.state.FirstName,
             LastName: this.state.LastName,
-            User_Category: this.state.User_Category,
+            email: this.state.email,
+            password: this.state.password,
             Birthdate:this.state.Birthdate,
-            password:this.state.password,
-            email:this.state.email,
-            Basic_Info: this.state.Basic_Info
-        }
-        if(User.User_Category==='Member'){
-        axios.post(`https://lirtenhub-na.herokuapp.com/api/Candidates`,User)
+            Basic_Info:this.state.Basic_Info,
+        };
+        console.log(this.props.match.params.id)
+        axios.put('https://lirtenhub-na.herokuapp.com/api/consultancyAgencies/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
-            this.props.history.push('/Candidates/get');
-
-        }
-        
-        if(User.User_Category==='Consulting_Agent'){
-            console.log('bola')
-        axios.post(`https://lirtenhub-na.herokuapp.com/api/consultancyAgencies`,User)
-             .then(res => console.log(res.data));
-             this.props.history.push('/ConsultancyAgencies/get');
-
-            }
-
-        this.setState({
-          FirstName: '',
-          LastName: '',
-          User_Category: '',
-          Birthdate:'',
-          email:'',
-          password:'',
-          Basic_Info:''
-        })
-        
+        this.props.history.push('/ConsultancyAgencies/get');
     }
-
     render() {
         return (
             <div style={{marginTop: 20}}>
-                <h3>Sign up</h3>
+                <h3>update</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>FirstName: </label>
@@ -126,7 +120,7 @@ onChangeUserBasic_Info(e) {
                     </div>
                     <div className="form-group">
                         <label>Birthdate: </label>
-                        <input  type="date"
+                        <input  type="text"
                                 className="form-control"
                                 value={this.state.Birthdate}
                                 onChange={this.onChangeUserBirthdate}
@@ -157,33 +151,7 @@ onChangeUserBasic_Info(e) {
                                 />
                     </div>
                     <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input"
-                                    type="radio"
-                                    name="UserOptions"
-                                    id="Member"
-                                    value="Member"
-                                    checked={this.state.User_Category==='Member'}
-                                    onChange={this.onChangeUserCategory}
-                                    />
-                            <label className="form-check-label">Member</label>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input"
-                                    type="radio"
-                                    name="UserOptions"
-                                    id="Consulting_Agent"
-                                    value="Consulting_Agent"
-                                    checked={this.state.User_Category==='Consulting_Agent'}
-                                    onChange={this.onChangeUserCategory}
-                                    />
-                            <label className="form-check-label">Consulting_Agent</label>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Sign up" className="btn btn-primary" />
+                        <input type="submit" value="update" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
