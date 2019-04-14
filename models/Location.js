@@ -7,6 +7,7 @@ const Calender_entry= require('./Calender_entry');
 const locationSchema = new Schema({
     name: {
         type: String,
+        unique : true,
         required: false
     },
     country: {
