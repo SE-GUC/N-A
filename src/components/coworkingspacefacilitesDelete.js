@@ -23,7 +23,7 @@ export default class update extends Component {
             url:'https://lirtenhub-na.herokuapp.com/api/co_working_spaces/Facilites/'+ this.props.match.params.id,
             headers:{'Content-Type':'application/json'},
                       data: {
-                        Facilites: this.state.Facilites       
+                        Facility: this.state.Facilites       
                       }
                     }).then(res => console.log(res.data))
                 }
