@@ -33,6 +33,17 @@ import CandidatePastProjectsupdate from "./components/CandidatePastProjectsUpdat
 import CandidateCertificatedelete from "./components/CandidateCertificateDelete"
 import CandidateIntrestsDelete from "./components/CandidateIntrestDelete"
 import CandidatePastProjectsDelete from "./components/CandidatePastProjectsDelete"
+import getConsultancyAgency from "./components/getConsultancyAgency";
+import EditConsultancyAgency from "./components/updateConsultancyAgency";
+import deleteConsultancyAgency from "./components/deleteConsultancyAgency";
+import ConsultancyAgencyBoardMembers from "./components/ConsultancyAgencyBoardMembers";
+import ConsultancyAgencyPast_Events from "./components/ConsultancyAgencyPast_Events"
+import ConsultancyAgencyPast_EventsAdd from "./components/ConsultancyAgencyPast_EventsAdd"
+import ConsultancyAgencyBoardMembersAdd from "./components/ConsultancyAgencyBoardMembersAdd"
+import ConsultancyAgencyPast_Eventsupdate from "./components/ConsultancyAgencyPast_EventsUpdate"
+import ConsultancyAgencyBoardMembersupdate from "./components/ConsultancyAgencyBoardMembersUpdate"
+import ConsultancyAgencyPast_Eventsdelete from "./components/ConsultancyAgencyPast_EventsDelete"
+import ConsultancyAgencyBoardMembersDelete from "./components/ConsultancyAgencyBoardMembersDelete"
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
 
@@ -75,6 +86,18 @@ class App extends React.Component {
           <Route path="/Candidates/past_Projectsdelete/:id" component={CandidatePastProjectsDelete} />
           <Route path="/Candidates/Skills/:id" component={CandidateSkills} />
           <Route path="/Candidates/SkillsAdd/:id" component={CandidateSkillsAdd} />
+          <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>
+          <Route path="/ConsultancyAgencies/get" component={getConsultancyAgency} />
+          <Route path="/ConsultancyAgencies/edit/:id" component={EditConsultancyAgency} />
+          <Route path="/ConsultancyAgencies/delete/:id" component={deleteConsultancyAgency} />
+          <Route path="/ConsultancyAgencies/Past_Events/:id" component={ConsultancyAgencyPast_Events} />
+          <Route path="/ConsultancyAgencies/BoardMembers/:id" component={ConsultancyAgencyBoardMembers} />
+          <Route path="/ConsultancyAgencies/Past_Eventsadd/:id" component={ConsultancyAgencyPast_EventsAdd} />
+          <Route path="/ConsultancyAgencies/Past_Eventsdelete/:id" component={ConsultancyAgencyPast_Eventsdelete} />
+          <Route path="/ConsultancyAgencies/Past_Eventsupdate/:id" component={ConsultancyAgencyPast_Eventsupdate} />
+          <Route path="/ConsultancyAgencies/BoardMembersupdate/:id" component={ConsultancyAgencyBoardMembersupdate} />
+          <Route path="/ConsultancyAgencies/BoardMembersadd/:id" component={ConsultancyAgencyBoardMembersAdd} />
+          <Route path="/ConsultancyAgencies/BoardMembersdelete/:id" component={ConsultancyAgencyBoardMembersDelete} />
           </div>
       </Router>
     )}
