@@ -9,15 +9,15 @@ const User = props => (
         <td>{props.todo.Birthdate}</td>
         <td>{props.todo.email}</td>
         <td>{props.todo.password}</td>
-        <td>{props.todo.Certificates}</td>
         <td>{props.todo.Avg_Rating}</td>
-        <td>{props.todo.Intrests}</td>
-        <td>{props.todo.Past_Projects}</td>
-        <td>{props.todo.Skills}</td>
         <td>{props.todo.Ratings}</td>
         <td>
-            <Link to={"/Candidates/edit/"+props.todo._id}>Edit</Link>
-            <Link to={"/Candidates/delete/"+props.todo._id}>Delete</Link>
+           <td><Link to={"/Candidates/edit/"+props.todo._id}>Edit</Link></td> 
+           <td><Link to={"/Candidates/delete/"+props.todo._id}>Delete</Link></td> 
+           <td><Link to={"/Candidates/Certificate/"+props.todo._id}>certificates</Link></td> 
+           <td><Link to={"/Candidates/Intrests/"+props.todo._id}>Intrests</Link></td> 
+           <td><Link to={"/Candidates/Past_Projects/"+props.todo._id}>Past_Projects</Link></td> 
+           <td><Link to={"/Candidates/Skills/"+props.todo._id}>Skills</Link></td> 
         </td>
     </tr>
 )
@@ -57,11 +57,7 @@ export default class TodosList extends Component {
                             <th>BirthDate</th>
                             <th>email</th>
                             <th>password</th>
-                            <th>Certificates</th>
                             <th>Avg_Rating</th>
-                            <th>Intrests</th>
-                            <th>Past_Projects</th>
-                            <th>Skills</th>
                             <th>Ratings</th>
                             <th>Actions</th>
                         </tr>
