@@ -108,7 +108,7 @@ export default class Update_Reservation extends React.Component {
             <input type="text" day_old="day_old" onChange={this.handleChangedayold} />
           </label><p></p>
           <label>
-            Original Reservation Owner ID (Required):
+            Original Reservation Owner Name (Required):
             <input type="text" ownerID_old="ownerID_old" onChange={this.handleChangeownerIDold} />
           </label><p></p><p>New Reservation Attributes</p>
 
@@ -125,7 +125,7 @@ export default class Update_Reservation extends React.Component {
             <input type="text" day="day" onChange={this.handleChangeday} />
           </label><p></p>
           <label>
-          New Reservation Owner ID (Not Required):
+          New Reservation Owner Name (Not Required):
             <input type="text" ownerID="ownerID" onChange={this.handleChangeownerID} />
           </label><p></p>
           
