@@ -114,15 +114,15 @@ class App extends React.Component {
           <Route path="/ConsultancyAgencies/BoardMembersupdate/:id" component={ConsultancyAgencyBoardMembersupdate} />
           <Route path="/ConsultancyAgencies/BoardMembersadd/:id" component={ConsultancyAgencyBoardMembersAdd} />
           <Route path="/ConsultancyAgencies/BoardMembersdelete/:id" component={ConsultancyAgencyBoardMembersDelete} />
-          <Route path="/co_working_space/Business_Plans_Offereddelete/:id" component={Delete_BusPlanOffered} />
+          <Route path="/co_working_spaces/Business_Plans_Offereddelete/:id" component={Delete_BusPlanOffered} />
           <Route path="/co_working_space/getBusinessPlansOffered/:id" component={BusPlanOffered} />
-          <Route path="/co_working_space/Facilitesdelete/:id" component={Delete_Facilites} />
+          <Route path="/co_working_spaces/Facilitesdelete/:id" component={Delete_Facilites} />
           <Route path="/co_working_space/getFacilites/:id" component={Facilites} />
-          <Route path="/co_working_space/delete/:id" component={Delete_Coworkingspace} />
-          <Route path="/co_working_space/Business_Plans_Offeredupdate/:id" component={Update_Business_plans_offered} />
-          <Route path="/co_working_space/Facilitesupdate/:id" component={Update_Facilites} />
+          <Route path="/co_working_spaces/delete/:id" component={Delete_Coworkingspace} />
+          <Route path="/co_working_spaces/Business_Plans_Offeredupdate/:id" component={Update_Business_plans_offered} />
+          <Route path="/co_working_spaces/Facilitesupdate/:id" component={Update_Facilites} />
           <Route path="/co_working_spaces/Facilitesadd/:id" component={Add_Facilites} />
-          <Route path="/co_working_space/Business_plans_offeredAdd/:id" component={Add_Business_plans_offered} />
+          <Route path="/co_working_spaces/Business_plans_offeredAdd/:id" component={Add_Business_plans_offered} />
           <Route path="/co_working_space/edit/:id" component={Update_Coworkingspace} />
           <Route path="/co_working_space/get" component={coworkingplacesget} />
           <Route exact path="/Admins/edit/:id" component={updateAdmin}/>
