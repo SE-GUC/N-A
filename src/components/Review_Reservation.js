@@ -81,7 +81,7 @@ export default class Review_Reservation extends React.Component {
             <input type="text" day="day" onChange={this.handleChangeday} />
           </label><p></p>
           <label>
-            Original Reservation Owner ID (Required):
+            Original Reservation Owner Name (Required):
             <input type="text" ownerID="ownerID" onChange={this.handleChangeownerID} />
           </label><p></p>
           <label>
