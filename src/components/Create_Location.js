@@ -59,19 +59,19 @@ export default class Create_Location extends React.Component {
             <input type="text" name="name" onChange={this.handleChangename} />
           </label><p></p>
           <label>
-            Location's Country:
+            Location’s Country:
             <input type="text" country="country" onChange={this.handleChangecountry} />
           </label><p></p>
           <label>
-            Location's city:
+            Location’s city:
             <input type="text" city="city" onChange={this.handleChangecity} />
           </label><p></p>
           <label>
-            Location's street:
+            Location’s street:
             <input type="text" street="street" onChange={this.handleChangestreet} />
           </label><p></p>
           <label>
-            Location's Capacity:
+            Location’s Capacity:
             <input type="number" capacity="capacity" onChange={this.handleChangecapacity} />
           </label><p></p>
           <button type="submit">Add</button>
