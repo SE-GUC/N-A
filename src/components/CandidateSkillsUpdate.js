@@ -41,7 +41,7 @@ export default class update extends Component {
     render() {
         return (
             <div style={{marginTop: 20}}>
-                <h3>Update</h3>
+                <h3>Update Skills</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>oldvalue: </label>

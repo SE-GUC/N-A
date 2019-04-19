@@ -101,8 +101,8 @@ class App extends React.Component {
           <Route path="/Candidates/past_Projectsdelete/:id" component={CandidatePastProjectsDelete} />
           <Route path="/Candidates/Skills/:id" component={CandidateSkills} />
           <Route path="/Candidates/SkillsAdd/:id" component={CandidateSkillsAdd} />
-          <Route path="/Candidates/SkillsDelete/:id" component={CandidateSkillsDelete} />
-          <Route path="/Candidates/SkillsUpdate/:id" component={CandidateSkillsUpdate} />
+          <Route path="/Candidates/SkillsDdlete/:id" component={CandidateSkillsDelete} />
+          <Route path="/Candidates/Skillsupdate/:id" component={CandidateSkillsUpdate} />
           <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>
           <Route path="/ConsultancyAgencies/get" component={getConsultancyAgency} />
           <Route path="/ConsultancyAgencies/edit/:id" component={EditConsultancyAgency} />
