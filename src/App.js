@@ -24,6 +24,8 @@ import CandidatePastProjects from "./components/CandidatePast_Projects";
 import CandidateCertificate from "./components/CandidateCertificate"
 import CandidateSkills from "./components/CandidateSkills"
 import CandidateSkillsAdd from "./components/CandidateSkillsAdd"
+import CandidateSkillsUpdate from "./components/CandidateSkillsUpdate"
+import CandidateSkillsDelete from "./components/CandidateSkillsDelete"
 import CandidateCertificateAdd from "./components/CandidateCertificateAdd"
 import CandidateIntrestsAdd from "./components/CandidateIntrestAdd"
 import CandidatePastProjectsAdd from "./components/CandidatePastProjectsAdd"
@@ -61,8 +63,6 @@ import deleteAdmin from "./components/deleteAdmin";
 import getAdmin from "./components/Adminsget";
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 class App extends React.Component {
   render() {
     return (
@@ -102,6 +102,8 @@ class App extends React.Component {
           <Route path="/Candidates/past_Projectsdelete/:id" component={CandidatePastProjectsDelete} />
           <Route path="/Candidates/Skills/:id" component={CandidateSkills} />
           <Route path="/Candidates/SkillsAdd/:id" component={CandidateSkillsAdd} />
+          <Route path="/Candidates/SkillsDelete/:id" component={CandidateSkillsDelete} />
+          <Route path="/Candidates/SkillsUpdate/:id" component={CandidateSkillsUpdate} />
           <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>
           <Route path="/ConsultancyAgencies/get" component={getConsultancyAgency} />
           <Route path="/ConsultancyAgencies/edit/:id" component={EditConsultancyAgency} />
