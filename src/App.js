@@ -24,6 +24,8 @@ import CandidatePastProjects from "./components/CandidatePast_Projects";
 import CandidateCertificate from "./components/CandidateCertificate"
 import CandidateSkills from "./components/CandidateSkills"
 import CandidateSkillsAdd from "./components/CandidateSkillsAdd"
+import CandidateSkillsUpdate from "./components/CandidateSkillsUpdate"
+import CandidateSkillsDelete from "./components/CandidateSkillsDelete"
 import CandidateCertificateAdd from "./components/CandidateCertificateAdd"
 import CandidateIntrestsAdd from "./components/CandidateIntrestAdd"
 import CandidatePastProjectsAdd from "./components/CandidatePastProjectsAdd"
@@ -52,7 +54,6 @@ import Add_Facilites from './components/Co_working_spacefacilityAdd'
 import Add_Business_plans_offered from './components/Co_working_spaceBusiness_plans_offeredAdd'
 import Update_Business_plans_offered from './components/Co_working_spacesBusiness_plans_offeredUpdate'
 import Update_Coworkingspace from './components/updateCo_working_spaces'
-import All_coworkingplaces from './components/All_co_working_spaces'
 import Facilites from './components/CoworkingspaceFacilities'
 import Delete_Coworkingspace from './components/deleteCoworkingspace'
 import coworkingplacesget from './components/getcoworkingspace'
@@ -61,8 +62,6 @@ import deleteAdmin from "./components/deleteAdmin";
 import getAdmin from "./components/Adminsget";
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 class App extends React.Component {
   render() {
     return (
@@ -102,6 +101,8 @@ class App extends React.Component {
           <Route path="/Candidates/past_Projectsdelete/:id" component={CandidatePastProjectsDelete} />
           <Route path="/Candidates/Skills/:id" component={CandidateSkills} />
           <Route path="/Candidates/SkillsAdd/:id" component={CandidateSkillsAdd} />
+          <Route path="/Candidates/SkillsDdlete/:id" component={CandidateSkillsDelete} />
+          <Route path="/Candidates/Skillsupdate/:id" component={CandidateSkillsUpdate} />
           <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>
           <Route path="/ConsultancyAgencies/get" component={getConsultancyAgency} />
           <Route path="/ConsultancyAgencies/edit/:id" component={EditConsultancyAgency} />

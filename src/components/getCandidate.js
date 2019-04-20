@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
 const User = props => (
     <tr>
         <td>{props.todo.FirstName}</td>
@@ -28,18 +27,16 @@ export default class TodosList extends Component {
         super(props);
         this.state = {todos: []};
     }
-
-    componentDidMount() {
+    todoList() {
         axios.get(`https://lirtenhub-na.herokuapp.com/api/Candidates`)
             .then(response => {
                 this.setState({todos: [response.data.data.pop()]});
+                console.log(response)
             })
+        
             .catch(function (error) {
                 console.log(error);
             })
-    }
-
-    todoList() {
         return this.state.todos.map(function(currentTodo, i) {
             return <User todo={currentTodo} key={i} />;
         });

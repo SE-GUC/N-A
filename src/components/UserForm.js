@@ -87,7 +87,7 @@ onChangeUserBasic_Info(e) {
         if(User.User_Category==='Member'){
         axios.post(`https://lirtenhub-na.herokuapp.com/api/Candidates`,User2)
             .then(res => console.log(res.data));
-           // this.props.history.push('/Candidates/get');
+            this.props.history.push('/Candidates/get');
 
         }
         
