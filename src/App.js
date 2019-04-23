@@ -60,6 +60,8 @@ import coworkingplacesget from './components/getcoworkingspace'
 import updateAdmin from "./components/updateAdmin";
 import deleteAdmin from "./components/deleteAdmin";
 import getAdmin from "./components/Adminsget";
+import login from "./components/login"
+import myaccount from "./components/myaccount"
 import { Route, BrowserRouter as Router  } from 'react-router-dom'
 import 'tachyons'
 class App extends React.Component {
@@ -129,6 +131,8 @@ class App extends React.Component {
           <Route exact path="/Admins/edit/:id" component={updateAdmin}/>
           <Route exact path="/Admins/delete/:id" component={deleteAdmin}/>
           <Route exact path="/Admins/get" component={getAdmin}/>
+          <Route exact path="/login" component={login}/>
+          <Route exact path ="/myaccount/:id" component={myaccount}/>
           </div> 
       </Router>
     )}
