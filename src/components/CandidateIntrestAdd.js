@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default class update extends Component {
 
@@ -43,6 +44,7 @@ export default class update extends Component {
                     <div className="form-group">
                         <input type="submit" value="Add" className="btn btn-primary" />
                     </div>
+                    <Link to={"/Candidates/get/Intrests"+this.props.match.params.id}>back</Link><br></br>
                 </form>
             </div>
         )
